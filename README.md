@@ -1,4 +1,4 @@
-Rejseplanen - PHP API &ndash; [![Build Status](https://travis-ci.org/lsv/rejseplan-php-api.svg?branch=master)](https://travis-ci.org/lsv/rejseplan-php-api) [![codecov](https://codecov.io/gh/lsv/rejseplan-php-api/branch/master/graph/badge.svg)](https://codecov.io/gh/lsv/rejseplan-php-api)
+Rejseplanen - PHP API &ndash; [![Build Status](https://travis-ci.org/lsv/rejseplan-php-api.svg?branch=master)](https://travis-ci.org/lsv/rejseplan-php-api) [![codecov](https://codecov.io/gh/lsv/rejseplan-php-api/branch/master/graph/badge.svg)](https://codecov.io/gh/lsv/rejseplan-php-api) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/babcfce8-7f31-45b4-999f-b78f7ab56960/mini.png)](https://insight.sensiolabs.com/projects/babcfce8-7f31-45b4-999f-b78f7ab56960)
 
 =================
 

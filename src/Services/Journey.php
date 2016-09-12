@@ -45,7 +45,7 @@ class Journey extends AbstractServiceCall
         }
 
         throw new \InvalidArgumentException(
-            sprintf('url must be a string, Leg or BoardData object')
+            sprintf('setUrl must be a string, Leg or BoardData object')
         );
     }
 

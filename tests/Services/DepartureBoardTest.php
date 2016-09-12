@@ -38,6 +38,13 @@ class DepartureBoardTest extends AbstractServicesTest
         $board->setLocation($this->getLocationResponse(LocationResponse::LOCATIONTYPE_ADDRESS));
     }
 
+    public function test_url_setLocation_invalid()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class, 'The location must be either a LocationResponse or a StopLocationResponse object');
+        $board = new DepartureBoard($this->getBaseUrl());
+        $board->setLocation($this->getCoordinate());
+    }
+
     public function test_url_setDontUseTrain()
     {
         $board = new DepartureBoard($this->getBaseUrl());

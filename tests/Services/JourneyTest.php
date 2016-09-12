@@ -71,6 +71,13 @@ class JourneyTest extends AbstractServicesTest
         );
     }
 
+    public function test_setUrl_invalid()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class, 'setUrl must be a string, Leg or BoardData object');
+        $journey = new Journey($this->getBaseUrl());
+        $journey->setUrl($this->getCoordinate());
+    }
+
     public function test_not_configured_correct()
     {
         $this->setExpectedException(MissingOptionsException::class, 'The required option "url" is missing.');
