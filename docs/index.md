@@ -9,14 +9,6 @@ You just need to write a email to the email listed on this page
 
 http://labs.rejseplanen.dk/api
 
-```php
-$coordinate = new Coordinate( $x, $y );
-// Or
-$coordinate = new Coordinate();
-$coordinate->setXCoordinate( $x );
-$coordinate->setYCoordinate( $y );
-```
-
 ### Services
 
 | Method | Description |
@@ -43,3 +35,11 @@ $coordinate->setYCoordinate( $y );
 
 Some calls requires a `\RejseplanApi\Coordinate` object.
 You can create a Coordinate object by calling
+
+```php
+$coordinate = new Coordinate( $x, $y );
+// Or
+$coordinate = new Coordinate();
+$coordinate->setXCoordinate( $x );
+$coordinate->setYCoordinate( $y );
+```
