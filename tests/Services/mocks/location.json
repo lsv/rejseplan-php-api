@@ -1,0 +1,77 @@
+{
+  "LocationList":{
+    "noNamespaceSchemaLocation":"http://xmlopen.rejseplanen.dk/xml/rest/hafasRestLocation.xsd",
+    "StopLocation":[{
+      "name":"Tivoli Hotel (Kalvebod Brygge)",
+      "x":"12566461",
+      "y":"55665476",
+      "id":"000001321"
+    },{
+      "name":"Hovedbanegården, Tivoli (Bernstorffsgade)",
+      "x":"12566488",
+      "y":"55672578",
+      "id":"000010845"
+    },{
+      "name":"Tivekrogen (Faaborg Midtfyn)",
+      "x":"10602049",
+      "y":"55299939",
+      "id":"430546500"
+    },{
+      "name":"Tinghøjvej, Aktivcentret",
+      "x":"12493118",
+      "y":"55740707",
+      "id":"000046874"
+    },{
+      "name":"Thyrasvej/Holtbjerg Aktivcenter",
+      "x":"8996683",
+      "y":"56132493",
+      "id":"657200800"
+    }],
+    "CoordLocation":[{
+      "name":"Tivoli, Forlystelsespark, København",
+      "x":"12566084",
+      "y":"55673171",
+      "type":"POI"
+    },{
+      "name":"Tivoli, Forlystelsespark, København",
+      "x":"12569212",
+      "y":"55675050",
+      "type":"POI"
+    },{
+      "name":"Tivoli, Forlystelsespark, København",
+      "x":"12565329",
+      "y":"55674888",
+      "type":"POI"
+    },{
+      "name":"Tivoli, Forlystelsespark, København",
+      "x":"12572035",
+      "y":"55673441",
+      "type":"POI"
+    },{
+      "name":"Tivoli Hotel, Hotel, København",
+      "x":"12567135",
+      "y":"55666034",
+      "type":"POI"
+    },{
+      "name":"Tivoli Friheden, Forlystelsespark, Aarhus",
+      "x":"10.198298",
+      "y":"56.136619",
+      "type":"POI"
+    },{
+      "name":"Tivoli 5970 Ærøskøbing, Ærø Kommune",
+      "x":"10403747",
+      "y":"54881240",
+      "type":"ADR"
+    },{
+      "name":"Tivekrogen 5863 Ferritslev Fyn, Faaborg-Midtfyn Ko",
+      "x":"10605473",
+      "y":"55300676",
+      "type":"ADR"
+    },{
+      "name":"Voldboligerne 1426 København K, Københavns Kommune",
+      "x":"12596764",
+      "y":"55672281",
+      "type":"ADR"
+    }]
+  }
+}

@@ -1,0 +1,8 @@
+/.phpmd.xml             export-ignore
+/.travis.yml            export-ignore
+/build.xml              export-ignore
+/phpunit.xml.dist       export-ignore
+/tests                  export-ignore
+/.build                 export-ignore
+/bin                    export-ignore
+/.env.php.example       export-ignore

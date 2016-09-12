@@ -1,0 +1,269 @@
+
+{
+  "ArrivalBoard":{
+    "noNamespaceSchemaLocation":"http://xmlopen.rejseplanen.dk/xml/rest/hafasRestArrivalBoard.xsd",
+    "Arrival":[{
+      "name":"RE 1065",
+      "type":"TOG",
+      "stop":"København H",
+      "time":"14:48",
+      "date":"09.09.16",
+      "messages":"1",
+      "track":"1",
+      "rtTime":"14:59",
+      "rtDate":"09.09.16",
+      "rtTrack":"1",
+      "origin":"Kalmar C",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=3849%2F31310%2F372456%2F184946%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 2A",
+      "type":"BUS",
+      "stop":"Hovedbanegården, Tivoli (Bernstorffsgade)",
+      "time":"14:49",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"15:05",
+      "rtDate":"09.09.16",
+      "origin":"Kastrup St. (Ved Stationen)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=787479%2F265937%2F446914%2F39037%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 2A",
+      "type":"BUS",
+      "stop":"Rådhuspladsen (H.C. Andersens Boulevard)",
+      "time":"14:53",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"15:09",
+      "rtDate":"09.09.16",
+      "origin":"Kastrup St. (Ved Stationen)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=2682%2F4338%2F162836%2F80525%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 66",
+      "type":"BUS",
+      "stop":"Hovedbanegården, Tivoli (Bernstorffsgade)",
+      "time":"14:54",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"14:59",
+      "rtDate":"09.09.16",
+      "origin":"Emdrup Torv (Frederiksborgvej)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=122244%2F47401%2F764312%2F341414%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 5A",
+      "type":"BUS",
+      "stop":"Hovedbanegården, Tivoli (Bernstorffsgade)",
+      "time":"14:55",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"14:59",
+      "rtDate":"09.09.16",
+      "origin":"Sundbyvester Plads, Amagerbrogade",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=259275%2F91581%2F608042%2F217596%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 250S",
+      "type":"EXB",
+      "stop":"Rådhuspladsen (Vesterbrogade)",
+      "time":"14:55",
+      "date":"09.09.16",
+      "messages":"1",
+      "rtTime":"14:59",
+      "rtDate":"09.09.16",
+      "origin":"Buddinge St. (Buddingevej)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=172299%2F60528%2F506262%2F195699%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 26",
+      "type":"BUS",
+      "stop":"Hovedbanegården (Vesterbrogade)",
+      "time":"14:56",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"15:01",
+      "rtDate":"09.09.16",
+      "origin":"Ålholm Plads (Ålholmvej)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=786717%2F265423%2F808200%2F141863%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 6A",
+      "type":"BUS",
+      "stop":"Rådhuspladsen",
+      "time":"14:56",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"14:58",
+      "rtDate":"09.09.16",
+      "origin":"Rødovrehallen (Sløjfen)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=418014%2F145025%2F885348%2F303337%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 26",
+      "type":"BUS",
+      "stop":"Rådhuspladsen (Vesterbrogade)",
+      "time":"14:56",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"14:58",
+      "rtDate":"09.09.16",
+      "origin":"Østerport St.",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=608127%2F205853%2F593236%2F93909%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 1A",
+      "type":"BUS",
+      "stop":"Hovedbanegården (Tietgensgade)",
+      "time":"14:57",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"14:59",
+      "rtDate":"09.09.16",
+      "origin":"Klampenborg St. (Dyrehavevej)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=605817%2F204314%2F381538%2F11170%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 34",
+      "type":"BUS",
+      "stop":"Hovedbanegården, Tivoli (Bernstorffsgade)",
+      "time":"14:57",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"15:14",
+      "rtDate":"09.09.16",
+      "origin":"Søvang, Rønnevej (Fælledvej)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=85434%2F50037%2F75010%2F9027%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"C",
+      "type":"S",
+      "stop":"København H",
+      "time":"14:58",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"14:59",
+      "rtDate":"09.09.16",
+      "rtTrack":"9-10",
+      "origin":"Frederikssund St.",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=252648%2F104382%2F955252%2F393424%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"RE 1867",
+      "type":"TOG",
+      "stop":"København H",
+      "time":"14:58",
+      "date":"09.09.16",
+      "messages":"0",
+      "track":"1",
+      "rtTime":"15:08",
+      "rtDate":"09.09.16",
+      "rtTrack":"1",
+      "origin":"CPH Lufthavn",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=950325%2F338517%2F226810%2F203396%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 26",
+      "type":"BUS",
+      "stop":"Hovedbanegården (Vesterbrogade)",
+      "time":"14:58",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"15:00",
+      "rtDate":"09.09.16",
+      "origin":"Østerport St.",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=541521%2F183651%2F295630%2F32692%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 1A",
+      "type":"BUS",
+      "stop":"Hovedbanegården (Tietgensgade)",
+      "time":"14:58",
+      "date":"09.09.16",
+      "messages":"0",
+      "origin":"Avedøre St.",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=729321%2F245338%2F285244%2F100487%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 250S",
+      "type":"EXB",
+      "stop":"Hovedbanegården, Tivoli (Bernstorffsgade)",
+      "time":"14:58",
+      "date":"09.09.16",
+      "messages":"1",
+      "rtTime":"15:01",
+      "rtDate":"09.09.16",
+      "origin":"Buddinge St. (Buddingevej)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=893940%2F301075%2F826110%2F115076%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 5A",
+      "type":"BUS",
+      "stop":"Hovedbanegården, Tivoli (Bernstorffsgade)",
+      "time":"14:58",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"15:00",
+      "rtDate":"09.09.16",
+      "origin":"Københavns Lufthavn, Terminal 3 (Ellehammersvej)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=982899%2F333006%2F816188%2F80461%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"B",
+      "type":"S",
+      "stop":"København H",
+      "time":"14:59",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTrack":"11-12",
+      "origin":"Farum St.",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=444684%2F168160%2F352668%2F28137%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 6A",
+      "type":"BUS",
+      "stop":"Hovedbanegården (Vesterbrogade)",
+      "time":"14:59",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"15:00",
+      "rtDate":"09.09.16",
+      "origin":"Emdrup Torv (Emdrupvej)",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=467937%2F161774%2F740016%2F214030%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    },{
+      "name":"Bus 5A",
+      "type":"BUS",
+      "stop":"Rådhuspladsen",
+      "time":"14:59",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"15:04",
+      "rtDate":"09.09.16",
+      "origin":"Sundbyvester Plads, Amagerbrogade",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=669876%2F228448%2F486124%2F19770%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    }]
+  }
+}

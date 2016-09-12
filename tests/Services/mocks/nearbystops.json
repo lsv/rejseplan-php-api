@@ -1,0 +1,169 @@
+
+{
+  "LocationList":{
+    "noNamespaceSchemaLocation":"http://xmlopen.rejseplanen.dk/xml/rest/hafasRestStopsNearby.xsd",
+    "StopLocation":[{
+      "name":"København H",
+      "x":"12565562",
+      "y":"55673063",
+      "id":"8600626",
+      "distance":"14"
+    },{
+      "name":"Hovedbanegården, Tivoli (Bernstorffsgade)",
+      "x":"12566192",
+      "y":"55672839",
+      "id":"10844",
+      "distance":"35"
+    },{
+      "name":"København H (togbus)",
+      "x":"12566488",
+      "y":"55672578",
+      "id":"8658999",
+      "distance":"69"
+    },{
+      "name":"København, Bernstorffsgade (fjernbus)",
+      "x":"12565113",
+      "y":"55673899",
+      "id":"100240000",
+      "distance":"102"
+    },{
+      "name":"Hovedbanegården (Reventlowsgade)",
+      "x":"12563306",
+      "y":"55672758",
+      "id":"10055",
+      "distance":"159"
+    },{
+      "name":"Hovedbanegården (Vesterbrogade)",
+      "x":"12563630",
+      "y":"55674232",
+      "id":"1152",
+      "distance":"188"
+    },{
+      "name":"Hovedbanegården (Istedgade)",
+      "x":"12563099",
+      "y":"55672281",
+      "id":"10057",
+      "distance":"190"
+    },{
+      "name":"København Vesterbrogade (fjernbus)",
+      "x":"12563468",
+      "y":"55674349",
+      "id":"100100000",
+      "distance":"204"
+    },{
+      "name":"Hovedbanegården (Tietgensgade)",
+      "x":"12566758",
+      "y":"55671256",
+      "id":"7051",
+      "distance":"209"
+    },{
+      "name":"Rådhuspladsen (Vesterbrogade)",
+      "x":"12566857",
+      "y":"55675481",
+      "id":"718",
+      "distance":"277"
+    },{
+      "name":"Tietgensgade (Bernstorffsgade)",
+      "x":"12568556",
+      "y":"55671005",
+      "id":"1298",
+      "distance":"287"
+    },{
+      "name":"Rådhuspladsen (H.C. Andersens Boulevard)",
+      "x":"12569509",
+      "y":"55674843",
+      "id":"47225",
+      "distance":"305"
+    },{
+      "name":"Vesterport St. (Ved Vesterport)",
+      "x":"12563998",
+      "y":"55675850",
+      "id":"27536",
+      "distance":"329"
+    },{
+      "name":"Trommesalen (Vesterbrogade)",
+      "x":"12560376",
+      "y":"55673261",
+      "id":"7915",
+      "distance":"340"
+    },{
+      "name":"Glyptoteket (Tietgensgade)",
+      "x":"12571531",
+      "y":"55673081",
+      "id":"719",
+      "distance":"359"
+    },{
+      "name":"Vesterport St.",
+      "x":"12561104",
+      "y":"55674987",
+      "id":"50501",
+      "distance":"363"
+    },{
+      "name":"Vesterport St. (Hammerichsgade)",
+      "x":"12563072",
+      "y":"55676030",
+      "id":"1295",
+      "distance":"371"
+    },{
+      "name":"Vesterport St. (togbus)",
+      "x":"12563072",
+      "y":"55676030",
+      "id":"8651645",
+      "distance":"371"
+    },{
+      "name":"Stormgade (H.C. Andersens Boulevard)",
+      "x":"12571540",
+      "y":"55673962",
+      "id":"808",
+      "distance":"373"
+    },{
+      "name":"Trommesalen (Ved Vesterport)",
+      "x":"12560241",
+      "y":"55674618",
+      "id":"51451",
+      "distance":"389"
+    },{
+      "name":"Rådhuspladsen",
+      "x":"12567243",
+      "y":"55676515",
+      "id":"1161",
+      "distance":"394"
+    },{
+      "name":"Axeltorv (København)",
+      "x":"12564385",
+      "y":"55676632",
+      "id":"45962",
+      "distance":"406"
+    },{
+      "name":"Rådhuspladsen (København)",
+      "x":"12567414",
+      "y":"55676623",
+      "id":"1669",
+      "distance":"408"
+    },{
+      "name":"Herholdtsgade",
+      "x":"12562048",
+      "y":"55676075",
+      "id":"46372",
+      "distance":"409"
+    },{
+      "name":"Vesterport St. (Vester Farimagsgade)",
+      "x":"12562048",
+      "y":"55676084",
+      "id":"1163",
+      "distance":"410"
+    },{
+      "name":"Polititorvet (Bernstorffsgade)",
+      "x":"12569886",
+      "y":"55669908",
+      "id":"1322",
+      "distance":"434"
+    },{
+      "name":"Stormgade",
+      "x":"12572142",
+      "y":"55674924",
+      "id":"1419",
+      "distance":"448"
+    }]
+  }
+}
