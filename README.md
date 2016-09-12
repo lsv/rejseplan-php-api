@@ -1,4 +1,5 @@
 Rejseplanen - PHP API &ndash; [![Build Status](https://travis-ci.org/lsv/rejseplan-php-api.svg?branch=master)](https://travis-ci.org/lsv/rejseplan-php-api) [![codecov](https://codecov.io/gh/lsv/rejseplan-php-api/branch/master/graph/badge.svg)](https://codecov.io/gh/lsv/rejseplan-php-api)
+
 =================
 
 PHP wrapper for Rejseplanen.dk API
