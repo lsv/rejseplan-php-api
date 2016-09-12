@@ -100,7 +100,7 @@ class ArrivalBoardTest extends AbstractServicesTest
         $this->assertTrue($departure->isDelayed());
         $this->assertNull($departure->getScheduledTrack());
         $this->assertNull($departure->getRealTrack());
-        $this->assertEquals('0', $departure->getMessages());
+        $this->assertFalse($departure->hasMessages());
         $this->assertEquals('Emdrup Torv (Emdrupvej)', $departure->getOrigin());
         $this->assertEquals('http://baseurl/journeyDetail?ref=467937%2F161774%2F740016%2F214030%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
 
@@ -113,7 +113,7 @@ class ArrivalBoardTest extends AbstractServicesTest
         $this->assertEquals('11-12', $departure->getScheduledTrack());
         $this->assertEquals('11-12', $departure->getRealTrack());
         $this->assertFalse($departure->isTrackChanged());
-        $this->assertEquals('0', $departure->getMessages());
+        $this->assertFalse($departure->hasMessages());
         $this->assertEquals('Farum St.', $departure->getOrigin());
         $this->assertEquals('http://baseurl/journeyDetail?ref=444684%2F168160%2F352668%2F28137%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
 

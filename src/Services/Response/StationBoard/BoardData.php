@@ -63,14 +63,14 @@ class BoardData
     /**
      * Has the track changed.
      *
-     * @var bool
+     * @var bool|null
      */
     protected $trackChanged;
 
     /**
      * Messages.
      *
-     * @var string
+     * @var bool
      */
     protected $messages;
 
@@ -167,7 +167,7 @@ class BoardData
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
     public function isTrackChanged()
     {
@@ -175,9 +175,9 @@ class BoardData
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getMessages()
+    public function hasMessages()
     {
         return $this->messages;
     }
@@ -238,7 +238,11 @@ class BoardData
             $obj->direction = $data['direction'];
         }
 
-        $obj->messages = $data['messages'];
+        $obj->messages = false;
+        if (isset($data['messages'])) {
+            $obj->messages = (bool)$data['messages'];
+        }
+
         if (isset($data['JourneyDetailRef'], $data['JourneyDetailRef']['ref'])) {
             $obj->journeyDetails = $data['JourneyDetailRef']['ref'];
         }
@@ -280,6 +284,8 @@ class BoardData
      */
     private static function setTrack(BoardData $obj, array $data)
     {
+        $obj->trackChanged = null;
+
         if (isset($data['track']) || isset($data['rtTrack'])) {
             if (isset($data['track'])) {
                 $obj->scheduledTrack = $data['track'];

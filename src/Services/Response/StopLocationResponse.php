@@ -7,9 +7,9 @@ use RejseplanApi\Coordinate;
 class StopLocationResponse
 {
     /**
-     * The ID of this stop, null if not a stop.
+     * The ID of this stop.
      *
-     * @var string|null
+     * @var string
      */
     protected $id;
 
