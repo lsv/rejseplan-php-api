@@ -240,7 +240,7 @@ class BoardData
 
         $obj->messages = false;
         if (isset($data['messages'])) {
-            $obj->messages = (bool)$data['messages'];
+            $obj->messages = (bool) $data['messages'];
         }
 
         if (isset($data['JourneyDetailRef'], $data['JourneyDetailRef']['ref'])) {
