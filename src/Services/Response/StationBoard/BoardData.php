@@ -1,102 +1,102 @@
 <?php
+
 namespace RejseplanApi\Services\Response\StationBoard;
 
 class BoardData
 {
-
     /**
-     * Name of the transportation
+     * Name of the transportation.
      *
      * @var string
      */
     protected $name;
 
     /**
-     * Type of the transportation
+     * Type of the transportation.
      *
      * @var string
      */
     protected $type;
 
     /**
-     * Name of the stop
+     * Name of the stop.
      *
      * @var string
      */
     protected $stop;
 
     /**
-     * Scheduled date
+     * Scheduled date.
      *
      * @var \DateTime
      */
     protected $scheduledDate;
 
     /**
-     * Realtime date
+     * Realtime date.
      *
      * @var \DateTime
      */
     protected $realDate;
 
     /**
-     * Is it delayed
+     * Is it delayed.
      *
      * @var bool
      */
     protected $delayed;
 
     /**
-     * Scheduled track
+     * Scheduled track.
      *
      * @var string
      */
     protected $scheduledTrack;
 
     /**
-     * Realtime track
+     * Realtime track.
      *
      * @var string
      */
     protected $realTrack;
 
     /**
-     * Has the track changed
+     * Has the track changed.
      *
      * @var bool
      */
     protected $trackChanged;
 
     /**
-     * Messages
+     * Messages.
      *
      * @var string
      */
     protected $messages;
 
     /**
-     * Final stop of the transportation
+     * Final stop of the transportation.
      *
      * @var string
      */
     protected $finalStop;
 
     /**
-     * Origin of the transportation
+     * Origin of the transportation.
      *
      * @var string
      */
     protected $origin;
 
     /**
-     * The direction of the transportation
+     * The direction of the transportation.
      *
      * @var string
      */
     protected $direction;
 
     /**
-     * Url to the journey detail
+     * Url to the journey detail.
      *
      * @var string
      */
@@ -143,7 +143,7 @@ class BoardData
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isDelayed()
     {
@@ -167,7 +167,7 @@ class BoardData
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isTrackChanged()
     {
@@ -216,11 +216,12 @@ class BoardData
 
     /**
      * @param array $data
+     *
      * @return BoardData
      */
     public static function createFromArray(array $data)
     {
-        $obj = new self;
+        $obj = new self();
         $obj->name = $data['name'];
         $obj->type = $data['type'];
         $obj->stop = $data['stop'];
@@ -250,17 +251,17 @@ class BoardData
 
     /**
      * @param BoardData $obj
-     * @param array $data
+     * @param array     $data
      */
     private static function setDate(BoardData $obj, array $data)
     {
         $obj->scheduledDate = date_create_from_format('d.m.y H:i', sprintf('%s %s', $data['date'], $data['time']));
 
-        if (! isset($data['rtDate'])) {
+        if (!isset($data['rtDate'])) {
             $data['rtDate'] = $data['date'];
         }
 
-        if (! isset($data['rtTime'])) {
+        if (!isset($data['rtTime'])) {
             $data['rtTime'] = $data['time'];
         }
 
@@ -275,7 +276,7 @@ class BoardData
 
     /**
      * @param BoardData $obj
-     * @param array $data
+     * @param array     $data
      */
     private static function setTrack(BoardData $obj, array $data)
     {
@@ -288,7 +289,7 @@ class BoardData
                 $obj->realTrack = $data['rtTrack'];
             }
 
-            if (! $obj->scheduledTrack) {
+            if (!$obj->scheduledTrack) {
                 $obj->scheduledTrack = $obj->realTrack;
             }
 

@@ -1,18 +1,18 @@
 <?php
+
 namespace RejseplanApi;
 
 class Coordinate
 {
-
     /**
-     * X-coordinate
+     * X-coordinate.
      *
      * @var float
      */
     protected $xCoordinate;
 
     /**
-     * Y-coordinate
+     * Y-coordinate.
      *
      * @var float
      */
@@ -39,11 +39,13 @@ class Coordinate
 
     /**
      * @param float $xCoordinate
+     *
      * @return Coordinate
      */
     public function setXCoordinate($xCoordinate)
     {
         $this->xCoordinate = strpos($xCoordinate, '.') === false ? $xCoordinate / 1000000 : $xCoordinate;
+
         return $this;
     }
 
@@ -57,11 +59,13 @@ class Coordinate
 
     /**
      * @param float $yCoordinate
+     *
      * @return Coordinate
      */
     public function setYCoordinate($yCoordinate)
     {
         $this->yCoordinate = strpos($yCoordinate, '.') === false ? $yCoordinate / 1000000 : $yCoordinate;
+
         return $this;
     }
 

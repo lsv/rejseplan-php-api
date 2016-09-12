@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApi\Services;
 
 use GuzzleHttp\Psr7\Request;
@@ -9,15 +10,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractServiceCall extends AbstractCall implements ServiceCallInterface
 {
-
     /**
-     * Get the request object
+     * Get the request object.
      *
      * @return RequestInterface
      */
     public function getRequest()
     {
-        if (! $this->request) {
+        if (!$this->request) {
             $this->resolveOptions();
             $this->createRequest();
         }
@@ -26,13 +26,13 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
     }
 
     /**
-     * Get the actual response
+     * Get the actual response.
      *
      * @return ResponseInterface
      */
     public function getResponse()
     {
-        if (! $this->response) {
+        if (!$this->response) {
             $this->call();
         }
 
@@ -40,7 +40,7 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
     }
 
     /**
-     * Return the generated response
+     * Return the generated response.
      *
      * @return mixed
      */
@@ -49,11 +49,12 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
         $this->resolveOptions();
         $this->createRequest();
         $this->response = $this->client->send($this->request);
+
         return $this->generateResponse($this->response);
     }
 
     /**
-     * Resolve options
+     * Resolve options.
      */
     protected function resolveOptions()
     {
@@ -63,7 +64,7 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
     }
 
     /**
-     * Create the request
+     * Create the request.
      */
     protected function createRequest()
     {

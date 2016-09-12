@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApi\Services;
 
 use Psr\Http\Message\ResponseInterface;
@@ -12,46 +13,51 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class NearbyStops extends AbstractServiceCall
 {
-
     /**
-     * Set coordinate to get nearby stops
+     * Set coordinate to get nearby stops.
      *
      * @param Coordinate $coordinate
+     *
      * @return $this
      */
     public function setCoordinate(Coordinate $coordinate)
     {
         $this->options['coordX'] = $coordinate->getXCoordinate();
         $this->options['coordY'] = $coordinate->getYCoordinate();
+
         return $this;
     }
 
     /**
-     * Set radius to get the locations
+     * Set radius to get the locations.
      *
      * @param int $meters
+     *
      * @return $this
      */
     public function setRadius($meters = 1000)
     {
         $this->options['maxRadius'] = $meters;
+
         return $this;
     }
 
     /**
-     * Set max number of results
+     * Set max number of results.
      *
      * @param int $results
+     *
      * @return $this
      */
     public function setMaxResults($results = 30)
     {
         $this->options['maxNumber'] = $results;
+
         return $this;
     }
 
     /**
-     * Configure the options
+     * Configure the options.
      *
      * @param OptionsResolver $options
      */
@@ -75,9 +81,10 @@ class NearbyStops extends AbstractServiceCall
     }
 
     /**
-     * Create the URL
+     * Create the URL.
      *
      * @param array $options
+     *
      * @return string
      */
     protected function getUrl(array $options)
@@ -86,9 +93,10 @@ class NearbyStops extends AbstractServiceCall
     }
 
     /**
-     * Generate the response object
+     * Generate the response object.
      *
      * @param ResponseInterface $response
+     *
      * @return StopLocationResponse[]
      */
     protected function generateResponse(ResponseInterface $response)
@@ -98,11 +106,12 @@ class NearbyStops extends AbstractServiceCall
         foreach ($json['LocationList']['StopLocation'] as $stop) {
             $output[] = StopLocationResponse::createFromArray($stop);
         }
+
         return $output;
     }
 
     /**
-     * Call it
+     * Call it.
      *
      * @return StopLocationResponse[]
      */

@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApi\Services;
 
 use Psr\Http\Message\ResponseInterface;
@@ -14,107 +15,120 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Trip extends AbstractServiceCall
 {
-
     /**
-     * Set origin from a location
+     * Set origin from a location.
      *
      * @param LocationResponse|StopLocationResponse $location Origin location
+     *
      * @return $this
      */
     public function setOrigin($location)
     {
         $this->options['origin'] = $location;
+
         return $this;
     }
 
     /**
-     * Set destination from a location
+     * Set destination from a location.
      *
      * @param LocationResponse|StopLocationResponse $location Destination location
+     *
      * @return $this
      */
     public function setDestination($location)
     {
         $this->options['dest'] = $location;
+
         return $this;
     }
 
     /**
-     * Set via from a location
+     * Set via from a location.
      *
      * @param LocationResponse|StopLocationResponse $location Via location
+     *
      * @return $this
      */
     public function setVia($location)
     {
         $this->options['via'] = $location;
+
         return $this;
     }
 
     /**
-     * Set date for the trip
+     * Set date for the trip.
      *
      * @param \DateTime $time Date of the trip
+     *
      * @return $this
      */
     public function setDate(\DateTime $time)
     {
         $this->options['date'] = $time;
+
         return $this;
     }
 
     /**
-     * Do not use busses for this trip
+     * Do not use busses for this trip.
      *
      * @return $this
      */
     public function setDontUseBus()
     {
         $this->options['useBus'] = 0;
+
         return $this;
     }
 
     /**
-     * Do not use trains for this trip
+     * Do not use trains for this trip.
      *
      * @return $this
      */
     public function setDontUseTrain()
     {
         $this->options['useTog'] = 0;
+
         return $this;
     }
 
     /**
-     * Dont use metro for this trip
+     * Dont use metro for this trip.
      *
      * @return $this
      */
     public function setDontUseMetro()
     {
         $this->options['useMetro'] = 0;
+
         return $this;
     }
 
     /**
-     * Set walking distances in meters
+     * Set walking distances in meters.
      *
-     * @param int $originDistance Walking distance at origin, in meters, min 500, max 20.000
+     * @param int $originDistance      Walking distance at origin, in meters, min 500, max 20.000
      * @param int $destinationDistance Walking distance at destination, in meters, min 500, max 20.000
+     *
      * @return $this
      */
     public function setWalkingDistance($originDistance = 2000, $destinationDistance = 2000)
     {
         $this->options['maxWalkingDistanceDep'] = $originDistance;
         $this->options['maxWalkingDistanceDest'] = $destinationDistance;
+
         return $this;
     }
 
     /**
-     * If you want to ride/have your bike with you
+     * If you want to ride/have your bike with you.
      *
-     * @param int $originDistance Cycling distance at origin, in meters, min 500, max 20.000
+     * @param int $originDistance      Cycling distance at origin, in meters, min 500, max 20.000
      * @param int $destinationDistance Cycling distance at destination, in meters, min 500, max 20.000
+     *
      * @return $this
      */
     public function setUseBicycle($originDistance = 5000, $destinationDistance = 5000)
@@ -122,18 +136,19 @@ class Trip extends AbstractServiceCall
         $this->options['useBicycle'] = 1;
         $this->options['maxCyclingDistanceDep'] = $originDistance;
         $this->options['maxCyclingDistanceDest'] = $destinationDistance;
+
         return $this;
     }
 
     /**
-     * Configure the options
+     * Configure the options.
      *
      * @param OptionsResolver $options
      */
     protected function configureOptions(OptionsResolver $options)
     {
         $distanceAllowedValues = function ($value) {
-            return ! ($value < 500 || $value > 20000);
+            return !($value < 500 || $value > 20000);
         };
 
         $options->setRequired(['origin', 'dest']);
@@ -143,7 +158,7 @@ class Trip extends AbstractServiceCall
             'useTog', 'useBus', 'useMetro', 'useBicycle',
             'maxWalkingDistanceDep', 'maxWalkingDistanceDest',
             'maxCyclingDistanceDep', 'maxCyclingDistanceDest',
-            'date'
+            'date',
         ]);
 
         $options->setAllowedTypes('origin', [LocationResponse::class, StopLocationResponse::class]);
@@ -164,9 +179,10 @@ class Trip extends AbstractServiceCall
     }
 
     /**
-     * Create the URL
+     * Create the URL.
      *
      * @param array $options
+     *
      * @return string
      */
     protected function getUrl(array $options)
@@ -177,13 +193,15 @@ class Trip extends AbstractServiceCall
         $this->setDateOption($urlOptions, $options);
 
         $urlOptions = array_merge($urlOptions, $options);
+
         return sprintf('trip?%s&format=json', http_build_query($urlOptions));
     }
 
     /**
-     * Generate the response object
+     * Generate the response object.
      *
      * @param ResponseInterface $response
+     *
      * @return TripResponse[]
      */
     protected function generateResponse(ResponseInterface $response)
@@ -193,11 +211,12 @@ class Trip extends AbstractServiceCall
         foreach ($json['TripList']['Trip'] as $trip) {
             $trips[] = TripResponse::createFromArray($trip);
         }
+
         return $trips;
     }
 
     /**
-     * Call it
+     * Call it.
      *
      * @return TripResponse[]
      */
@@ -220,17 +239,19 @@ class Trip extends AbstractServiceCall
         if (isset($options['via'])) {
             $via = $options['via'];
             if ($via instanceof LocationResponse) {
-                if (! $via->isStop()) {
+                if (!$via->isStop()) {
                     throw new \InvalidArgumentException('Via is not a stop location');
                 }
 
                 $urlOptions['via'] = $via->getId();
                 unset($options['via']);
-                return ;
+
+                return;
             } else {
                 $urlOptions['via'] = $via->getId();
                 unset($options['via']);
-                return ;
+
+                return;
             }
         }
     }
@@ -243,14 +264,14 @@ class Trip extends AbstractServiceCall
             $option = $options[$key];
             if ($option instanceof LocationResponse) {
                 if ($option->isStop()) {
-                    $urlOptions[$key . 'Id'] = $option->getId();
+                    $urlOptions[$key.'Id'] = $option->getId();
                 } else {
-                    $urlOptions[$key . 'CoordName'] = $option->getName();
-                    $urlOptions[$key . 'CoordX'] = $option->getCoordinate()->getXCoordinate();
-                    $urlOptions[$key . 'CoordY'] = $option->getCoordinate()->getYCoordinate();
+                    $urlOptions[$key.'CoordName'] = $option->getName();
+                    $urlOptions[$key.'CoordX'] = $option->getCoordinate()->getXCoordinate();
+                    $urlOptions[$key.'CoordY'] = $option->getCoordinate()->getYCoordinate();
                 }
             } elseif ($option instanceof StopLocationResponse) {
-                $urlOptions[$key . 'Id'] = $option->getId();
+                $urlOptions[$key.'Id'] = $option->getId();
             }
         }
 

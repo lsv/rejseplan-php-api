@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApi;
 
 use GuzzleHttp\Client;
@@ -15,65 +16,67 @@ abstract class AbstractCall
     const API_VERSION = '1.0';
 
     /**
-     * Base url
+     * Base url.
      *
      * @var string
      */
     protected $baseUrl;
 
     /**
-     * Client
+     * Client.
      *
      * @var ClientInterface
      */
     protected $client;
 
     /**
-     * Options
+     * Options.
      *
      * @var array
      */
     protected $options = [];
 
     /**
-     * Request
+     * Request.
      *
      * @var Request
      */
     protected $request;
 
     /**
-     * Response
+     * Response.
      *
      * @var Response
      */
     protected $response;
 
     /**
-     * Configure the options
+     * Configure the options.
      *
      * @param OptionsResolver $options
      */
     abstract protected function configureOptions(OptionsResolver $options);
 
     /**
-     * Create the URL
+     * Create the URL.
      *
      * @param array $options
+     *
      * @return string
      */
     abstract protected function getUrl(array $options);
 
     /**
-     * Generate the response object
+     * Generate the response object.
      *
      * @param ResponseInterface $response
+     *
      * @return array
      */
     abstract protected function generateResponse(ResponseInterface $response);
 
     /**
-     * Call it
+     * Call it.
      *
      * @return mixed
      */
@@ -82,7 +85,7 @@ abstract class AbstractCall
     /**
      * AbstractCall constructor.
      *
-     * @param string $baseUrl
+     * @param string               $baseUrl
      * @param ClientInterface|null $client
      */
     public function __construct($baseUrl, ClientInterface $client = null)
@@ -92,36 +95,41 @@ abstract class AbstractCall
     }
 
     /**
-     * Set the base url for the calls
+     * Set the base url for the calls.
      *
      * @param string $baseUrl
+     *
      * @return $this
      */
     public function setBaseUrl($baseUrl)
     {
         $this->baseUrl = rtrim($baseUrl, '/');
+
         return $this;
     }
 
     /**
-     * Set the client used for the operations
+     * Set the client used for the operations.
      *
      * @param ClientInterface|null $client
+     *
      * @return $this
      */
     public function setClient(ClientInterface $client = null)
     {
         if (null === $client) {
             $this->client = new Client();
+
             return $this;
         }
 
         $this->client = $client;
+
         return $this;
     }
 
     /**
-     * Get the request object
+     * Get the request object.
      *
      * @return RequestInterface
      */
@@ -131,7 +139,7 @@ abstract class AbstractCall
     }
 
     /**
-     * Get the actual response
+     * Get the actual response.
      *
      * @return ResponseInterface
      */
@@ -141,7 +149,7 @@ abstract class AbstractCall
     }
 
     /**
-     * Get the HTTP method
+     * Get the HTTP method.
      *
      * @return string
      */
@@ -151,14 +159,14 @@ abstract class AbstractCall
     }
 
     /**
-     * Set the client call headers
+     * Set the client call headers.
      *
      * @return array
      */
     protected function getHeaders()
     {
         return [
-            'User-Agent' => sprintf('%s/%s', self::API_NAME, self::API_VERSION)
+            'User-Agent' => sprintf('%s/%s', self::API_NAME, self::API_VERSION),
         ];
     }
 }

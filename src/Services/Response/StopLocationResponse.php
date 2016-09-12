@@ -1,34 +1,34 @@
 <?php
+
 namespace RejseplanApi\Services\Response;
 
 use RejseplanApi\Coordinate;
 
 class StopLocationResponse
 {
-
     /**
-     * The ID of this stop, null if not a stop
+     * The ID of this stop, null if not a stop.
      *
      * @var string|null
      */
     protected $id;
 
     /**
-     * Contains the name of this stop or station
+     * Contains the name of this stop or station.
      *
      * @var string
      */
     protected $name;
 
     /**
-     * The WGS84 coordinate
+     * The WGS84 coordinate.
      *
      * @var Coordinate
      */
     protected $coordinate;
 
     /**
-     * Distance in meters
+     * Distance in meters.
      *
      * @var int
      */
@@ -68,15 +68,17 @@ class StopLocationResponse
 
     /**
      * @param array $data
+     *
      * @return StopLocationResponse
      */
     public static function createFromArray(array $data)
     {
-        $obj = new self;
+        $obj = new self();
         $obj->id = $data['id'];
         $obj->name = $data['name'];
         $obj->coordinate = new Coordinate($data['x'], $data['y']);
         $obj->distance = $data['distance'];
+
         return $obj;
     }
 }

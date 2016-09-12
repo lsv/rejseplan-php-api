@@ -1,9 +1,9 @@
 <?php
+
 namespace RejseplanApi\Services\Response\Journey;
 
 class Message
 {
-
     /**
      * @var string
      */
@@ -32,13 +32,15 @@ class Message
 
     /**
      * @param array $data
+     *
      * @return Message
      */
     public static function createFromArray(array $data)
     {
-        $obj = new self;
-        $obj->header = str_replace("\n", "", $data['Header']['$']);
-        $obj->text = str_replace("  ", "\n", str_replace("\n", "", $data['Text']['$']));
+        $obj = new self();
+        $obj->header = str_replace("\n", '', $data['Header']['$']);
+        $obj->text = str_replace('  ', "\n", str_replace("\n", '', $data['Text']['$']));
+
         return $obj;
     }
 }

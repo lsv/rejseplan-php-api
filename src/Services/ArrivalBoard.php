@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApi\Services;
 
 use Psr\Http\Message\ResponseInterface;
@@ -6,11 +7,11 @@ use RejseplanApi\Services\Response\ArrivalBoardResponse;
 
 class ArrivalBoard extends DepartureBoard
 {
-
     /**
-     * Create the URL
+     * Create the URL.
      *
      * @param array $options
+     *
      * @return string
      */
     protected function getUrl(array $options)
@@ -19,19 +20,21 @@ class ArrivalBoard extends DepartureBoard
     }
 
     /**
-     * Generate the response object
+     * Generate the response object.
      *
      * @param ResponseInterface $response
+     *
      * @return ArrivalBoardResponse
      */
     protected function generateResponse(ResponseInterface $response)
     {
         $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+
         return ArrivalBoardResponse::createFromArray($json['ArrivalBoard']);
     }
 
     /**
-     * Call it
+     * Call it.
      *
      * @return ArrivalBoardResponse
      */
