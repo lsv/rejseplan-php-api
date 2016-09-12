@@ -1,11 +1,11 @@
 <?php
+
 namespace RejseplanApi\Services\Response\Journey;
 
 use RejseplanApi\Coordinate;
 
 class Stop
 {
-
     /**
      * @var string
      */
@@ -125,11 +125,12 @@ class Stop
 
     /**
      * @param array $data
+     *
      * @return Stop
      */
     public static function createFromArray(array $data)
     {
-        $obj = new self;
+        $obj = new self();
         $obj->name = $data['name'];
         $obj->coordinate = new Coordinate($data['x'], $data['y']);
         $obj->index = $data['routeIdx'];

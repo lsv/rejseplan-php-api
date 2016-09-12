@@ -1,27 +1,27 @@
 <?php
+
 namespace RejseplanApi\Services\Response;
 
 use RejseplanApi\Services\Response\Trip\Leg;
 
 class TripResponse
 {
-
     /**
-     * Legs for this trip
+     * Legs for this trip.
      *
      * @var Leg[]
      */
     protected $legs;
 
     /**
-     * Time when departure
+     * Time when departure.
      *
      * @var \DateTime
      */
     protected $departureDate;
 
     /**
-     * Time on arrival
+     * Time on arrival.
      *
      * @var \DateTime
      */
@@ -53,11 +53,12 @@ class TripResponse
 
     /**
      * @param array $data
+     *
      * @return TripResponse
      */
     public static function createFromArray(array $data)
     {
-        $obj = new self;
+        $obj = new self();
         $legs = [];
         $firstLegTime = null;
         $lastLegTime = null;
@@ -76,6 +77,7 @@ class TripResponse
         $obj->legs = $legs;
         $obj->departureDate = $firstLegTime;
         $obj->arrivalDate = $lastLegTime;
+
         return $obj;
     }
 }

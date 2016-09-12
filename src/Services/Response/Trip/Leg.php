@@ -1,46 +1,46 @@
 <?php
+
 namespace RejseplanApi\Services\Response\Trip;
 
 class Leg
 {
-
     /**
-     * Leg name
+     * Leg name.
      *
      * @var string
      */
     protected $name;
 
     /**
-     * Leg type
+     * Leg type.
      *
      * @var string
      */
     protected $type;
 
     /**
-     * Leg origin
+     * Leg origin.
      *
      * @var Place
      */
     protected $origin;
 
     /**
-     * Leg destination
+     * Leg destination.
      *
      * @var Place
      */
     protected $destination;
 
     /**
-     * Notes for this leg
+     * Notes for this leg.
      *
      * @var array
      */
     protected $notes;
 
     /**
-     * Url to leg details
+     * Url to leg details.
      *
      * @var string
      */
@@ -96,11 +96,12 @@ class Leg
 
     /**
      * @param array $data
+     *
      * @return Leg
      */
     public static function createFromArray(array $data)
     {
-        $obj = new self;
+        $obj = new self();
         $obj->name = $data['name'];
         $obj->type = $data['type'];
         $obj->origin = Place::createFromArray($data['Origin']);
@@ -128,6 +129,7 @@ class Leg
         $splitted = array_filter($splitted, function ($value) {
             return $value !== '';
         });
+
         return $splitted;
     }
 }

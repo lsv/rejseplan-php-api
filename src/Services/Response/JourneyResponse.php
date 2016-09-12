@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApi\Services\Response;
 
 use RejseplanApi\Services\Response\Journey\Message;
@@ -6,7 +7,6 @@ use RejseplanApi\Services\Response\Journey\Stop;
 
 class JourneyResponse
 {
-
     /**
      * @var Stop[]
      */
@@ -74,11 +74,12 @@ class JourneyResponse
 
     /**
      * @param array $data
+     *
      * @return JourneyResponse
      */
     public static function createFromArray(array $data)
     {
-        $obj = new self;
+        $obj = new self();
         $obj->name = $data['JourneyName']['name'];
         $obj->type = $data['JourneyType']['type'];
 

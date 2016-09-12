@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApi\Services;
 
 use Psr\Http\Message\ResponseInterface;
@@ -8,25 +9,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * The location service can be used to perform a pattern matching of a user input and to
  * retrieve a list of possible matches in the journey planner database. Possible matches
- * might be stops/stations, points of interest and addresses
+ * might be stops/stations, points of interest and addresses.
  */
 class Location extends AbstractServiceCall
 {
-
     /**
-     * Set user input for a location search
+     * Set user input for a location search.
      *
      * @param string $input user input to find a location, which can be stations, POIs and adresses
+     *
      * @return $this
      */
     public function setInput($input)
     {
         $this->options['input'] = $input;
+
         return $this;
     }
 
     /**
-     * Configure the options
+     * Configure the options.
      *
      * @param OptionsResolver $options
      */
@@ -37,9 +39,10 @@ class Location extends AbstractServiceCall
     }
 
     /**
-     * Create the URL
+     * Create the URL.
      *
      * @param array $options
+     *
      * @return string
      */
     protected function getUrl(array $options)
@@ -48,9 +51,10 @@ class Location extends AbstractServiceCall
     }
 
     /**
-     * Generate the response object
+     * Generate the response object.
      *
      * @param ResponseInterface $response
+     *
      * @return array
      */
     protected function generateResponse(ResponseInterface $response)
@@ -71,7 +75,7 @@ class Location extends AbstractServiceCall
     }
 
     /**
-     * Call it
+     * Call it.
      *
      * @return LocationResponse[]
      */

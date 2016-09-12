@@ -1,9 +1,9 @@
 <?php
+
 namespace RejseplanApi\Services\Response\Trip;
 
 class Place
 {
-
     /**
      * @var string
      */
@@ -15,28 +15,28 @@ class Place
     protected $type;
 
     /**
-     * Station index on the journey details
+     * Station index on the journey details.
      *
      * @var int
      */
     protected $routeIdx;
 
     /**
-     * Station track
+     * Station track.
      *
      * @var string
      */
     protected $track;
 
     /**
-     * Station real track
+     * Station real track.
      *
      * @var string
      */
     protected $rtTrack;
 
     /**
-     * Date on this place
+     * Date on this place.
      *
      * @var \DateTime
      */
@@ -92,11 +92,12 @@ class Place
 
     /**
      * @param array $data
+     *
      * @return Place
      */
     public static function createFromArray(array $data)
     {
-        $obj = new self;
+        $obj = new self();
         $obj->name = $data['name'];
         $obj->type = $data['type'];
         $obj->date = date_create_from_format('d.m.y H:i', sprintf('%s %s', $data['date'], $data['time']));

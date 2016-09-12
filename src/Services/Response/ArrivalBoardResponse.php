@@ -1,20 +1,20 @@
 <?php
+
 namespace RejseplanApi\Services\Response;
 
 use RejseplanApi\Services\Response\StationBoard\BoardData;
 
 class ArrivalBoardResponse
 {
-
     /**
-     * The list of departures from the location
+     * The list of departures from the location.
      *
      * @var BoardData[]
      */
     protected $arrivals;
 
     /**
-     * To get the next departures, use this date
+     * To get the next departures, use this date.
      *
      * @var \DateTime
      */
@@ -38,11 +38,12 @@ class ArrivalBoardResponse
 
     /**
      * @param array $data
+     *
      * @return ArrivalBoardResponse
      */
     public static function createFromArray(array $data)
     {
-        $obj = new self;
+        $obj = new self();
         $lastDate = null;
         foreach ($data['Arrival'] as $arrival) {
             $dep = BoardData::createFromArray($arrival);
@@ -50,6 +51,7 @@ class ArrivalBoardResponse
             $lastDate = $dep->getScheduledDate();
         }
         $obj->nextBoardDate = $lastDate;
+
         return $obj;
     }
 }

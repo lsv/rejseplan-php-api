@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApi\Services;
 
 use GuzzleHttp\Psr7\Request;
@@ -16,27 +17,30 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Journey extends AbstractServiceCall
 {
-
     /**
-     * Set journey details from a URL
+     * Set journey details from a URL.
      *
      * @param string|Leg|BoardData $url
+     *
      * @return $this
      */
     public function setUrl($url)
     {
         if (is_string($url)) {
             $this->options['url'] = $url;
+
             return $this;
         }
 
         if ($url instanceof Leg) {
             $this->setUrlFromLeg($url);
+
             return $this;
         }
 
         if ($url instanceof BoardData) {
             $this->setUrlFromBoardData($url);
+
             return $this;
         }
 
@@ -46,31 +50,35 @@ class Journey extends AbstractServiceCall
     }
 
     /**
-     * Set journey details from a Leg object
+     * Set journey details from a Leg object.
      *
      * @param Leg $leg
+     *
      * @return $this
      */
     protected function setUrlFromLeg(Leg $leg)
     {
         $this->options['url'] = $leg->getJournyDetails();
+
         return $this;
     }
 
     /**
-     * Set journey details from a BoardData object
+     * Set journey details from a BoardData object.
      *
      * @param BoardData $data
+     *
      * @return $this
      */
     protected function setUrlFromBoardData(BoardData $data)
     {
         $this->options['url'] = $data->getJourneyDetails();
+
         return $this;
     }
 
     /**
-     * Configure the options
+     * Configure the options.
      *
      * @param OptionsResolver $options
      */
@@ -80,16 +88,17 @@ class Journey extends AbstractServiceCall
     }
 
     /**
-     * Create the URL
+     * Create the URL.
      *
      * @param array $options
+     *
      * @return string
      */
     protected function getUrl(array $options)
     {
         $url = parse_url($options['url'], PHP_URL_QUERY);
         parse_str($url, $query);
-        if (! isset($query['format'])) {
+        if (!isset($query['format'])) {
             return sprintf('%s&format=json', $options['url']);
         }
 
@@ -97,19 +106,21 @@ class Journey extends AbstractServiceCall
     }
 
     /**
-     * Generate the response object
+     * Generate the response object.
      *
      * @param ResponseInterface $response
+     *
      * @return JourneyResponse
      */
     protected function generateResponse(ResponseInterface $response)
     {
         $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+
         return JourneyResponse::createFromArray($json['JourneyDetail']);
     }
 
     /**
-     * Call it
+     * Call it.
      *
      * @return JourneyResponse
      */
@@ -119,7 +130,7 @@ class Journey extends AbstractServiceCall
     }
 
     /**
-     * Create the request
+     * Create the request.
      */
     protected function createRequest()
     {

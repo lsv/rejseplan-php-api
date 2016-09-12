@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApi\Services\Response;
 
 use RejseplanApi\Coordinate;
@@ -10,37 +11,37 @@ class LocationResponse
     const LOCATIONTYPE_STOP = 'STOP';
 
     /**
-     * The ID of this stop, null if not a stop
+     * The ID of this stop, null if not a stop.
      *
      * @var string|null
      */
     protected $id;
 
     /**
-     * Contains the name of this stop or station
+     * Contains the name of this stop or station.
      *
      * @var string
      */
     protected $name;
 
     /**
-     * Coordinates of this stop or station
+     * Coordinates of this stop or station.
      *
      * @var Coordinate
      */
     protected $coordinate;
 
     /**
-     * Type of the location
+     * Type of the location.
      *
      * @var string
      */
     protected $type = self::LOCATIONTYPE_STOP;
 
     /**
-     * Generate a LocationResponse
+     * Generate a LocationResponse.
      *
-     * @param string $name
+     * @param string     $name
      * @param Coordinate $coordinate
      */
     public function __construct($name, Coordinate $coordinate = null)
@@ -51,7 +52,7 @@ class LocationResponse
 
     /**
      * Get id of this location - only sations have a ID
-     * POI or addresses does not have a ID, and therefor will return null
+     * POI or addresses does not have a ID, and therefor will return null.
      *
      * @return string|null
      */
@@ -61,7 +62,7 @@ class LocationResponse
     }
 
     /**
-     * Get name of this location
+     * Get name of this location.
      *
      * @return string
      */
@@ -79,7 +80,7 @@ class LocationResponse
     }
 
     /**
-     * Is this location a stop (bus stop, train station etc)
+     * Is this location a stop (bus stop, train station etc).
      *
      * @return bool
      */
@@ -89,7 +90,7 @@ class LocationResponse
     }
 
     /**
-     * Is this location a address
+     * Is this location a address.
      *
      * @return bool
      */
@@ -99,7 +100,7 @@ class LocationResponse
     }
 
     /**
-     * Is this location a POI
+     * Is this location a POI.
      *
      * @return bool
      */
@@ -118,6 +119,7 @@ class LocationResponse
 
     /**
      * @param array $data
+     *
      * @return LocationResponse
      */
     public static function createFromArray(array $data)
@@ -130,6 +132,7 @@ class LocationResponse
         if (isset($data['type'])) {
             $obj->type = $data['type'];
         }
+
         return $obj;
     }
 }
