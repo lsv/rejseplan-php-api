@@ -10,4 +10,4 @@
 | getCoordinate() | [Coordinate](../index.md#coordinate) | The coordinates for this location
 | isStop() | bool | If this location is a stop |
 | isAddress() | bool | If this location is a address |
-| isPOI() | bool | If this location is a POI |
+| isPoi() | bool | If this location is a POI |

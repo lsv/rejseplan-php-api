@@ -49,7 +49,7 @@ class LocationTest extends AbstractServicesTest
         $this->assertEquals('12.566488', $loc1->getCoordinate()->getXCoordinate());
         $this->assertEquals('55.672578', $loc1->getCoordinate()->getYCoordinate());
         $this->assertEquals('12.566488,55.672578', $loc1->getCoordinate());
-        $this->assertFalse($loc1->isPOI());
+        $this->assertFalse($loc1->isPoi());
         $this->assertFalse($loc1->isAddress());
         $this->assertTrue($loc1->isStop());
 
@@ -58,14 +58,14 @@ class LocationTest extends AbstractServicesTest
         $this->assertEquals('55.777815', $loc2->getCoordinate()->getYCoordinate());
         $this->assertFalse($loc2->isStop());
         $this->assertTrue($loc2->isAddress());
-        $this->assertFalse($loc2->isPOI());
+        $this->assertFalse($loc2->isPoi());
 
         $this->assertEquals('Tivoli Hotel, Hotel, København', $loc3->getName());
         $this->assertEquals('12.567135', $loc3->getCoordinate()->getXCoordinate());
         $this->assertEquals('55.666034', $loc3->getCoordinate()->getYCoordinate());
         $this->assertFalse($loc3->isStop());
         $this->assertFalse($loc3->isAddress());
-        $this->assertTrue($loc3->isPOI());
+        $this->assertTrue($loc3->isPoi());
 
     }
 

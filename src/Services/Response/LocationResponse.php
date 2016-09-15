@@ -111,7 +111,7 @@ class LocationResponse
      * @return bool
      * @Serializer\VirtualProperty()
      */
-    public function isPOI()
+    public function isPoi()
     {
         return $this->getType() === self::LOCATIONTYPE_POI;
     }
