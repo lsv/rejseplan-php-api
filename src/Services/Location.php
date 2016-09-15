@@ -66,6 +66,10 @@ class Location extends AbstractServiceCall
                 continue;
             }
 
+            if (array_key_exists('name', $stops)) {
+                $stops = [$stops];
+            }
+
             foreach ($stops as $stop) {
                 $output[] = LocationResponse::createFromArray($stop);
             }

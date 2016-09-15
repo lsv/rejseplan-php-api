@@ -2,12 +2,15 @@
 
 namespace RejseplanApi\Services\Response\StationBoard;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class BoardData
 {
     /**
      * Name of the transportation.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $name;
 
@@ -15,6 +18,7 @@ class BoardData
      * Type of the transportation.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $type;
 
@@ -22,6 +26,7 @@ class BoardData
      * Name of the stop.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $stop;
 
@@ -29,6 +34,7 @@ class BoardData
      * Scheduled date.
      *
      * @var \DateTime
+     * @Serializer\Type("\DateTime")
      */
     protected $scheduledDate;
 
@@ -36,6 +42,7 @@ class BoardData
      * Realtime date.
      *
      * @var \DateTime
+     * @Serializer\Type("\DateTime")
      */
     protected $realDate;
 
@@ -43,6 +50,7 @@ class BoardData
      * Is it delayed.
      *
      * @var bool
+     * @Serializer\Type("boolean")
      */
     protected $delayed;
 
@@ -50,6 +58,7 @@ class BoardData
      * Scheduled track.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $scheduledTrack;
 
@@ -57,6 +66,7 @@ class BoardData
      * Realtime track.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $realTrack;
 
@@ -64,6 +74,7 @@ class BoardData
      * Has the track changed.
      *
      * @var bool|null
+     * @Serializer\Type("boolean")
      */
     protected $trackChanged;
 
@@ -71,6 +82,7 @@ class BoardData
      * Messages.
      *
      * @var bool
+     * @Serializer\Type("boolean")
      */
     protected $messages;
 
@@ -78,6 +90,7 @@ class BoardData
      * Final stop of the transportation.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $finalStop;
 
@@ -85,6 +98,7 @@ class BoardData
      * Origin of the transportation.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $origin;
 
@@ -92,6 +106,7 @@ class BoardData
      * The direction of the transportation.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $direction;
 
@@ -99,6 +114,7 @@ class BoardData
      * Url to the journey detail.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $journeyDetails;
 

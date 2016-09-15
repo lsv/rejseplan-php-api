@@ -2,6 +2,7 @@
 
 namespace RejseplanApi\Services\Response;
 
+use JMS\Serializer\Annotation as Serializer;
 use RejseplanApi\Services\Response\Trip\Leg;
 
 class TripResponse
@@ -10,6 +11,7 @@ class TripResponse
      * Legs for this trip.
      *
      * @var Leg[]
+     * @Serializer\Type("array<RejseplanApi\Services\Response\Trip\Leg>")
      */
     protected $legs;
 
@@ -17,6 +19,7 @@ class TripResponse
      * Time when departure.
      *
      * @var \DateTime
+     * @Serializer\Type("\DateTime")
      */
     protected $departureDate;
 
@@ -24,6 +27,7 @@ class TripResponse
      * Time on arrival.
      *
      * @var \DateTime
+     * @Serializer\Type("\DateTime")
      */
     protected $arrivalDate;
 

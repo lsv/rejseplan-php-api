@@ -2,15 +2,19 @@
 
 namespace RejseplanApi\Services\Response\Journey;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class Message
 {
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     protected $header;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     protected $text;
 

@@ -2,6 +2,7 @@
 
 namespace RejseplanApi\Services\Response;
 
+use JMS\Serializer\Annotation as Serializer;
 use RejseplanApi\Services\Response\StationBoard\BoardData;
 
 class DepartureBoardResponse
@@ -10,6 +11,7 @@ class DepartureBoardResponse
      * The list of departures from the location.
      *
      * @var BoardData[]
+     * @Serializer\Type("array<RejseplanApi\Services\Response\StationBoard\BoardData>")
      */
     protected $departures;
 
@@ -17,6 +19,7 @@ class DepartureBoardResponse
      * To get the next departures, use this date.
      *
      * @var \DateTime
+     * @Serializer\Type("\DateTime")
      */
     protected $nextBoardDate;
 

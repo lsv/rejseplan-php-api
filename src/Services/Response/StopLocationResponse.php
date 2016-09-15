@@ -2,6 +2,7 @@
 
 namespace RejseplanApi\Services\Response;
 
+use JMS\Serializer\Annotation as Serializer;
 use RejseplanApi\Coordinate;
 
 class StopLocationResponse
@@ -10,6 +11,7 @@ class StopLocationResponse
      * The ID of this stop.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $id;
 
@@ -17,6 +19,7 @@ class StopLocationResponse
      * Contains the name of this stop or station.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $name;
 
@@ -24,6 +27,7 @@ class StopLocationResponse
      * The WGS84 coordinate.
      *
      * @var Coordinate
+     * @Serializer\Type("RejseplanApi\Coordinate")
      */
     protected $coordinate;
 
@@ -31,6 +35,7 @@ class StopLocationResponse
      * Distance in meters.
      *
      * @var int
+     * @Serializer\Type("integer")
      */
     protected $distance;
 

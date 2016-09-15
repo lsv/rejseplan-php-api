@@ -39,9 +39,9 @@ class LocationTest extends AbstractServicesTest
         $location->setInput('my input');
         $response = $location->call();
 
-        $this->assertCount(14, $response);
+        $this->assertCount(15, $response);
         $loc1 = $response[1];
-        $loc2 = $response[11];
+        $loc2 = $response[5];
         $loc3 = $response[10];
 
         $this->assertEquals('Hovedbanegården, Tivoli (Bernstorffsgade)', $loc1->getName());
@@ -53,16 +53,16 @@ class LocationTest extends AbstractServicesTest
         $this->assertFalse($loc1->isAddress());
         $this->assertTrue($loc1->isStop());
 
-        $this->assertEquals('Tivoli 5970 Ærøskøbing, Ærø Kommune', $loc2->getName());
-        $this->assertEquals('10.403747', $loc2->getCoordinate()->getXCoordinate());
-        $this->assertEquals('54.881240', $loc2->getCoordinate()->getYCoordinate());
+        $this->assertEquals('Ring Syd 3650 Ølstykke, Egedal Kommune', $loc2->getName());
+        $this->assertEquals('12.183161', $loc2->getCoordinate()->getXCoordinate());
+        $this->assertEquals('55.777815', $loc2->getCoordinate()->getYCoordinate());
         $this->assertFalse($loc2->isStop());
         $this->assertTrue($loc2->isAddress());
         $this->assertFalse($loc2->isPOI());
 
-        $this->assertEquals('Tivoli Friheden, Forlystelsespark, Aarhus', $loc3->getName());
-        $this->assertEquals('10.198298', $loc3->getCoordinate()->getXCoordinate());
-        $this->assertEquals('56.136619', $loc3->getCoordinate()->getYCoordinate());
+        $this->assertEquals('Tivoli Hotel, Hotel, København', $loc3->getName());
+        $this->assertEquals('12.567135', $loc3->getCoordinate()->getXCoordinate());
+        $this->assertEquals('55.666034', $loc3->getCoordinate()->getYCoordinate());
         $this->assertFalse($loc3->isStop());
         $this->assertFalse($loc3->isAddress());
         $this->assertTrue($loc3->isPOI());

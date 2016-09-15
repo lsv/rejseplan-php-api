@@ -2,15 +2,19 @@
 
 namespace RejseplanApi\Services\Response\Trip;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class Place
 {
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     protected $name;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     protected $type;
 
@@ -18,6 +22,7 @@ class Place
      * Station index on the journey details.
      *
      * @var int
+     * @Serializer\Type("integer")
      */
     protected $routeIdx;
 
@@ -25,6 +30,7 @@ class Place
      * Station track.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $track;
 
@@ -32,6 +38,7 @@ class Place
      * Station real track.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $rtTrack;
 
@@ -39,6 +46,7 @@ class Place
      * Date on this place.
      *
      * @var \DateTime
+     * @Serializer\Type("\DateTime")
      */
     protected $date;
 

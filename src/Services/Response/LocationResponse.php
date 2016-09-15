@@ -2,6 +2,7 @@
 
 namespace RejseplanApi\Services\Response;
 
+use JMS\Serializer\Annotation as Serializer;
 use RejseplanApi\Coordinate;
 
 class LocationResponse
@@ -14,6 +15,7 @@ class LocationResponse
      * The ID of this stop, null if not a stop.
      *
      * @var string|null
+     * @Serializer\Type("string")
      */
     protected $id;
 
@@ -21,6 +23,7 @@ class LocationResponse
      * Contains the name of this stop or station.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $name;
 
@@ -28,6 +31,7 @@ class LocationResponse
      * Coordinates of this stop or station.
      *
      * @var Coordinate
+     * @Serializer\Type("RejseplanApi\Coordinate")
      */
     protected $coordinate;
 
@@ -83,6 +87,7 @@ class LocationResponse
      * Is this location a stop (bus stop, train station etc).
      *
      * @return bool
+     * @Serializer\VirtualProperty()
      */
     public function isStop()
     {
@@ -93,6 +98,7 @@ class LocationResponse
      * Is this location a address.
      *
      * @return bool
+     * @Serializer\VirtualProperty()
      */
     public function isAddress()
     {
@@ -103,6 +109,7 @@ class LocationResponse
      * Is this location a POI.
      *
      * @return bool
+     * @Serializer\VirtualProperty()
      */
     public function isPOI()
     {

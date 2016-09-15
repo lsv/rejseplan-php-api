@@ -2,52 +2,62 @@
 
 namespace RejseplanApi\Services\Response\Journey;
 
+use JMS\Serializer\Annotation as Serializer;
 use RejseplanApi\Coordinate;
 
 class Stop
 {
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     protected $name;
 
     /**
      * @var Coordinate
+     * @Serializer\Type("RejseplanApi\Coordinate")
      */
     protected $coordinate;
 
     /**
      * @var int
+     * @Serializer\Type("integer")
      */
     protected $index;
 
     /**
      * @var \DateTime|null
+     * @Serializer\Type("\DateTime")
      */
     protected $scheduledDeparture;
 
     /**
      * @var \DateTime|null
+     * @Serializer\Type("\DateTime")
      */
     protected $scheduledArrival;
 
     /**
      * @var string|null
+     * @Serializer\Type("string")
      */
     protected $scheduledTrack;
 
     /**
      * @var \DateTime|null
+     * @Serializer\Type("\DateTime")
      */
     protected $realtimeDeparture;
 
     /**
      * @var \DateTime|null
+     * @Serializer\Type("\DateTime")
      */
     protected $realtimeArrival;
 
     /**
      * @var string|null
+     * @Serializer\Type("string")
      */
     protected $realtimeTrack;
 

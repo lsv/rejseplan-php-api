@@ -2,6 +2,7 @@
 
 namespace RejseplanApi\Services\Response;
 
+use JMS\Serializer\Annotation as Serializer;
 use RejseplanApi\Services\Response\Journey\Message;
 use RejseplanApi\Services\Response\Journey\Stop;
 
@@ -9,26 +10,31 @@ class JourneyResponse
 {
     /**
      * @var Stop[]
+     * @Serializer\Type("array<RejseplanApi\Services\Response\Journey\Stop>")
      */
     protected $stops;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     protected $name;
 
     /**
      * @var string
+     * @Serializer\Type("string")
      */
     protected $type;
 
     /**
      * @var array
+     * @Serializer\Type("array")
      */
     protected $notes;
 
     /**
      * @var Message[]
+     * @Serializer\Type("array<RejseplanApi\Services\Response\Journey\Message>")
      */
     protected $messages;
 

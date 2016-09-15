@@ -2,12 +2,15 @@
 
 namespace RejseplanApi\Services\Response\Trip;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class Leg
 {
     /**
      * Leg name.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $name;
 
@@ -15,6 +18,7 @@ class Leg
      * Leg type.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $type;
 
@@ -22,6 +26,7 @@ class Leg
      * Leg origin.
      *
      * @var Place
+     * @Serializer\Type("Place")
      */
     protected $origin;
 
@@ -29,6 +34,7 @@ class Leg
      * Leg destination.
      *
      * @var Place
+     * @Serializer\Type("Place")
      */
     protected $destination;
 
@@ -36,6 +42,7 @@ class Leg
      * Notes for this leg.
      *
      * @var array
+     * @Serializer\Type("array")
      */
     protected $notes;
 
@@ -43,6 +50,7 @@ class Leg
      * Url to leg details.
      *
      * @var string
+     * @Serializer\Type("string")
      */
     protected $journyDetails;
 

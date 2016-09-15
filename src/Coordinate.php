@@ -2,12 +2,15 @@
 
 namespace RejseplanApi;
 
+use JMS\Serializer\Annotation as Serializer;
+
 class Coordinate
 {
     /**
      * X-coordinate.
      *
      * @var float
+     * @Serializer\Type("float")
      */
     protected $xCoordinate;
 
@@ -15,6 +18,7 @@ class Coordinate
      * Y-coordinate.
      *
      * @var float
+     * @Serializer\Type("float")
      */
     protected $yCoordinate;
 
@@ -69,6 +73,11 @@ class Coordinate
         return $this;
     }
 
+    /**
+     * @return string
+     * @Serializer\SerializedName("coordinates")
+     * @Serializer\VirtualProperty()
+     */
     public function __toString()
     {
         return sprintf('%s,%s', $this->getXCoordinate(), $this->getYCoordinate());
