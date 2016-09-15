@@ -13,7 +13,7 @@ class DepartureBoard extends AbstractServiceCall
     /**
      * Station to get the departure board.
      *
-     * @param LocationResponse|StopLocationResponse $location
+     * @param mixed $location
      *
      * @return $this
      */
@@ -31,39 +31,15 @@ class DepartureBoard extends AbstractServiceCall
             return $this;
         }
 
-        throw new \InvalidArgumentException('The location must be either a LocationResponse or a StopLocationResponse object');
-    }
+        if (is_int($location) || is_string($location)) {
+            $this->setLocationId($location);
 
-    /**
-     * Station to get the departure board.
-     *
-     * @param LocationResponse $location
-     *
-     * @return $this
-     */
-    protected function setLocationResponse(LocationResponse $location)
-    {
-        if (!$location->isStop()) {
-            throw new \InvalidArgumentException('The location must be a station');
+            return $this;
         }
 
-        $this->options['id'] = $location->getId();
-
-        return $this;
-    }
-
-    /**
-     * Station to get the departure board.
-     *
-     * @param StopLocationResponse $stop
-     *
-     * @return $this
-     */
-    protected function setStopResponse(StopLocationResponse $stop)
-    {
-        $this->options['id'] = $stop->getId();
-
-        return $this;
+        throw new \InvalidArgumentException(
+            'The location must be either a LocationResponse object, StopLocationResponse object, string or integer'
+        );
     }
 
     /**
@@ -112,6 +88,52 @@ class DepartureBoard extends AbstractServiceCall
     public function setDate(\DateTime $date)
     {
         $this->options['date'] = $date;
+
+        return $this;
+    }
+
+    /**
+     * Station to get the departure board.
+     *
+     * @param LocationResponse $location
+     *
+     * @return $this
+     */
+    protected function setLocationResponse(LocationResponse $location)
+    {
+        if (!$location->isStop()) {
+            throw new \InvalidArgumentException('The location must be a station');
+        }
+
+        $this->options['id'] = $location->getId();
+
+        return $this;
+    }
+
+    /**
+     * Station to get the departure board.
+     *
+     * @param StopLocationResponse $stop
+     *
+     * @return $this
+     */
+    protected function setStopResponse(StopLocationResponse $stop)
+    {
+        $this->options['id'] = $stop->getId();
+
+        return $this;
+    }
+
+    /**
+     * Station ID to get the departure board.
+     *
+     * @param string|int $id
+     *
+     * @return $this
+     */
+    protected function setLocationId($id)
+    {
+        $this->options['id'] = (string) $id;
 
         return $this;
     }

@@ -7,9 +7,7 @@ To get a arrival board for a stop or station, where stop could be a bus stop or 
 
 | Method | Description |
 | --- | --- |
-| setLocation( object ) | Set the station - The object must be a [StopLocationResponse](../Response/StopLocationResponse.md) or a [LocationResponse](../Response/LocationResponse.md) where it must be a stop (can be checked with isStop) otherwise you will get a error 
-
-Only one is required
+| setLocation( mixed ) | Set the station<br>Input must be either<br>[StopLocationResponse](../Response/StopLocationResponse.md),<br> a [LocationResponse](../Response/LocationResponse.md) (where it must be a stop (can be checked with isStop) otherwise you will get a error),<br>string<br>or a integer. 
 
 ### Optional
 

@@ -53,8 +53,8 @@ class TripTest extends AbstractServicesTest
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
         $this->assertEquals($this->getLocationResponse()->getName(), $query['originCoordName']);
-        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getXCoordinate(), $query['originCoordX']);
-        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getYCoordinate(), $query['originCoordY']);
+        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLatitude(), $query['originCoordX']);
+        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLongitude(), $query['originCoordY']);
         $this->assertEquals($this->getStopLocationResponse()->getId(), $query['destId']);
         $this->assertEquals($this->getLocationResponse()->getId(), $query['via']);
     }
@@ -72,8 +72,8 @@ class TripTest extends AbstractServicesTest
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
         $this->assertEquals($this->getLocationResponse()->getName(), $query['originCoordName']);
-        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getXCoordinate(), $query['originCoordX']);
-        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getYCoordinate(), $query['originCoordY']);
+        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLatitude(), $query['originCoordX']);
+        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLongitude(), $query['originCoordY']);
         $this->assertEquals($this->getStopLocationResponse()->getId(), $query['destId']);
         $this->assertEquals($this->getStopLocationResponse()->getId(), $query['via']);
     }

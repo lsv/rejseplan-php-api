@@ -7,48 +7,48 @@ use JMS\Serializer\Annotation as Serializer;
 class Coordinate
 {
     /**
-     * X-coordinate.
+     * Latitude.
      *
      * @var float
      * @Serializer\Type("float")
      */
-    protected $xCoordinate;
+    protected $latitude;
 
     /**
-     * Y-coordinate.
+     * Longitude.
      *
      * @var float
      * @Serializer\Type("float")
      */
-    protected $yCoordinate;
+    protected $longitude;
 
-    public function __construct($x = null, $y = null)
+    public function __construct($latitude = null, $longitude = null)
     {
-        if ($x) {
-            $this->setXCoordinate($x);
+        if ($latitude) {
+            $this->setLatitude($latitude);
         }
 
-        if ($y) {
-            $this->setYCoordinate($y);
+        if ($longitude) {
+            $this->setLongitude($longitude);
         }
     }
 
     /**
      * @return float
      */
-    public function getXCoordinate()
+    public function getLatitude()
     {
-        return $this->xCoordinate;
+        return $this->latitude;
     }
 
     /**
-     * @param float $xCoordinate
+     * @param float $latitude
      *
      * @return Coordinate
      */
-    public function setXCoordinate($xCoordinate)
+    public function setLatitude($latitude)
     {
-        $this->xCoordinate = strpos($xCoordinate, '.') === false ? $xCoordinate / 1000000 : $xCoordinate;
+        $this->latitude = strpos($latitude, '.') === false ? $latitude / 1000000 : $latitude;
 
         return $this;
     }
@@ -56,19 +56,19 @@ class Coordinate
     /**
      * @return float
      */
-    public function getYCoordinate()
+    public function getLongitude()
     {
-        return $this->yCoordinate;
+        return $this->longitude;
     }
 
     /**
-     * @param float $yCoordinate
+     * @param float $longitude
      *
      * @return Coordinate
      */
-    public function setYCoordinate($yCoordinate)
+    public function setLongitude($longitude)
     {
-        $this->yCoordinate = strpos($yCoordinate, '.') === false ? $yCoordinate / 1000000 : $yCoordinate;
+        $this->longitude = strpos($longitude, '.') === false ? $longitude / 1000000 : $longitude;
 
         return $this;
     }
@@ -80,6 +80,6 @@ class Coordinate
      */
     public function __toString()
     {
-        return sprintf('%s,%s', $this->getXCoordinate(), $this->getYCoordinate());
+        return sprintf('%s,%s', $this->getLatitude(), $this->getLongitude());
     }
 }

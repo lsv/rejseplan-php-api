@@ -102,8 +102,8 @@ class JourneyTest extends AbstractServicesTest
         $stop = $response->getStops()[8];
 
         $this->assertEquals('Roskilde St.', $stop->getName());
-        $this->assertEquals('12.088550', $stop->getCoordinate()->getXCoordinate());
-        $this->assertEquals('55.639093', $stop->getCoordinate()->getYCoordinate());
+        $this->assertEquals('12.088550', $stop->getCoordinate()->getLatitude());
+        $this->assertEquals('55.639093', $stop->getCoordinate()->getLongitude());
         $this->assertEquals('8', $stop->getIndex());
         $this->assertEquals('2016-09-09 15:24', $stop->getScheduledDeparture()->format('Y-m-d H:i'));
         $this->assertEquals('2016-09-09 15:23', $stop->getScheduledArrival()->format('Y-m-d H:i'));

@@ -267,8 +267,8 @@ class Trip extends AbstractServiceCall
                     $urlOptions[$key.'Id'] = $option->getId();
                 } else {
                     $urlOptions[$key.'CoordName'] = $option->getName();
-                    $urlOptions[$key.'CoordX'] = $option->getCoordinate()->getXCoordinate();
-                    $urlOptions[$key.'CoordY'] = $option->getCoordinate()->getYCoordinate();
+                    $urlOptions[$key.'CoordX'] = $option->getCoordinate()->getLatitude();
+                    $urlOptions[$key.'CoordY'] = $option->getCoordinate()->getLongitude();
                 }
             } elseif ($option instanceof StopLocationResponse) {
                 $urlOptions[$key.'Id'] = $option->getId();

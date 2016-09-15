@@ -19,8 +19,8 @@ class NearbyStopsTest extends AbstractServicesTest
 
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
-        $this->assertEquals($coordinate->getXCoordinate(), $query['coordX']);
-        $this->assertEquals($coordinate->getYCoordinate(), $query['coordY']);
+        $this->assertEquals($coordinate->getLatitude(), $query['coordX']);
+        $this->assertEquals($coordinate->getLongitude(), $query['coordY']);
     }
 
     public function test_url_setMaxResults()
@@ -36,8 +36,8 @@ class NearbyStopsTest extends AbstractServicesTest
 
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
-        $this->assertEquals($coordinate->getXCoordinate(), $query['coordX']);
-        $this->assertEquals($coordinate->getYCoordinate(), $query['coordY']);
+        $this->assertEquals($coordinate->getLatitude(), $query['coordX']);
+        $this->assertEquals($coordinate->getLongitude(), $query['coordY']);
         $this->assertEquals('10', $query['maxNumber']);
     }
 
@@ -54,8 +54,8 @@ class NearbyStopsTest extends AbstractServicesTest
 
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
-        $this->assertEquals($coordinate->getXCoordinate(), $query['coordX']);
-        $this->assertEquals($coordinate->getYCoordinate(), $query['coordY']);
+        $this->assertEquals($coordinate->getLatitude(), $query['coordX']);
+        $this->assertEquals($coordinate->getLongitude(), $query['coordY']);
         $this->assertEquals('1500', $query['maxRadius']);
     }
 
@@ -81,24 +81,24 @@ class NearbyStopsTest extends AbstractServicesTest
 
         $this->assertEquals('8600626', $loc1->getId());
         $this->assertEquals('København H', $loc1->getName());
-        $this->assertEquals('12.565562', $loc1->getCoordinate()->getXCoordinate());
-        $this->assertEquals('55.673063', $loc1->getCoordinate()->getYCoordinate());
+        $this->assertEquals('12.565562', $loc1->getCoordinate()->getLatitude());
+        $this->assertEquals('55.673063', $loc1->getCoordinate()->getLongitude());
         $this->assertEquals('14', $loc1->getDistance());
 
         $loc2 = $response[5];
 
         $this->assertEquals('1152', $loc2->getId());
         $this->assertEquals('Hovedbanegården (Vesterbrogade)', $loc2->getName());
-        $this->assertEquals('12.563630', $loc2->getCoordinate()->getXCoordinate());
-        $this->assertEquals('55.674232', $loc2->getCoordinate()->getYCoordinate());
+        $this->assertEquals('12.563630', $loc2->getCoordinate()->getLatitude());
+        $this->assertEquals('55.674232', $loc2->getCoordinate()->getLongitude());
         $this->assertEquals('188', $loc2->getDistance());
 
         $loc3 = $response[12];
 
         $this->assertEquals('27536', $loc3->getId());
         $this->assertEquals('Vesterport St. (Ved Vesterport)', $loc3->getName());
-        $this->assertEquals('12.563998', $loc3->getCoordinate()->getXCoordinate());
-        $this->assertEquals('55.675850', $loc3->getCoordinate()->getYCoordinate());
+        $this->assertEquals('12.563998', $loc3->getCoordinate()->getLatitude());
+        $this->assertEquals('55.675850', $loc3->getCoordinate()->getLongitude());
         $this->assertEquals('329', $loc3->getDistance());
 
     }

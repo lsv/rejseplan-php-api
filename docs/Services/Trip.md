@@ -7,14 +7,14 @@ With this you can calculate a trip
 
 | Method | Description |
 | --- | --- |
-| setOrigin( object ) | The location you want to travel from, should be either a [LocationResponse](../Response/LocationResponse.md) or a [StopLocationResponse](../Response/StopLocationResponse.md) |
-| setDestination( object ) | The location you want to travel to, should be either a [LocationResponse](../Response/LocationResponse.md) or a [StopLocationResponse](../Response/StopLocationResponse.md) |
+| setOrigin( object ) | The location you want to travel from, should be either<br>a [LocationResponse](../Response/LocationResponse.md)<br>or a [StopLocationResponse](../Response/StopLocationResponse.md) |
+| setDestination( object ) | The location you want to travel to, should be either<br>a [LocationResponse](../Response/LocationResponse.md)<br>or a [StopLocationResponse](../Response/StopLocationResponse.md) |
 
 ### Optional
 
 | Method | Description |
 | --- | --- |
-| setVia( object ) | If you want a via point, use this, should be either a [LocationResponse](../Response/LocationResponse.md) or a [StopLocationResponse](../Response/StopLocationResponse.md) |
+| setVia( object ) | If you want a via point, use this, should be either<br>a [LocationResponse](../Response/LocationResponse.md) object<br>or a [StopLocationResponse](../Response/StopLocationResponse.md) object |
 | setDate( \DateTime ) | Set the date of when you want to travel, default now |
 | setDontUseBus() | If you dont want to use busses |
 | setDontUseTrain() | If you dont want to use trains |

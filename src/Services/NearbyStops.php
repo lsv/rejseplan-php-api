@@ -22,8 +22,8 @@ class NearbyStops extends AbstractServiceCall
      */
     public function setCoordinate(Coordinate $coordinate)
     {
-        $this->options['coordX'] = $coordinate->getXCoordinate();
-        $this->options['coordY'] = $coordinate->getYCoordinate();
+        $this->options['coordX'] = $coordinate->getLatitude();
+        $this->options['coordY'] = $coordinate->getLongitude();
 
         return $this;
     }

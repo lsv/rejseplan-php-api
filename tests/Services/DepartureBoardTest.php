@@ -31,6 +31,28 @@ class DepartureBoardTest extends AbstractServicesTest
         $this->assertEquals($this->getStopLocationResponse()->getId(), $query['id']);
     }
 
+    public function test_url_setlocation_string()
+    {
+        $board = new DepartureBoard($this->getBaseUrl());
+        $board->setLocation('004856632');
+        $uri = $board->getRequest()->getUri();
+        $this->assertEquals('/departureBoard', $uri->getPath());
+
+        parse_str($uri->getQuery(), $query);
+        $this->assertEquals('004856632', $query['id']);
+    }
+
+    public function test_url_setlocation_int()
+    {
+        $board = new DepartureBoard($this->getBaseUrl());
+        $board->setLocation(104856632);
+        $uri = $board->getRequest()->getUri();
+        $this->assertEquals('/departureBoard', $uri->getPath());
+
+        parse_str($uri->getQuery(), $query);
+        $this->assertEquals(104856632, $query['id']);
+    }
+
     public function test_url_setLocation_not_a_stop()
     {
         $this->setExpectedException(\InvalidArgumentException::class, 'The location must be a station');
@@ -40,7 +62,10 @@ class DepartureBoardTest extends AbstractServicesTest
 
     public function test_url_setLocation_invalid()
     {
-        $this->setExpectedException(\InvalidArgumentException::class, 'The location must be either a LocationResponse or a StopLocationResponse object');
+        $this->setExpectedException(
+            \InvalidArgumentException::class,
+            'The location must be either a LocationResponse object, StopLocationResponse object, string or integer'
+        );
         $board = new DepartureBoard($this->getBaseUrl());
         $board->setLocation($this->getCoordinate());
     }
