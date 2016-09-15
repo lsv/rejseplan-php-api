@@ -27,13 +27,13 @@ class Stop
 
     /**
      * @var \DateTime|null
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $scheduledDeparture;
 
     /**
      * @var \DateTime|null
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $scheduledArrival;
 
@@ -45,13 +45,13 @@ class Stop
 
     /**
      * @var \DateTime|null
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $realtimeDeparture;
 
     /**
      * @var \DateTime|null
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $realtimeArrival;
 

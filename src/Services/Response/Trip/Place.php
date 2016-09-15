@@ -46,7 +46,7 @@ class Place
      * Date on this place.
      *
      * @var \DateTime
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $date;
 

@@ -34,7 +34,7 @@ class BoardData
      * Scheduled date.
      *
      * @var \DateTime
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $scheduledDate;
 
@@ -42,7 +42,7 @@ class BoardData
      * Realtime date.
      *
      * @var \DateTime
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $realDate;
 

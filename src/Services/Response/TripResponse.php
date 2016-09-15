@@ -19,7 +19,7 @@ class TripResponse
      * Time when departure.
      *
      * @var \DateTime
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $departureDate;
 
@@ -27,7 +27,7 @@ class TripResponse
      * Time on arrival.
      *
      * @var \DateTime
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $arrivalDate;
 

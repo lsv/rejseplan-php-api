@@ -19,7 +19,7 @@ class ArrivalBoardResponse
      * To get the next departures, use this date.
      *
      * @var \DateTime
-     * @Serializer\Type("\DateTime")
+     * @Serializer\Type("DateTime")
      */
     protected $nextBoardDate;
 
