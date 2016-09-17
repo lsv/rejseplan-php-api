@@ -118,4 +118,20 @@ class JourneyTest extends AbstractServicesTest
 
     }
 
+    public function test_small_response()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/journey_small.json'));
+        $journey = new Journey($this->getBaseUrl(), $client);
+        $journey->setUrl('xxx');
+        $response = $journey->call();
+        $this->assertInstanceOf(JourneyResponse::class, $response);
+
+        $this->assertEquals('Traktorbus', $response->getName());
+        $this->assertEquals('BUS', $response->getType());
+        $this->assertCount(2, $response->getStops());
+        $this->assertCount(0, $response->getMessages());
+        $this->assertCount(2, $response->getNotes());
+
+    }
+
 }

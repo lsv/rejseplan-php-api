@@ -28,9 +28,12 @@ class ArrivalBoard extends DepartureBoard
      */
     protected function generateResponse(ResponseInterface $response)
     {
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+        $json = $this->validateJson($response);
+        if (isset($json['ArrivalBoard'])) {
+            return ArrivalBoardResponse::createFromArray($json['ArrivalBoard']);
+        }
 
-        return ArrivalBoardResponse::createFromArray($json['ArrivalBoard']);
+        return new ArrivalBoardResponse();
     }
 
     /**

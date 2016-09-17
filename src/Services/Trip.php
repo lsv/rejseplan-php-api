@@ -206,8 +206,13 @@ class Trip extends AbstractServiceCall
      */
     protected function generateResponse(ResponseInterface $response)
     {
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+        $json = $this->validateJson($response);
+
         $trips = [];
+        if (! isset($json['TripList'], $json['TripList']['Trip'])) {
+            return $trips;
+        }
+
         foreach ($json['TripList']['Trip'] as $trip) {
             $trips[] = TripResponse::createFromArray($trip);
         }
@@ -270,7 +275,7 @@ class Trip extends AbstractServiceCall
                     $urlOptions[$key.'CoordX'] = $option->getCoordinate()->getLatitude();
                     $urlOptions[$key.'CoordY'] = $option->getCoordinate()->getLongitude();
                 }
-            } elseif ($option instanceof StopLocationResponse) {
+            } else {
                 $urlOptions[$key.'Id'] = $option->getId();
             }
         }

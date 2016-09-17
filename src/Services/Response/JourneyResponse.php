@@ -12,7 +12,7 @@ class JourneyResponse
      * @var Stop[]
      * @Serializer\Type("array<RejseplanApi\Services\Response\Journey\Stop>")
      */
-    protected $stops;
+    protected $stops = [];
 
     /**
      * @var string
@@ -30,13 +30,13 @@ class JourneyResponse
      * @var array
      * @Serializer\Type("array")
      */
-    protected $notes;
+    protected $notes = [];
 
     /**
      * @var Message[]
      * @Serializer\Type("array<RejseplanApi\Services\Response\Journey\Message>")
      */
-    protected $messages;
+    protected $messages = [];
 
     /**
      * @return Stop[]

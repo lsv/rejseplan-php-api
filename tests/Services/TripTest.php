@@ -317,4 +317,14 @@ class TripTest extends AbstractServicesTest
 
     }
 
+    public function test_error()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/error.txt'));
+        $location = new Trip($this->getBaseUrl(), $client);
+        $location->setOrigin($this->getLocationResponse(LocationResponse::LOCATIONTYPE_ADDRESS));
+        $location->setDestination($this->getStopLocationResponse());
+        $response = $location->call();
+        $this->assertCount(0, $response);
+    }
+
 }

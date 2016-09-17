@@ -78,6 +78,32 @@ class ArrivalBoardTest extends AbstractServicesTest
         $board->call();
     }
 
+    public function test_single()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/arrivalboard_single.json'));
+        $board = new ArrivalBoard($this->getBaseUrl(), $client);
+        $board->setLocation($this->getLocationResponse());
+        $response = $board->call();
+
+        $this->assertInstanceOf(ArrivalBoardResponse::class, $response);
+
+        $lastDate = date_create_from_format('d.m.y H:i', '09.09.16 14:59');
+        $this->assertEquals($lastDate->format('Y-m-d H:i'), $response->getNextBoardDate()->format('Y-m-d H:i'));
+        $this->assertCount(1, $response->getArrivals());
+
+        $departure = $response->getArrivals()[0];
+        $this->assertEquals('RE 1065', $departure->getName());
+        $this->assertEquals('TOG', $departure->getType());
+        $this->assertEquals('København H', $departure->getStop());
+        $this->assertEquals('2016-09-09 14:48', $departure->getScheduledDate()->format('Y-m-d H:i'), 'scheduled');
+        $this->assertEquals('2016-09-09 14:59', $departure->getRealDate()->format('Y-m-d H:i'), 'real time');
+        $this->assertTrue($departure->isDelayed());
+        $this->assertTrue($departure->hasMessages());
+        $this->assertEquals('Kalmar C', $departure->getOrigin());
+        $this->assertEquals('http://baseurl/journeyDetail?ref=3849%2F31310%2F372456%2F184946%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
+
+    }
+
     public function test_response()
     {
         $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/arrivalboard.json'));
@@ -87,7 +113,7 @@ class ArrivalBoardTest extends AbstractServicesTest
 
         $this->assertInstanceOf(ArrivalBoardResponse::class, $response);
 
-        $lastDate = date_create_from_format('d.m.y H:i', '09.09.16 14:59');
+        $lastDate = date_create_from_format('d.m.y H:i', '09.09.16 15:04');
         $this->assertEquals($lastDate->format('Y-m-d H:i'), $response->getNextBoardDate()->format('Y-m-d H:i'));
         $this->assertCount(20, $response->getArrivals());
 
@@ -125,6 +151,25 @@ class ArrivalBoardTest extends AbstractServicesTest
         $board = new ArrivalBoard($this->getBaseUrl(), $client);
         $board->setLocation($this->getLocationResponse());
         $this->assertInstanceOf(ResponseInterface::class, $board->getResponse());
+    }
+
+    public function test_no_board()
+    {
+        $mock = str_replace('_KEY_', 'ArrivalBoard', file_get_contents(__DIR__ . '/mocks/board_error.json'));
+        $client = $this->getClientWithMock($mock);
+        $board = new ArrivalBoard($this->getBaseUrl(), $client);
+        $board->setLocation($this->getLocationResponse());
+        $response = $board->call();
+        $this->assertCount(0, $response->getArrivals());
+    }
+
+    public function test_error()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/error.txt'));
+        $board = new ArrivalBoard($this->getBaseUrl(), $client);
+        $board->setLocation($this->getLocationResponse());
+        $response = $board->call();
+        $this->assertCount(0, $response->getArrivals());
     }
 
 }

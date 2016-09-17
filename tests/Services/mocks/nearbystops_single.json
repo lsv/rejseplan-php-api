@@ -1,0 +1,13 @@
+
+{
+  "LocationList":{
+    "noNamespaceSchemaLocation":"http://xmlopen.rejseplanen.dk/xml/rest/hafasRestStopsNearby.xsd",
+    "StopLocation":{
+      "name":"København H",
+      "x":"12565562",
+      "y":"55673063",
+      "id":"8600626",
+      "distance":"14"
+    }
+  }
+}

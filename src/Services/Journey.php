@@ -114,9 +114,12 @@ class Journey extends AbstractServiceCall
      */
     protected function generateResponse(ResponseInterface $response)
     {
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+        $json = $this->validateJson($response);
+        if (isset($json['JourneyDetail'])) {
+            return JourneyResponse::createFromArray($json['JourneyDetail']);
+        }
 
-        return JourneyResponse::createFromArray($json['JourneyDetail']);
+        return new JourneyResponse();
     }
 
     /**

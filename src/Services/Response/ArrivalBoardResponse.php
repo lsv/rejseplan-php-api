@@ -3,6 +3,7 @@
 namespace RejseplanApi\Services\Response;
 
 use JMS\Serializer\Annotation as Serializer;
+use RejseplanApi\Services\AbstractServiceCall;
 use RejseplanApi\Services\Response\StationBoard\BoardData;
 
 class ArrivalBoardResponse
@@ -13,7 +14,7 @@ class ArrivalBoardResponse
      * @var BoardData[]
      * @Serializer\Type("array<RejseplanApi\Services\Response\StationBoard\BoardData>")
      */
-    protected $arrivals;
+    protected $arrivals = [];
 
     /**
      * To get the next departures, use this date.
@@ -48,10 +49,20 @@ class ArrivalBoardResponse
     {
         $obj = new self();
         $lastDate = null;
-        foreach ($data['Arrival'] as $arrival) {
+
+        if (! isset($data['Arrival'])) {
+            return $obj;
+        }
+
+        $arrivals = AbstractServiceCall::checkForSingle($data['Arrival'], 'name');
+        foreach ($arrivals as $arrival) {
             $dep = BoardData::createFromArray($arrival);
             $obj->arrivals[] = $dep;
+
             $lastDate = $dep->getScheduledDate();
+            if ($dep->isDelayed()) {
+                $lastDate = $dep->getRealDate();
+            }
         }
         $obj->nextBoardDate = $lastDate;
 

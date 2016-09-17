@@ -1,6 +1,7 @@
 <?php
 namespace RejseplanApiTest\Services;
 
+use Psr\Http\Message\ResponseInterface;
 use RejseplanApi\Services\DepartureBoard;
 use RejseplanApi\Services\Response\DepartureBoardResponse;
 use RejseplanApi\Services\Response\LocationResponse;
@@ -120,6 +121,35 @@ class DepartureBoardTest extends AbstractServicesTest
         $board->call();
     }
 
+    public function test_single()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/departureboard_single.json'));
+        $board = new DepartureBoard($this->getBaseUrl(), $client);
+        $board->setLocation($this->getLocationResponse());
+        $response = $board->call();
+
+        $this->assertInstanceOf(DepartureBoardResponse::class, $response);
+
+        $lastDate = date_create_from_format('d.m.y H:i', '09.09.16 15:06');
+        $this->assertEquals($lastDate->format('Y-m-d H:i'), $response->getNextBoardDate()->format('Y-m-d H:i'));
+        $this->assertCount(1, $response->getDepartures());
+
+        $departure = $response->getDepartures()[0];
+        $this->assertEquals('Bus 2A', $departure->getName());
+        $this->assertEquals('BUS', $departure->getType());
+        $this->assertEquals('Hovedbanegården, Tivoli (Bernstorffsgade)', $departure->getStop());
+        $this->assertEquals('2016-09-09 14:49', $departure->getScheduledDate()->format('Y-m-d H:i'));
+        $this->assertEquals('2016-09-09 15:06', $departure->getRealDate()->format('Y-m-d H:i'));
+        $this->assertTrue($departure->isDelayed());
+        $this->assertNull($departure->getScheduledTrack());
+        $this->assertNull($departure->getRealTrack());
+        $this->assertFalse($departure->hasMessages());
+        $this->assertEquals('Tingbjerg, Gavlhusvej (Terrasserne)', $departure->getFinalStop());
+        $this->assertEquals('Tingbjerg Gavlhusvej', $departure->getDirection());
+        $this->assertEquals('http://baseurl/journeyDetail?ref=85713%2F32015%2F11902%2F22621%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
+
+    }
+
     public function test_response()
     {
         $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/departureboard.json'));
@@ -162,6 +192,25 @@ class DepartureBoardTest extends AbstractServicesTest
         $this->assertEquals('Holbæk St.', $departure->getDirection());
         $this->assertEquals('http://baseurl/journeyDetail?ref=297366%2F107304%2F429762%2F115768%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
 
+    }
+
+    public function test_no_board()
+    {
+        $mock = str_replace('_KEY_', 'DepartureBoard', file_get_contents(__DIR__ . '/mocks/board_error.json'));
+        $client = $this->getClientWithMock($mock);
+        $board = new DepartureBoard($this->getBaseUrl(), $client);
+        $board->setLocation($this->getLocationResponse());
+        $response = $board->call();
+        $this->assertCount(0, $response->getDepartures());
+    }
+
+    public function test_error()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/error.txt'));
+        $board = new DepartureBoard($this->getBaseUrl(), $client);
+        $board->setLocation($this->getLocationResponse());
+        $response = $board->call();
+        $this->assertCount(0, $response->getDepartures());
     }
 
 }
