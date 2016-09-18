@@ -134,4 +134,22 @@ class JourneyTest extends AbstractServicesTest
 
     }
 
+    public function test_messages()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__.'/mocks/journey_single_message.json'));
+        $journey = new Journey($this->getBaseUrl(), $client);
+        $journey->setUrl('xxx');
+        $response = $journey->call();
+        $this->assertCount(1, $response->getMessages());
+    }
+
+    public function test_single_stop()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__.'/mocks/journey_single_stop.json'));
+        $journey = new Journey($this->getBaseUrl(), $client);
+        $journey->setUrl('xxx');
+        $response = $journey->call();
+        $this->assertCount(1, $response->getStops());
+    }
+
 }
