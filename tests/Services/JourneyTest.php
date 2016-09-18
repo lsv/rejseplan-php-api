@@ -111,6 +111,10 @@ class JourneyTest extends AbstractServicesTest
         $this->assertEquals('2016-09-09 15:29', $stop->getRealtimeDeparture()->format('Y-m-d H:i'));
         $this->assertEquals('2016-09-09 15:30', $stop->getRealtimeArrival()->format('Y-m-d H:i'));
         $this->assertEquals('2', $stop->getRealtimeTrack());
+        $this->assertTrue($stop->isTrackChanged());
+        $this->assertTrue($stop->isDepartureDelay());
+        $this->assertTrue($stop->isArrivalDelay());
+        $this->assertTrue($stop->usesTrack());
 
         $message = $response->getMessages()[1];
         $this->assertEquals('Stoppestedsflytning Astrupvej', $message->getHeader());
@@ -150,6 +154,10 @@ class JourneyTest extends AbstractServicesTest
         $journey->setUrl('xxx');
         $response = $journey->call();
         $this->assertCount(1, $response->getStops());
+        $this->assertFalse($response->getStops()[0]->isArrivalDelay());
+        $this->assertFalse($response->getStops()[0]->isDepartureDelay());
+        $this->assertFalse($response->getStops()[0]->isTrackChanged());
+        $this->assertFalse($response->getStops()[0]->usesTrack());
     }
 
 }
