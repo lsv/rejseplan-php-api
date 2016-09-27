@@ -1,6 +1,7 @@
 <?php
 namespace RejseplanApiTest\Services;
 
+use RejseplanApi\Coordinate;
 use RejseplanApi\Services\NearbyStops;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
@@ -21,6 +22,22 @@ class NearbyStopsTest extends AbstractServicesTest
         $this->assertEquals('json', $query['format']);
         $this->assertEquals($coordinate->getLatitude(), $query['coordX']);
         $this->assertEquals($coordinate->getLongitude(), $query['coordY']);
+    }
+
+    public function test_url_setCoordinate_astext()
+    {
+        $coordinate = new Coordinate("11.566488", "56.672578");
+
+        $location = new NearbyStops($this->getBaseUrl());
+        $location->setCoordinate($coordinate);
+
+        $uri = $location->getRequest()->getUri();
+        $this->assertEquals('/stopsNearby', $uri->getPath());
+
+        parse_str($uri->getQuery(), $query);
+        $this->assertEquals('json', $query['format']);
+        $this->assertEquals(11.566488, $query['coordX']);
+        $this->assertEquals(56.672578, $query['coordY']);
     }
 
     public function test_url_setMaxResults()

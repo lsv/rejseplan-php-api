@@ -22,6 +22,11 @@ class Coordinate
      */
     protected $longitude;
 
+    /**
+     * Coordinate constructor.
+     * @param string|float|null $latitude
+     * @param string|float|null $longitude
+     */
     public function __construct($latitude = null, $longitude = null)
     {
         if ($latitude) {
@@ -38,7 +43,7 @@ class Coordinate
      */
     public function getLatitude()
     {
-        return $this->latitude;
+        return (float) $this->latitude;
     }
 
     /**
@@ -48,7 +53,7 @@ class Coordinate
      */
     public function setLatitude($latitude)
     {
-        $this->latitude = strpos($latitude, '.') === false ? $latitude / 1000000 : $latitude;
+        $this->latitude = strpos($latitude, '.') === false ? (float) $latitude / 1000000 : $latitude;
 
         return $this;
     }
@@ -58,7 +63,7 @@ class Coordinate
      */
     public function getLongitude()
     {
-        return $this->longitude;
+        return (float) $this->longitude;
     }
 
     /**
@@ -68,7 +73,7 @@ class Coordinate
      */
     public function setLongitude($longitude)
     {
-        $this->longitude = strpos($longitude, '.') === false ? $longitude / 1000000 : $longitude;
+        $this->longitude = strpos($longitude, '.') === false ? (float) $longitude / 1000000 : $longitude;
 
         return $this;
     }
