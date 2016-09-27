@@ -73,9 +73,10 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
     }
 
     /**
-     * Validate json
+     * Validate json.
      *
      * @param ResponseInterface $response
+     *
      * @return array
      */
     protected function validateJson(ResponseInterface $response)
@@ -88,10 +89,11 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
     }
 
     /**
-     * Check if the response is a object, or a array of objects
+     * Check if the response is a object, or a array of objects.
      *
-     * @param array $data
+     * @param array  $data
      * @param string $key
+     *
      * @return array
      */
     public static function checkForSingle(array $data, $key)

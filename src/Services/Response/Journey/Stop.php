@@ -152,9 +152,9 @@ class Stop
     }
 
     /**
-     * Get ScheduledDelay
+     * Get ScheduledDelay.
      *
-     * @return boolean
+     * @return bool
      */
     public function isDepartureDelay()
     {
@@ -162,9 +162,9 @@ class Stop
     }
 
     /**
-     * Get ArrivalDelay
+     * Get ArrivalDelay.
      *
-     * @return boolean
+     * @return bool
      */
     public function isArrivalDelay()
     {
@@ -172,9 +172,9 @@ class Stop
     }
 
     /**
-     * Get TrackChanged
+     * Get TrackChanged.
      *
-     * @return boolean
+     * @return bool
      */
     public function isTrackChanged()
     {
@@ -183,11 +183,12 @@ class Stop
 
     /**
      * @Serializer\VirtualProperty()
+     *
      * @return bool
      */
     public function usesTrack()
     {
-        return ! ($this->getScheduledTrack() === null && $this->getRealtimeTrack() === null);
+        return !($this->getScheduledTrack() === null && $this->getRealtimeTrack() === null);
     }
 
     /**
@@ -226,11 +227,11 @@ class Stop
     {
         $obj->{$property} = false;
         $rtKey = ucfirst($key);
-        if (isset($data['rt' . $rtKey . 'Date'], $data['rt' . $rtKey . 'Time']) &&
-            isset($data[$key . 'Date'], $data[$key . 'Time'])
+        if (isset($data['rt'.$rtKey.'Date'], $data['rt'.$rtKey.'Time']) &&
+            isset($data[$key.'Date'], $data[$key.'Time'])
         ) {
-            if ($data['rt' . $rtKey . 'Date'] != $data[$key . 'Date'] ||
-                $data['rt' . $rtKey . 'Time'] != $data[$key . 'Time']
+            if ($data['rt'.$rtKey.'Date'] != $data[$key.'Date'] ||
+                $data['rt'.$rtKey.'Time'] != $data[$key.'Time']
             ) {
                 $obj->{$property} = true;
             }

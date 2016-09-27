@@ -62,7 +62,7 @@ class Location extends AbstractServiceCall
         $json = $this->validateJson($response);
 
         $output = [];
-        if (! isset($json['LocationList'])) {
+        if (!isset($json['LocationList'])) {
             return $output;
         }
 

@@ -209,7 +209,7 @@ class Trip extends AbstractServiceCall
         $json = $this->validateJson($response);
 
         $trips = [];
-        if (! isset($json['TripList'], $json['TripList']['Trip'])) {
+        if (!isset($json['TripList'], $json['TripList']['Trip'])) {
             return $trips;
         }
 

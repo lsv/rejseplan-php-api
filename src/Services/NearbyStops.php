@@ -104,7 +104,7 @@ class NearbyStops extends AbstractServiceCall
         $json = $this->validateJson($response);
 
         $output = [];
-        if (! isset($json['LocationList'], $json['LocationList']['StopLocation'])) {
+        if (!isset($json['LocationList'], $json['LocationList']['StopLocation'])) {
             return $output;
         }
 
