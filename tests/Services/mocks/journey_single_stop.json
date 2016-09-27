@@ -1,0 +1,24 @@
+{
+  "JourneyDetail":{
+    "noNamespaceSchemaLocation":"http://xmlopen.rejseplanen.dk/xml/rest/hafasRestJourneyDetail.xsd",
+    "Stop":{
+      "name":"Mandø Kro (traktorbus)",
+      "x":"8536768",
+      "y":"55276324",
+      "routeIdx":"0",
+      "depTime":"13:30",
+      "depDate":"17.09.16",
+      "$":""
+    },
+    "JourneyName":{
+      "name":"Bus 1A",
+      "routeIdxFrom":"0",
+      "routeIdxTo":"48"
+    },
+    "JourneyType":{
+      "type":"BUS",
+      "routeIdxFrom":"0",
+      "routeIdxTo":"48"
+    }
+  }
+}

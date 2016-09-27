@@ -59,17 +59,19 @@ class Location extends AbstractServiceCall
      */
     protected function generateResponse(ResponseInterface $response)
     {
+        $json = $this->validateJson($response);
+
         $output = [];
-        $data = \GuzzleHttp\json_decode($response->getBody(), true);
-        foreach ($data['LocationList'] as $type => $stops) {
+        if (! isset($json['LocationList'])) {
+            return $output;
+        }
+
+        foreach ($json['LocationList'] as $type => $stops) {
             if ($type == 'noNamespaceSchemaLocation') {
                 continue;
             }
 
-            if (array_key_exists('name', $stops)) {
-                $stops = [$stops];
-            }
-
+            $stops = $this->checkForSingle($stops, 'name');
             foreach ($stops as $stop) {
                 $output[] = LocationResponse::createFromArray($stop);
             }

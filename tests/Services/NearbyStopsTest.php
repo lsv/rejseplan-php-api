@@ -83,6 +83,26 @@ class NearbyStopsTest extends AbstractServicesTest
         $location->call();
     }
 
+    public function test_single()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/nearbystops_single.json'));
+        $location = new NearbyStops($this->getBaseUrl(), $client);
+        $location->setCoordinate($this->getCoordinate());
+        $location->setMaxResults(10);
+        $location->setRadius(1500);
+        $response = $location->call();
+
+        $this->assertCount(1, $response);
+
+        $loc1 = $response[0];
+
+        $this->assertEquals('8600626', $loc1->getId());
+        $this->assertEquals('København H', $loc1->getName());
+        $this->assertEquals('12.565562', $loc1->getCoordinate()->getLatitude());
+        $this->assertEquals('55.673063', $loc1->getCoordinate()->getLongitude());
+        $this->assertEquals('14', $loc1->getDistance());
+    }
+
     public function test_response()
     {
         $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/nearbystops.json'));

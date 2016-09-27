@@ -231,6 +231,15 @@ class BoardData
     }
 
     /**
+     * @Serializer\VirtualProperty()
+     * @return bool
+     */
+    public function usesTrack()
+    {
+        return ! ($this->getScheduledTrack() === null || $this->getRealTrack() === null);
+    }
+
+    /**
      * @param array $data
      *
      * @return BoardData

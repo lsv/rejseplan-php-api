@@ -71,4 +71,35 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
         $url = sprintf('%s/%s', $this->baseUrl, $this->getUrl($this->options));
         $this->request = new Request($this->getMethod(), $url, $this->getHeaders());
     }
+
+    /**
+     * Validate json
+     *
+     * @param ResponseInterface $response
+     * @return array
+     */
+    protected function validateJson(ResponseInterface $response)
+    {
+        try {
+            return \GuzzleHttp\json_decode((string) $response->getBody(), true);
+        } catch (\Exception $e) {
+            return [];
+        }
+    }
+
+    /**
+     * Check if the response is a object, or a array of objects
+     *
+     * @param array $data
+     * @param string $key
+     * @return array
+     */
+    public static function checkForSingle(array $data, $key)
+    {
+        if (array_key_exists($key, $data)) {
+            return [$data];
+        }
+
+        return $data;
+    }
 }

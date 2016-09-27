@@ -3,6 +3,7 @@
 namespace RejseplanApi\Services\Response;
 
 use JMS\Serializer\Annotation as Serializer;
+use RejseplanApi\Services\AbstractServiceCall;
 use RejseplanApi\Services\Response\Journey\Message;
 use RejseplanApi\Services\Response\Journey\Stop;
 
@@ -12,7 +13,7 @@ class JourneyResponse
      * @var Stop[]
      * @Serializer\Type("array<RejseplanApi\Services\Response\Journey\Stop>")
      */
-    protected $stops;
+    protected $stops = [];
 
     /**
      * @var string
@@ -30,13 +31,13 @@ class JourneyResponse
      * @var array
      * @Serializer\Type("array")
      */
-    protected $notes;
+    protected $notes = [];
 
     /**
      * @var Message[]
      * @Serializer\Type("array<RejseplanApi\Services\Response\Journey\Message>")
      */
-    protected $messages;
+    protected $messages = [];
 
     /**
      * @return Stop[]
@@ -95,13 +96,15 @@ class JourneyResponse
             }
         }
 
-        if (isset($data['MessageList'])) {
-            foreach ($data['MessageList']['Message'] as $message) {
+        if (isset($data['MessageList'], $data['MessageList']['Message'])) {
+            $messages = AbstractServiceCall::checkForSingle($data['MessageList']['Message'], 'Header');
+            foreach ($messages as $message) {
                 $obj->messages[] = Message::createFromArray($message);
             }
         }
 
-        foreach ($data['Stop'] as $stop) {
+        $stops = AbstractServiceCall::checkForSingle($data['Stop'], 'name');
+        foreach ($stops as $stop) {
             $obj->stops[] = Stop::createFromArray($stop);
         }
 

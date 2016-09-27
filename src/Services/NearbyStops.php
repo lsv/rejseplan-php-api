@@ -101,9 +101,15 @@ class NearbyStops extends AbstractServiceCall
      */
     protected function generateResponse(ResponseInterface $response)
     {
-        $json = \GuzzleHttp\json_decode((string) $response->getBody(), true);
+        $json = $this->validateJson($response);
+
         $output = [];
-        foreach ($json['LocationList']['StopLocation'] as $stop) {
+        if (! isset($json['LocationList'], $json['LocationList']['StopLocation'])) {
+            return $output;
+        }
+
+        $stops = $this->checkForSingle($json['LocationList']['StopLocation'], 'name');
+        foreach ($stops as $stop) {
             $output[] = StopLocationResponse::createFromArray($stop);
         }
 

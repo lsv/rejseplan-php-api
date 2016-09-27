@@ -111,11 +111,53 @@ class JourneyTest extends AbstractServicesTest
         $this->assertEquals('2016-09-09 15:29', $stop->getRealtimeDeparture()->format('Y-m-d H:i'));
         $this->assertEquals('2016-09-09 15:30', $stop->getRealtimeArrival()->format('Y-m-d H:i'));
         $this->assertEquals('2', $stop->getRealtimeTrack());
+        $this->assertTrue($stop->isTrackChanged());
+        $this->assertTrue($stop->isDepartureDelay());
+        $this->assertTrue($stop->isArrivalDelay());
+        $this->assertTrue($stop->usesTrack());
 
         $message = $response->getMessages()[1];
         $this->assertEquals('Stoppestedsflytning Astrupvej', $message->getHeader());
         $this->assertEquals("Stoppestedet Astrupvej for bus linje 2A, 5A og 81N mod København flyttes ca. 100 meter frem.\nGyldigt fra 15-08-2016 kl 8:00 til ca. 15-11-2016 kl 16:00.\nDet skyldes Frederikssundsvejsprojektet.", $message->getText());
 
+    }
+
+    public function test_small_response()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/journey_small.json'));
+        $journey = new Journey($this->getBaseUrl(), $client);
+        $journey->setUrl('xxx');
+        $response = $journey->call();
+        $this->assertInstanceOf(JourneyResponse::class, $response);
+
+        $this->assertEquals('Traktorbus', $response->getName());
+        $this->assertEquals('BUS', $response->getType());
+        $this->assertCount(2, $response->getStops());
+        $this->assertCount(0, $response->getMessages());
+        $this->assertCount(2, $response->getNotes());
+
+    }
+
+    public function test_messages()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__.'/mocks/journey_single_message.json'));
+        $journey = new Journey($this->getBaseUrl(), $client);
+        $journey->setUrl('xxx');
+        $response = $journey->call();
+        $this->assertCount(1, $response->getMessages());
+    }
+
+    public function test_single_stop()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__.'/mocks/journey_single_stop.json'));
+        $journey = new Journey($this->getBaseUrl(), $client);
+        $journey->setUrl('xxx');
+        $response = $journey->call();
+        $this->assertCount(1, $response->getStops());
+        $this->assertFalse($response->getStops()[0]->isArrivalDelay());
+        $this->assertFalse($response->getStops()[0]->isDepartureDelay());
+        $this->assertFalse($response->getStops()[0]->isTrackChanged());
+        $this->assertFalse($response->getStops()[0]->usesTrack());
     }
 
 }

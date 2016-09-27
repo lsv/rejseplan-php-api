@@ -13,7 +13,7 @@ class TripResponse
      * @var Leg[]
      * @Serializer\Type("array<RejseplanApi\Services\Response\Trip\Leg>")
      */
-    protected $legs;
+    protected $legs = [];
 
     /**
      * Time when departure.

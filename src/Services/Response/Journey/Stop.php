@@ -62,6 +62,24 @@ class Stop
     protected $realtimeTrack;
 
     /**
+     * @var bool
+     * @Serializer\Type("boolean")
+     */
+    protected $departureDelay;
+
+    /**
+     * @var bool
+     * @Serializer\Type("boolean")
+     */
+    protected $arrivalDelay;
+
+    /**
+     * @var bool
+     * @Serializer\Type("boolean")
+     */
+    protected $trackChanged;
+
+    /**
      * @return string
      */
     public function getName()
@@ -134,6 +152,45 @@ class Stop
     }
 
     /**
+     * Get ScheduledDelay
+     *
+     * @return boolean
+     */
+    public function isDepartureDelay()
+    {
+        return $this->departureDelay;
+    }
+
+    /**
+     * Get ArrivalDelay
+     *
+     * @return boolean
+     */
+    public function isArrivalDelay()
+    {
+        return $this->arrivalDelay;
+    }
+
+    /**
+     * Get TrackChanged
+     *
+     * @return boolean
+     */
+    public function isTrackChanged()
+    {
+        return $this->trackChanged;
+    }
+
+    /**
+     * @Serializer\VirtualProperty()
+     * @return bool
+     */
+    public function usesTrack()
+    {
+        return ! ($this->getScheduledTrack() === null && $this->getRealtimeTrack() === null);
+    }
+
+    /**
      * @param array $data
      *
      * @return Stop
@@ -144,6 +201,44 @@ class Stop
         $obj->name = $data['name'];
         $obj->coordinate = new Coordinate($data['x'], $data['y']);
         $obj->index = $data['routeIdx'];
+
+        self::setScheduled($obj, $data);
+        self::setRealtime($obj, $data);
+        self::setDepartureDelay($obj, $data);
+        self::setArrivalDelay($obj, $data);
+
+        $obj->trackChanged = $obj->getScheduledTrack() != $obj->getRealtimeTrack();
+
+        return $obj;
+    }
+
+    private static function setDepartureDelay(Stop $obj, array $data)
+    {
+        self::setDelay($obj, $data, 'dep', 'departureDelay');
+    }
+
+    private static function setArrivalDelay(Stop $obj, array $data)
+    {
+        self::setDelay($obj, $data, 'arr', 'arrivalDelay');
+    }
+
+    private static function setDelay(Stop $obj, array $data, $key, $property)
+    {
+        $obj->{$property} = false;
+        $rtKey = ucfirst($key);
+        if (isset($data['rt' . $rtKey . 'Date'], $data['rt' . $rtKey . 'Time']) &&
+            isset($data[$key . 'Date'], $data[$key . 'Time'])
+        ) {
+            if ($data['rt' . $rtKey . 'Date'] != $data[$key . 'Date'] ||
+                $data['rt' . $rtKey . 'Time'] != $data[$key . 'Time']
+            ) {
+                $obj->{$property} = true;
+            }
+        }
+    }
+
+    private static function setScheduled(Stop $obj, array $data)
+    {
         if (isset($data['depDate'], $data['depTime'])) {
             $obj->scheduledDeparture = self::createDate($data['depDate'], $data['depTime']);
         }
@@ -152,6 +247,13 @@ class Stop
             $obj->scheduledArrival = self::createDate($data['arrDate'], $data['arrTime']);
         }
 
+        if (isset($data['track'])) {
+            $obj->scheduledTrack = $data['track'];
+        }
+    }
+
+    private static function setRealtime(Stop $obj, array $data)
+    {
         if (isset($data['rtDepDate'], $data['rtDepTime'])) {
             $obj->realtimeDeparture = self::createDate($data['rtDepDate'], $data['rtDepTime']);
         } else {
@@ -164,17 +266,11 @@ class Stop
             $obj->realtimeArrival = $obj->scheduledArrival;
         }
 
-        if (isset($data['track'])) {
-            $obj->scheduledTrack = $data['track'];
-        }
-
         if (isset($data['rtTrack'])) {
             $obj->realtimeTrack = $data['rtTrack'];
         } else {
             $obj->realtimeTrack = $obj->scheduledTrack;
         }
-
-        return $obj;
     }
 
     private static function createDate($date, $time)

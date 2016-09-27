@@ -7,10 +7,14 @@
 | --- | --- | --- |
 | getName() | string | Name of the stop |
 | getCoordinate() | [Coordinate](../../index.md#coordinate) | Coordinates of this stop |
-| getIndex | int | The route index on the journey detail | 
-| getScheduledDeparture | \DateTime, null | Scheduled departure, can be null if its the last leg, then only arrival time will be availible |
-| getScheduledArrival | \DateTime, null | Scheduled arrival, can be null if its the first leg, then only departure time is availible |
-| getScheduledTrack | string, null | Scheduled track, mostly for trains
-| getRealtimeDeparture | \DateTime, null | Realtime departure time
-| getRealtimeArrival | \DateTime, null | Realtime arrival time
-| getRealtimeTrack | string, null | Realtime track
+| getIndex() | int | The route index on the journey detail | 
+| getScheduledDeparture() | \DateTime, null | Scheduled departure, can be null if its the last leg, then only arrival time will be availible |
+| getScheduledArrival() | \DateTime, null | Scheduled arrival, can be null if its the first leg, then only departure time is availible |
+| getScheduledTrack() | string, null | Scheduled track, mostly for trains
+| getRealtimeDeparture() | \DateTime, null | Realtime departure time
+| getRealtimeArrival() | \DateTime, null | Realtime arrival time
+| getRealtimeTrack() | string, null | Realtime track
+| isDepartureDelay() | boolean | Does the departure time have delays 
+| isArrivalDelay() | boolean | Does the arrival time have delays
+| isTrackChanged() | boolean | Has the track changed
+| usesTrack() | boolean | Are the track methods in use

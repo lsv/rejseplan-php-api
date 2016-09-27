@@ -1,0 +1,21 @@
+{
+  "ArrivalBoard": {
+    "noNamespaceSchemaLocation": "http://xmlopen.rejseplanen.dk/xml/rest/hafasRestArrivalBoard.xsd",
+    "Arrival": {
+      "name": "RE 1065",
+      "type": "TOG",
+      "stop": "København H",
+      "time": "14:48",
+      "date": "09.09.16",
+      "messages": "1",
+      "track": "1",
+      "rtTime": "14:59",
+      "rtDate": "09.09.16",
+      "rtTrack": "1",
+      "origin": "Kalmar C",
+      "JourneyDetailRef": {
+        "ref": "http://baseurl/journeyDetail?ref=3849%2F31310%2F372456%2F184946%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "DepartureBoard":{
+    "noNamespaceSchemaLocation":"http://xmlopen.rejseplanen.dk/xml/rest/hafasRestDepartureBoard.xsd",
+    "Departure":{
+      "name":"Bus 2A",
+      "type":"BUS",
+      "stop":"Hovedbanegården, Tivoli (Bernstorffsgade)",
+      "time":"14:49",
+      "date":"09.09.16",
+      "messages":"0",
+      "rtTime":"15:06",
+      "rtDate":"09.09.16",
+      "finalStop":"Tingbjerg, Gavlhusvej (Terrasserne)",
+      "direction":"Tingbjerg Gavlhusvej",
+      "JourneyDetailRef":{
+        "ref":"http://baseurl/journeyDetail?ref=85713%2F32015%2F11902%2F22621%2F86%3Fdate%3D09.09.16%26format%3Djson%26"
+      }
+    }
+  }
+}

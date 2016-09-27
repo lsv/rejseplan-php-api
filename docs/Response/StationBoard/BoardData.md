@@ -19,3 +19,4 @@
 | getDirection() | string | The direction of this vehicle |
 | getOrigin() | string | The origin of this vehicle |
 | getJourneyDetails() | string | A URL to use with [Journey](../../Services/Journey.md) |
+| usesTrack() | boolean | Are the track methods in use
