@@ -160,4 +160,13 @@ class JourneyTest extends AbstractServicesTest
         $this->assertFalse($response->getStops()[0]->usesTrack());
     }
 
+    public function test_errored()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__.'/mocks/error.txt'));
+        $journey = new Journey($this->getBaseUrl(), $client);
+        $journey->setUrl('xxx');
+        $response = $journey->call();
+        $this->assertInstanceOf(JourneyResponse::class, $response);
+    }
+
 }

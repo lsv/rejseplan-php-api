@@ -140,4 +140,13 @@ class NearbyStopsTest extends AbstractServicesTest
 
     }
 
+    public function test_errored()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__.'/mocks/error.txt'));
+        $location = new NearbyStops($this->getBaseUrl(), $client);
+        $location->setCoordinate($this->getCoordinate());
+        $response = $location->call();
+        $this->assertCount(0, $response);
+    }
+
 }

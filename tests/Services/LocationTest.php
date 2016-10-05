@@ -90,4 +90,13 @@ class LocationTest extends AbstractServicesTest
 
     }
 
+    public function test_errored()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__.'/mocks/error.txt'));
+        $location = new Location($this->getBaseUrl(), $client);
+        $location->setInput('my input');
+        $response = $location->call();
+        $this->assertCount(0, $response);
+    }
+
 }
