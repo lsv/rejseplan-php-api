@@ -50,7 +50,7 @@ class ArrivalBoardResponse
         $obj = new self();
         $lastDate = null;
 
-        if (! isset($data['Arrival'])) {
+        if (!isset($data['Arrival'])) {
             return $obj;
         }
 
