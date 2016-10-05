@@ -37,9 +37,9 @@ Some calls requires a `\RejseplanApi\Coordinate` object.
 You can create a Coordinate object by calling
 
 ```php
-$coordinate = new Coordinate( $x, $y );
+$coordinate = new Coordinate( $latitude, $longitude );
 // Or
 $coordinate = new Coordinate();
-$coordinate->setXCoordinate( $x );
-$coordinate->setYCoordinate( $y );
+$coordinate->setLatitude( $latitude );
+$coordinate->setLongitude( $longitude );
 ```
