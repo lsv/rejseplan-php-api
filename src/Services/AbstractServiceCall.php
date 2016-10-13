@@ -60,7 +60,7 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
-        $resolver->resolve($this->options);
+        $this->options = $resolver->resolve($this->options);
     }
 
     /**

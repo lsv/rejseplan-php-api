@@ -20,8 +20,8 @@ class NearbyStopsTest extends AbstractServicesTest
 
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
-        $this->assertEquals($coordinate->getLatitude(), $query['coordX']);
-        $this->assertEquals($coordinate->getLongitude(), $query['coordY']);
+        $this->assertEquals($coordinate->getLatitudeAsInt(), $query['coordX']);
+        $this->assertEquals($coordinate->getLongitudeAsInt(), $query['coordY']);
     }
 
     public function test_url_setCoordinate_astext()
@@ -36,8 +36,8 @@ class NearbyStopsTest extends AbstractServicesTest
 
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
-        $this->assertEquals(11.566488, $query['coordX']);
-        $this->assertEquals(56.672578, $query['coordY']);
+        $this->assertEquals(11566488, $query['coordX']);
+        $this->assertEquals(56672578, $query['coordY']);
     }
 
     public function test_url_setMaxResults()
@@ -53,8 +53,8 @@ class NearbyStopsTest extends AbstractServicesTest
 
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
-        $this->assertEquals($coordinate->getLatitude(), $query['coordX']);
-        $this->assertEquals($coordinate->getLongitude(), $query['coordY']);
+        $this->assertEquals($coordinate->getLatitudeAsInt(), $query['coordX']);
+        $this->assertEquals($coordinate->getLongitudeAsInt(), $query['coordY']);
         $this->assertEquals('10', $query['maxNumber']);
     }
 
@@ -71,8 +71,8 @@ class NearbyStopsTest extends AbstractServicesTest
 
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
-        $this->assertEquals($coordinate->getLatitude(), $query['coordX']);
-        $this->assertEquals($coordinate->getLongitude(), $query['coordY']);
+        $this->assertEquals($coordinate->getLatitudeAsInt(), $query['coordX']);
+        $this->assertEquals($coordinate->getLongitudeAsInt(), $query['coordY']);
         $this->assertEquals('1500', $query['maxRadius']);
     }
 

@@ -255,22 +255,19 @@ class Stop
 
     private static function setRealtime(Stop $obj, array $data)
     {
+        $obj->realtimeDeparture = $obj->scheduledDeparture;
         if (isset($data['rtDepDate'], $data['rtDepTime'])) {
             $obj->realtimeDeparture = self::createDate($data['rtDepDate'], $data['rtDepTime']);
-        } else {
-            $obj->realtimeDeparture = $obj->scheduledDeparture;
         }
 
+        $obj->realtimeArrival = $obj->scheduledArrival;
         if (isset($data['rtArrDate'], $data['rtArrTime'])) {
             $obj->realtimeArrival = self::createDate($data['rtArrDate'], $data['rtArrTime']);
-        } else {
-            $obj->realtimeArrival = $obj->scheduledArrival;
         }
 
+        $obj->realtimeTrack = $obj->scheduledTrack;
         if (isset($data['rtTrack'])) {
             $obj->realtimeTrack = $data['rtTrack'];
-        } else {
-            $obj->realtimeTrack = $obj->scheduledTrack;
         }
     }
 

@@ -6,6 +6,8 @@ use JMS\Serializer\Annotation as Serializer;
 
 class Coordinate
 {
+    const INT_INVERT = 1000000;
+
     /**
      * Latitude.
      *
@@ -44,7 +46,15 @@ class Coordinate
      */
     public function getLatitude()
     {
-        return (float) $this->latitude;
+        return $this->latitude;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLatitudeAsInt()
+    {
+        return $this->getLatitude() * self::INT_INVERT;
     }
 
     /**
@@ -54,8 +64,7 @@ class Coordinate
      */
     public function setLatitude($latitude)
     {
-        $this->latitude = strpos($latitude, '.') === false ? (float) $latitude / 1000000 : $latitude;
-
+        $this->latitude = $this->setCoordinate($latitude);
         return $this;
     }
 
@@ -64,7 +73,12 @@ class Coordinate
      */
     public function getLongitude()
     {
-        return (float) $this->longitude;
+        return $this->longitude;
+    }
+
+    public function getLongitudeAsInt()
+    {
+        return $this->getLongitude() * self::INT_INVERT;
     }
 
     /**
@@ -74,8 +88,7 @@ class Coordinate
      */
     public function setLongitude($longitude)
     {
-        $this->longitude = strpos($longitude, '.') === false ? (float) $longitude / 1000000 : $longitude;
-
+        $this->longitude = $this->setCoordinate($longitude);
         return $this;
     }
 
@@ -87,5 +100,12 @@ class Coordinate
     public function __toString()
     {
         return sprintf('%s,%s', $this->getLatitude(), $this->getLongitude());
+    }
+
+    private function setCoordinate($coordinate)
+    {
+        $coordinate = (float) $coordinate;
+        $coordinate = strpos($coordinate, '.') === false ? ($coordinate / self::INT_INVERT) : $coordinate;
+        return $coordinate;
     }
 }

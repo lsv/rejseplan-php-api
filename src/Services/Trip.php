@@ -267,6 +267,7 @@ class Trip extends AbstractServiceCall
         foreach ($keys as $key) {
             /** @var LocationResponse $option */
             $option = $options[$key];
+            $urlOptions[$key.'Id'] = $option->getId();
             if ($option instanceof LocationResponse) {
                 if ($option->isStop()) {
                     $urlOptions[$key.'Id'] = $option->getId();
@@ -275,8 +276,6 @@ class Trip extends AbstractServiceCall
                     $urlOptions[$key.'CoordX'] = $option->getCoordinate()->getLatitude();
                     $urlOptions[$key.'CoordY'] = $option->getCoordinate()->getLongitude();
                 }
-            } else {
-                $urlOptions[$key.'Id'] = $option->getId();
             }
         }
 

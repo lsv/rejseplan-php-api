@@ -248,20 +248,8 @@ class BoardData
     public static function createFromArray(array $data)
     {
         $obj = new self();
-        $obj->name = $data['name'];
-        $obj->type = $data['type'];
-        $obj->stop = $data['stop'];
-
-        if (isset($data['finalStop'])) {
-            $obj->finalStop = $data['finalStop'];
-        }
-
-        if (isset($data['origin'])) {
-            $obj->origin = $data['origin'];
-        }
-
-        if (isset($data['direction'])) {
-            $obj->direction = $data['direction'];
+        foreach (['name', 'type', 'stop', 'finalStop', 'origin', 'direction'] as $setter) {
+            $obj->{$setter} = isset($data[$setter]) ? $data[$setter] : null;
         }
 
         $obj->messages = false;
@@ -325,10 +313,9 @@ class BoardData
                 $obj->scheduledTrack = $obj->realTrack;
             }
 
+            $obj->trackChanged = true;
             if ($obj->scheduledTrack == $obj->realTrack) {
                 $obj->trackChanged = false;
-            } else {
-                $obj->trackChanged = true;
             }
         }
     }

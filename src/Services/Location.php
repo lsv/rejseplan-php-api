@@ -28,14 +28,57 @@ class Location extends AbstractServiceCall
     }
 
     /**
+     * If set the search will not have any stops.
+     *
+     * @return $this
+     */
+    public function setNoStops()
+    {
+        $this->options['include_stops'] = false;
+
+        return $this;
+    }
+
+    /**
+     * If set the search will not have any addresses.
+     *
+     * @return $this
+     */
+    public function setNoAddresses()
+    {
+        $this->options['include_addresses'] = false;
+
+        return $this;
+    }
+
+    /**
+     * If set the search will not have any pois.
+     *
+     * @return $this
+     */
+    public function setNoPois()
+    {
+        $this->options['include_pois'] = false;
+
+        return $this;
+    }
+
+    /**
      * Configure the options.
      *
      * @param OptionsResolver $options
      */
     protected function configureOptions(OptionsResolver $options)
     {
-        $options->setRequired(['input']);
+        $options->setRequired(['input', 'include_stops', 'include_addresses', 'include_pois']);
         $options->setAllowedTypes('input', ['string', 'int', 'float']);
+        $options->setAllowedTypes('include_stops', 'bool');
+        $options->setAllowedTypes('include_addresses', 'bool');
+        $options->setAllowedTypes('include_pois', 'bool');
+
+        $options->setDefault('include_stops', true);
+        $options->setDefault('include_addresses', true);
+        $options->setDefault('include_pois', true);
     }
 
     /**
@@ -73,7 +116,7 @@ class Location extends AbstractServiceCall
 
             $stops = $this->checkForSingle($stops, 'name');
             foreach ($stops as $stop) {
-                $output[] = LocationResponse::createFromArray($stop);
+                $this->setAllowed($stop, $output);
             }
         }
 
@@ -88,5 +131,19 @@ class Location extends AbstractServiceCall
     public function call()
     {
         return $this->doCall();
+    }
+
+    private function setAllowed($stop, array &$output)
+    {
+        $location = LocationResponse::createFromArray($stop);
+        $types = ['include_stops' => 'isStop', 'include_addresses' => 'isAddress', 'include_pois' => 'isPoi'];
+        foreach ($types as $type => $method) {
+            if ($this->options[$type] === true) {
+                if ($location->{$method}()) {
+                    $output[] = $location;
+                    break;
+                }
+            }
+        }
     }
 }

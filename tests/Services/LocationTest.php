@@ -99,4 +99,45 @@ class LocationTest extends AbstractServicesTest
         $this->assertCount(0, $response);
     }
 
+    public function test_searches_no_address()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/location.json'));
+        $location = new Location($this->getBaseUrl(), $client);
+        $location->setInput('my input');
+        $location->setNoAddresses();
+        $response = $location->call();
+        $this->assertCount(11, $response);
+    }
+
+    public function test_searches_no_pois()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/location.json'));
+        $location = new Location($this->getBaseUrl(), $client);
+        $location->setInput('my input');
+        $location->setNoPois();
+        $response = $location->call();
+        $this->assertCount(8, $response);
+    }
+
+    public function test_searches_no_stops()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/location.json'));
+        $location = new Location($this->getBaseUrl(), $client);
+        $location->setInput('my input');
+        $location->setNoStops();
+        $response = $location->call();
+        $this->assertCount(9, $response);
+    }
+
+    public function test_searches_no_pois_no_address()
+    {
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/location.json'));
+        $location = new Location($this->getBaseUrl(), $client);
+        $location->setInput('my input');
+        $location->setNoPois();
+        $location->setNoAddresses();
+        $response = $location->call();
+        $this->assertCount(5, $response);
+    }
+
 }
