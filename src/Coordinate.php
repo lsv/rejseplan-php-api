@@ -65,6 +65,7 @@ class Coordinate
     public function setLatitude($latitude)
     {
         $this->latitude = $this->setCoordinate($latitude);
+
         return $this;
     }
 
@@ -89,6 +90,7 @@ class Coordinate
     public function setLongitude($longitude)
     {
         $this->longitude = $this->setCoordinate($longitude);
+
         return $this;
     }
 
@@ -106,6 +108,7 @@ class Coordinate
     {
         $coordinate = (float) $coordinate;
         $coordinate = strpos($coordinate, '.') === false ? ($coordinate / self::INT_INVERT) : $coordinate;
+
         return $coordinate;
     }
 }
