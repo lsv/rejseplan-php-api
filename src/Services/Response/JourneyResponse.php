@@ -91,8 +91,12 @@ class JourneyResponse
         $obj->type = $data['JourneyType']['type'];
 
         if (isset($data['Note'])) {
-            foreach ($data['Note'] as $note) {
-                $obj->notes[] = $note['text'];
+            if(isset($data['Note'][0]) && is_array($data['Note'][0])){
+                foreach ($data['Note'] as $note) {
+                    $obj->notes[] = $note['text'];
+                }
+            }else{
+                $obj->notes[] = $data['Note']['text'];
             }
         }
 
