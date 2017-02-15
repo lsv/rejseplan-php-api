@@ -87,12 +87,16 @@ class JourneyResponse
     public static function createFromArray(array $data)
     {
         $obj = new self();
-        $obj->name = $data['JourneyName']['name'];
-        $obj->type = $data['JourneyType']['type'];
+        $obj->name = isset($data['JourneyName']['name']) ? $data['JourneyName']['name'] : $data['JourneyName'][0]['name'];
+        $obj->type = isset($data['JourneyType']['type']) ? $data['JourneyType']['type'] : $data['JourneyType'][0]['type'];
 
         if (isset($data['Note'])) {
-            foreach ($data['Note'] as $note) {
-                $obj->notes[] = $note['text'];
+            if (isset($data['Note'][0]) && is_array($data['Note'][0])) {
+                foreach ($data['Note'] as $note) {
+                    $obj->notes[] = $note['text'];
+                }
+            } else {
+                $obj->notes[] = $data['Note']['text'];
             }
         }
 
