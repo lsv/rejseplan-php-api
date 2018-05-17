@@ -1,13 +1,8 @@
-preset: recommended
-
-risky: false
-
-linting: true
-
-finder:
-  exclude:
-    - "tests"
-  name:
-    - "*.php"
-  path:
-    - "src"
+php:
+    preset: recommended
+    risky: true
+    finder:
+        exclude:
+            - tests
+            - vendor
+        name: "*.php"
