@@ -3,7 +3,7 @@
 namespace RejseplanApi\Services\Response;
 
 use JMS\Serializer\Annotation as Serializer;
-use RejseplanApi\Coordinate;
+use RejseplanApi\Utils\Coordinate;
 
 class StopLocationResponse
 {
@@ -39,44 +39,27 @@ class StopLocationResponse
      */
     protected $distance;
 
-    /**
-     * @return null|string
-     */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return Coordinate
-     */
-    public function getCoordinate()
+    public function getCoordinate(): Coordinate
     {
         return $this->coordinate;
     }
 
-    /**
-     * @return int
-     */
-    public function getDistance()
+    public function getDistance(): int
     {
         return $this->distance;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return StopLocationResponse
-     */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): StopLocationResponse
     {
         $obj = new self();
         $obj->id = $data['id'];

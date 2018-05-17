@@ -10,10 +10,10 @@
         }
     ],
     "require": {
-        "php": "^5.6|^7.0",
+        "php": "^7.2",
         "guzzlehttp/guzzle": "^6.0",
-        "symfony/options-resolver": "^2.6|^3.0",
-        "jms/serializer": "^1.3"
+        "symfony/options-resolver": "^4.0",
+        "jms/serializer": "^1.9|^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -21,22 +21,29 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.3",
-        "phpmd/phpmd": "^2.2",
-        "sebastian/phpcpd": "^2.0",
-        "phploc/phploc": "^2.1",
-        "phing/phing": "^2.11",
-        "squizlabs/php_codesniffer": "^2.3",
-        "friendsofphp/php-cs-fixer": "^1.10",
-        "apigen/apigen": "dev-master",
-        "fzaninotto/faker": "^1.6"
+        "phpunit/phpunit": "^7.1",
+        "symplify/easy-coding-standard": "^4.2",
+        "phpstan/phpstan": "^0.9.2"
     },
     "autoload-dev": {
         "psr-4": {
             "RejseplanApiTest\\": "tests"
         }
     },
-    "config": {
-        "bin-dir": "bin"
+    "scripts": {
+        "fix": [
+            "composer validate --strict",
+            "./vendor/bin/phpunit --coverage-html=.build --coverage-text --colors=never",
+            "./vendor/bin/ecs check -q src --level psr12 --fix",
+            "./vendor/bin/ecs check -q tests --level psr12 --fix",
+            "./vendor/bin/phpstan analyze src --level 7 --no-progress"
+        ],
+        "test": [
+            "composer validate --strict",
+            "./vendor/bin/phpunit --coverage-clover=coverage.xml",
+            "./vendor/bin/ecs check src --level psr12",
+            "./vendor/bin/ecs check tests --level psr12",
+            "./vendor/bin/phpstan analyze src --level 7 --no-progress"
+        ]
     }
 }

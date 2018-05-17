@@ -18,32 +18,21 @@ class Message
      */
     protected $text;
 
-    /**
-     * @return string
-     */
-    public function getHeader()
+    public function getHeader(): string
     {
         return $this->header;
     }
 
-    /**
-     * @return string
-     */
-    public function getText()
+    public function getText(): string
     {
         return $this->text;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return Message
-     */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): Message
     {
         $obj = new self();
         $obj->header = str_replace("\n", '', $data['Header']['$']);
-        $obj->text = str_replace('  ', "\n", str_replace("\n", '', $data['Text']['$']));
+        $obj->text = str_replace(["\n", '  '], ['', "\n"], $data['Text']['$']);
 
         return $obj;
     }

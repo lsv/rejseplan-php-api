@@ -13,7 +13,7 @@ interface ServiceCallInterface
      *
      * @return mixed
      */
-    public function call();
+    public function call();/** @noinspection ReturnTypeCanBeDeclaredInspection */
 
     /**
      * Set the base url for the calls.
@@ -22,7 +22,7 @@ interface ServiceCallInterface
      *
      * @return $this
      */
-    public function setBaseUrl($baseUrl);
+    public function setBaseUrl(string $baseUrl);/** @noinspection ReturnTypeCanBeDeclaredInspection */
 
     /**
      * Set the client used for the operations.
@@ -35,15 +35,11 @@ interface ServiceCallInterface
 
     /**
      * Get the request object.
-     *
-     * @return RequestInterface
      */
-    public function getRequest();
+    public function getRequest(): RequestInterface;
 
     /**
      * Get the actual response.
-     *
-     * @return ResponseInterface
      */
-    public function getResponse();
+    public function getResponse(): ResponseInterface;
 }

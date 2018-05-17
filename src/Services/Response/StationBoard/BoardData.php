@@ -118,138 +118,89 @@ class BoardData
      */
     protected $journeyDetails;
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
-    public function getStop()
+    public function getStop(): string
     {
         return $this->stop;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getScheduledDate()
+    public function getScheduledDate(): \DateTime
     {
         return $this->scheduledDate;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRealDate()
+    public function getRealDate(): \DateTime
     {
         return $this->realDate;
     }
 
-    /**
-     * @return bool
-     */
-    public function isDelayed()
+    public function isDelayed(): bool
     {
         return $this->delayed;
     }
 
-    /**
-     * @return string
-     */
-    public function getScheduledTrack()
+    public function getScheduledTrack(): ?string
     {
         return $this->scheduledTrack;
     }
 
-    /**
-     * @return string
-     */
-    public function getRealTrack()
+    public function getRealTrack(): ?string
     {
         return $this->realTrack;
     }
 
-    /**
-     * @return bool|null
-     */
-    public function isTrackChanged()
+    public function isTrackChanged(): ?bool
     {
         return $this->trackChanged;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasMessages()
+    public function hasMessages(): bool
     {
         return $this->messages;
     }
 
-    /**
-     * @return string
-     */
-    public function getFinalStop()
+    public function getFinalStop(): string
     {
         return $this->finalStop;
     }
 
-    /**
-     * @return string
-     */
-    public function getDirection()
+    public function getDirection(): string
     {
         return $this->direction;
     }
 
-    /**
-     * @return string
-     */
-    public function getOrigin()
+    public function getOrigin(): string
     {
         return $this->origin;
     }
 
-    /**
-     * @return string
-     */
-    public function getJourneyDetails()
+    public function getJourneyDetails(): string
     {
-        return $this->journeyDetails;
+        return str_replace('http://', 'https://', $this->journeyDetails);
     }
 
     /**
      * @Serializer\VirtualProperty()
-     *
-     * @return bool
      */
-    public function usesTrack()
+    public function usesTrack(): bool
     {
         return !($this->getScheduledTrack() === null || $this->getRealTrack() === null);
     }
 
-    /**
-     * @param array $data
-     *
-     * @return BoardData
-     */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): BoardData
     {
         $obj = new self();
         foreach (['name', 'type', 'stop', 'finalStop', 'origin', 'direction'] as $setter) {
-            $obj->{$setter} = isset($data[$setter]) ? $data[$setter] : null;
+            $obj->{$setter} = $data[$setter] ?? null;
         }
 
         $obj->messages = false;
@@ -257,7 +208,7 @@ class BoardData
             $obj->messages = (bool) $data['messages'];
         }
 
-        if (isset($data['JourneyDetailRef'], $data['JourneyDetailRef']['ref'])) {
+        if (isset($data['JourneyDetailRef']['ref'])) {
             $obj->journeyDetails = $data['JourneyDetailRef']['ref'];
         }
 
@@ -267,11 +218,7 @@ class BoardData
         return $obj;
     }
 
-    /**
-     * @param BoardData $obj
-     * @param array     $data
-     */
-    private static function setDate(BoardData $obj, array $data)
+    private static function setDate(BoardData $obj, array $data): void
     {
         $obj->scheduledDate = date_create_from_format('d.m.y H:i', sprintf('%s %s', $data['date'], $data['time']));
 
@@ -283,7 +230,7 @@ class BoardData
             $data['rtTime'] = $data['time'];
         }
 
-        if ($data['date'] == $data['rtDate'] && $data['time'] == $data['rtTime']) {
+        if ($data['date'] === $data['rtDate'] && $data['time'] === $data['rtTime']) {
             $obj->delayed = false;
         } else {
             $obj->delayed = true;
@@ -292,31 +239,26 @@ class BoardData
         $obj->realDate = date_create_from_format('d.m.y H:i', sprintf('%s %s', $data['rtDate'], $data['rtTime']));
     }
 
-    /**
-     * @param BoardData $obj
-     * @param array     $data
-     */
-    private static function setTrack(BoardData $obj, array $data)
+    private static function setTrack(BoardData $obj, array $data): void
     {
         $obj->trackChanged = null;
 
-        if (isset($data['track']) || isset($data['rtTrack'])) {
-            if (isset($data['track'])) {
-                $obj->scheduledTrack = $data['track'];
-            }
-
-            if (isset($data['rtTrack'])) {
-                $obj->realTrack = $data['rtTrack'];
-            }
-
-            if (!$obj->scheduledTrack) {
-                $obj->scheduledTrack = $obj->realTrack;
-            }
-
+        if (isset($data['track'])) {
             $obj->trackChanged = true;
-            if ($obj->scheduledTrack == $obj->realTrack) {
-                $obj->trackChanged = false;
-            }
+            $obj->scheduledTrack = $data['track'];
+        }
+
+        if (isset($data['rtTrack'])) {
+            $obj->trackChanged = true;
+            $obj->realTrack = $data['rtTrack'];
+        }
+
+        if (!$obj->scheduledTrack && $obj->realTrack) {
+            $obj->scheduledTrack = $obj->realTrack;
+        }
+
+        if ($obj->scheduledTrack === $obj->realTrack) {
+            $obj->trackChanged = false;
         }
     }
 }

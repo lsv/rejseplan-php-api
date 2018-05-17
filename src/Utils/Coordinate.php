@@ -1,17 +1,18 @@
 <?php
 
-namespace RejseplanApi;
+namespace RejseplanApi\Utils;
 
 use JMS\Serializer\Annotation as Serializer;
 
 class Coordinate
 {
-    const INT_INVERT = 1000000;
+    private const INT_INVERT = 1000000;
 
     /**
      * Latitude.
      *
      * @var float
+     *
      * @Serializer\Type("float")
      */
     protected $latitude;
@@ -20,17 +21,12 @@ class Coordinate
      * Longitude.
      *
      * @var float
+     *
      * @Serializer\Type("float")
      */
     protected $longitude;
 
-    /**
-     * Coordinate constructor.
-     *
-     * @param string|float|null $latitude
-     * @param string|float|null $longitude
-     */
-    public function __construct($latitude = null, $longitude = null)
+    public function __construct(?float $latitude = null, ?float $longitude = null)
     {
         if ($latitude) {
             $this->setLatitude($latitude);
@@ -41,53 +37,34 @@ class Coordinate
         }
     }
 
-    /**
-     * @return float
-     */
-    public function getLatitude()
+    public function getLatitude(): float
     {
         return $this->latitude;
     }
 
-    /**
-     * @return int
-     */
-    public function getLatitudeAsInt()
+    public function getLatitudeAsInt(): float
     {
         return $this->getLatitude() * self::INT_INVERT;
     }
 
-    /**
-     * @param float $latitude
-     *
-     * @return Coordinate
-     */
-    public function setLatitude($latitude)
+    public function setLatitude(float $latitude): Coordinate
     {
         $this->latitude = $this->setCoordinate($latitude);
 
         return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getLongitude()
+    public function getLongitude(): float
     {
         return $this->longitude;
     }
 
-    public function getLongitudeAsInt()
+    public function getLongitudeAsInt(): float
     {
         return $this->getLongitude() * self::INT_INVERT;
     }
 
-    /**
-     * @param float $longitude
-     *
-     * @return Coordinate
-     */
-    public function setLongitude($longitude)
+    public function setLongitude(float $longitude): Coordinate
     {
         $this->longitude = $this->setCoordinate($longitude);
 
@@ -96,6 +73,7 @@ class Coordinate
 
     /**
      * @return string
+     *
      * @Serializer\SerializedName("coordinates")
      * @Serializer\VirtualProperty()
      */

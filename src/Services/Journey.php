@@ -3,6 +3,7 @@
 namespace RejseplanApi\Services;
 
 use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RejseplanApi\Services\Response\JourneyResponse;
 use RejseplanApi\Services\Response\StationBoard\BoardData;
@@ -24,9 +25,9 @@ class Journey extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setUrl($url)
+    public function setUrl($url): self
     {
-        if (is_string($url)) {
+        if (\is_string($url)) {
             $this->options['url'] = $url;
 
             return $this;
@@ -56,7 +57,7 @@ class Journey extends AbstractServiceCall
      *
      * @return $this
      */
-    protected function setUrlFromLeg(Leg $leg)
+    protected function setUrlFromLeg(Leg $leg): self
     {
         $this->options['url'] = $leg->getJournyDetails();
 
@@ -70,7 +71,7 @@ class Journey extends AbstractServiceCall
      *
      * @return $this
      */
-    protected function setUrlFromBoardData(BoardData $data)
+    protected function setUrlFromBoardData(BoardData $data): self
     {
         $this->options['url'] = $data->getJourneyDetails();
 
@@ -82,7 +83,7 @@ class Journey extends AbstractServiceCall
      *
      * @param OptionsResolver $options
      */
-    protected function configureOptions(OptionsResolver $options)
+    protected function configureOptions(OptionsResolver $options): void
     {
         $options->setRequired(['url']);
     }
@@ -94,7 +95,7 @@ class Journey extends AbstractServiceCall
      *
      * @return string
      */
-    protected function getUrl(array $options)
+    protected function getUrl(array $options): string
     {
         $url = parse_url($options['url'], PHP_URL_QUERY);
         parse_str($url, $query);
@@ -110,24 +111,24 @@ class Journey extends AbstractServiceCall
      *
      * @param ResponseInterface $response
      *
-     * @return JourneyResponse
+     * @return JourneyResponse|null
      */
-    protected function generateResponse(ResponseInterface $response)
+    protected function generateResponse(ResponseInterface $response): ?JourneyResponse
     {
         $json = $this->validateJson($response);
         if (isset($json['JourneyDetail'])) {
             return JourneyResponse::createFromArray($json['JourneyDetail']);
         }
 
-        return new JourneyResponse();
+        return null;
     }
 
     /**
-     * Call it.
+     * @return JourneyResponse|null
      *
-     * @return JourneyResponse
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function call()
+    public function call(): ?JourneyResponse
     {
         return $this->doCall();
     }
@@ -135,8 +136,8 @@ class Journey extends AbstractServiceCall
     /**
      * Create the request.
      */
-    protected function createRequest()
+    protected function createRequest(): RequestInterface
     {
-        $this->request = new Request($this->getMethod(), $this->getUrl($this->options), $this->getHeaders());
+        return new Request($this->getMethod(), $this->getUrl($this->options), $this->getHeaders());
     }
 }

@@ -57,7 +57,7 @@ class Leg
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -65,7 +65,7 @@ class Leg
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -73,7 +73,7 @@ class Leg
     /**
      * @return Place
      */
-    public function getOrigin()
+    public function getOrigin(): Place
     {
         return $this->origin;
     }
@@ -81,7 +81,7 @@ class Leg
     /**
      * @return Place
      */
-    public function getDestination()
+    public function getDestination(): Place
     {
         return $this->destination;
     }
@@ -89,7 +89,7 @@ class Leg
     /**
      * @return array
      */
-    public function getNotes()
+    public function getNotes(): array
     {
         return $this->notes;
     }
@@ -97,7 +97,7 @@ class Leg
     /**
      * @return string
      */
-    public function getJournyDetails()
+    public function getJournyDetails(): ?string
     {
         return $this->journyDetails;
     }
@@ -107,7 +107,7 @@ class Leg
      *
      * @return Leg
      */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): Leg
     {
         $obj = new self();
         $obj->name = $data['name'];
@@ -115,11 +115,11 @@ class Leg
         $obj->origin = Place::createFromArray($data['Origin']);
         $obj->destination = Place::createFromArray($data['Destination']);
 
-        if (isset($data['Notes'], $data['Notes']['text'])) {
+        if (isset($data['Notes']['text'])) {
             $obj->notes = self::setNotes($data['Notes']['text'], $data['type']);
         }
 
-        if (isset($data['JourneyDetailRef'], $data['JourneyDetailRef']['ref'])) {
+        if (isset($data['JourneyDetailRef']['ref'])) {
             $obj->journyDetails = $data['JourneyDetailRef']['ref'];
         }
 
@@ -129,7 +129,7 @@ class Leg
     private static function setNotes($notes, $type)
     {
         $split = '/[;,]/';
-        if ($type == 'BIKE') {
+        if ($type === 'BIKE') {
             $split = '/[;]/';
         }
 

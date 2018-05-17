@@ -22,7 +22,7 @@ class Trip extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setOrigin($location)
+    public function setOrigin($location): self
     {
         $this->options['origin'] = $location;
 
@@ -36,7 +36,7 @@ class Trip extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setDestination($location)
+    public function setDestination($location): self
     {
         $this->options['dest'] = $location;
 
@@ -50,7 +50,7 @@ class Trip extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setVia($location)
+    public function setVia($location): self
     {
         $this->options['via'] = $location;
 
@@ -64,7 +64,7 @@ class Trip extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setDate(\DateTime $time)
+    public function setDate(\DateTime $time): self
     {
         $this->options['date'] = $time;
 
@@ -76,7 +76,7 @@ class Trip extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setDontUseBus()
+    public function setDontUseBus(): self
     {
         $this->options['useBus'] = 0;
 
@@ -88,7 +88,7 @@ class Trip extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setDontUseTrain()
+    public function setDontUseTrain(): self
     {
         $this->options['useTog'] = 0;
 
@@ -100,7 +100,7 @@ class Trip extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setDontUseMetro()
+    public function setDontUseMetro(): self
     {
         $this->options['useMetro'] = 0;
 
@@ -115,7 +115,7 @@ class Trip extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setWalkingDistance($originDistance = 2000, $destinationDistance = 2000)
+    public function setWalkingDistance(int $originDistance = 2000, int $destinationDistance = 2000): self
     {
         $this->options['maxWalkingDistanceDep'] = $originDistance;
         $this->options['maxWalkingDistanceDest'] = $destinationDistance;
@@ -131,7 +131,7 @@ class Trip extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setUseBicycle($originDistance = 5000, $destinationDistance = 5000)
+    public function setUseBicycle(int $originDistance = 5000, int $destinationDistance = 5000): self
     {
         $this->options['useBicycle'] = 1;
         $this->options['maxCyclingDistanceDep'] = $originDistance;
@@ -145,7 +145,7 @@ class Trip extends AbstractServiceCall
      *
      * @param OptionsResolver $options
      */
-    protected function configureOptions(OptionsResolver $options)
+    protected function configureOptions(OptionsResolver $options): void
     {
         $distanceAllowedValues = function ($value) {
             return !($value < 500 || $value > 20000);
@@ -185,7 +185,7 @@ class Trip extends AbstractServiceCall
      *
      * @return string
      */
-    protected function getUrl(array $options)
+    protected function getUrl(array $options): string
     {
         $urlOptions = [];
         $this->setOriginAndDestinationOption($urlOptions, $options);
@@ -204,12 +204,12 @@ class Trip extends AbstractServiceCall
      *
      * @return TripResponse[]
      */
-    protected function generateResponse(ResponseInterface $response)
+    protected function generateResponse(ResponseInterface $response): array
     {
         $json = $this->validateJson($response);
 
         $trips = [];
-        if (!isset($json['TripList'], $json['TripList']['Trip'])) {
+        if (!isset($json['TripList']['Trip'])) {
             return $trips;
         }
 
@@ -221,16 +221,16 @@ class Trip extends AbstractServiceCall
     }
 
     /**
-     * Call it.
-     *
      * @return TripResponse[]
+     *
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function call()
+    public function call(): array
     {
         return $this->doCall();
     }
 
-    private function setDateOption(array &$urlOptions, array &$options)
+    private function setDateOption(array &$urlOptions, array &$options): void
     {
         if (isset($options['date'])) {
             $urlOptions['date'] = $options['date']->format('d.m.y');
@@ -239,7 +239,7 @@ class Trip extends AbstractServiceCall
         }
     }
 
-    private function setViaOption(array &$urlOptions, array &$options)
+    private function setViaOption(array &$urlOptions, array &$options): void
     {
         if (isset($options['via'])) {
             $via = $options['via'];
@@ -252,29 +252,31 @@ class Trip extends AbstractServiceCall
                 unset($options['via']);
 
                 return;
-            } else {
-                $urlOptions['via'] = $via->getId();
-                unset($options['via']);
-
-                return;
             }
+
+            $urlOptions['via'] = $via->getId();
+            unset($options['via']);
+
+            return;
         }
     }
 
-    private function setOriginAndDestinationOption(array &$urlOptions, array &$options)
+    private function setOriginAndDestinationOption(array &$urlOptions, array &$options): void
     {
         $keys = ['origin', 'dest'];
         foreach ($keys as $key) {
             /** @var LocationResponse $option */
             $option = $options[$key];
-            $urlOptions[$key.'Id'] = $option->getId();
+            $urlOptions[$key . 'Id'] = $option->getId();
             if ($option instanceof LocationResponse) {
                 if ($option->isStop()) {
-                    $urlOptions[$key.'Id'] = $option->getId();
+                    $urlOptions[$key . 'Id'] = $option->getId();
                 } else {
-                    $urlOptions[$key.'CoordName'] = $option->getName();
-                    $urlOptions[$key.'CoordX'] = $option->getCoordinate()->getLatitude();
-                    $urlOptions[$key.'CoordY'] = $option->getCoordinate()->getLongitude();
+                    $urlOptions[$key . 'CoordName'] = $option->getName();
+                    if ($option->getCoordinate()) {
+                        $urlOptions[$key . 'CoordX'] = $option->getCoordinate()->getLatitude();
+                        $urlOptions[$key . 'CoordY'] = $option->getCoordinate()->getLongitude();
+                    }
                 }
             }
         }

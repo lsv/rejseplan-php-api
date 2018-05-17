@@ -1,30 +1,26 @@
 <?php
+
 namespace RejseplanApiTest\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use RejseplanApi\Coordinate;
 use RejseplanApi\Services\Response\LocationResponse;
 use RejseplanApi\Services\Response\StopLocationResponse;
+use RejseplanApi\Utils\Coordinate;
 use RejseplanApiTest\AbstractTest;
 
 abstract class AbstractServicesTest extends AbstractTest
 {
-
-    protected function getCoordinate()
+    protected function getCoordinate(): Coordinate
     {
         return new Coordinate(12.566488, 55.672578);
     }
 
-    /**
-     * @param string $type
-     * @return LocationResponse
-     */
-    protected function getLocationResponse($type = LocationResponse::LOCATIONTYPE_STOP)
+    protected function getLocationResponse(string $type = LocationResponse::LOCATIONTYPE_STOP): LocationResponse
     {
-        $loc = $this->createMock(LocationResponse::class);
+        $loc = $this->getMockBuilder(LocationResponse::class)->disableOriginalConstructor()->getMock();
         $loc->method('getName')
             ->willReturn('Hovedbanegården, Tivoli (Bernstorffsgade)')
         ;
@@ -43,15 +39,13 @@ abstract class AbstractServicesTest extends AbstractTest
         $loc->method('isPOI')
             ->willReturn($type === LocationResponse::LOCATIONTYPE_POI)
         ;
+        /** @var LocationResponse $loc */
         return $loc;
     }
 
-    /**
-     * @return StopLocationResponse
-     */
-    protected function getStopLocationResponse()
+    protected function getStopLocationResponse(): StopLocationResponse
     {
-        $loc = $this->createMock(StopLocationResponse::class);
+        $loc = $this->getMockBuilder(StopLocationResponse::class)->getMock();
         $loc->method('getId')
             ->willReturn('987654321')
         ;
@@ -64,19 +58,20 @@ abstract class AbstractServicesTest extends AbstractTest
         $loc->method('getDistance')
             ->willReturn(10)
         ;
+        /** @var StopLocationResponse $loc */
         return $loc;
     }
 
-    protected function getBaseUrl()
+    protected function getBaseUrl(): string
     {
-        return '';
+        return 'https://mybaseurl.domain.com';
     }
 
     /**
      * @param MockHandler $mock
      * @return Client
      */
-    protected function getClient(MockHandler $mock)
+    protected function getClient(MockHandler $mock): Client
     {
         $handler = HandlerStack::create($mock);
         return new Client(['handler' => $handler]);
@@ -86,7 +81,7 @@ abstract class AbstractServicesTest extends AbstractTest
      * @param string $body
      * @return MockHandler
      */
-    protected function getClientMockHandler($body)
+    protected function getClientMockHandler($body): MockHandler
     {
         return new MockHandler([
             new Response(200, [], $body)
@@ -97,9 +92,8 @@ abstract class AbstractServicesTest extends AbstractTest
      * @param string $body
      * @return Client
      */
-    protected function getClientWithMock($body)
+    protected function getClientWithMock($body): Client
     {
         return $this->getClient($this->getClientMockHandler($body));
     }
-
 }

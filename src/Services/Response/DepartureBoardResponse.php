@@ -12,6 +12,7 @@ class DepartureBoardResponse
      * The list of departures from the location.
      *
      * @var BoardData[]
+     *
      * @Serializer\Type("array<RejseplanApi\Services\Response\StationBoard\BoardData>")
      */
     protected $departures = [];
@@ -19,7 +20,8 @@ class DepartureBoardResponse
     /**
      * To get the next departures, use this date.
      *
-     * @var \DateTime
+     * @var \DateTime|null
+     *
      * @Serializer\Type("DateTime")
      */
     protected $nextBoardDate;
@@ -27,25 +29,17 @@ class DepartureBoardResponse
     /**
      * @return BoardData[]
      */
-    public function getDepartures()
+    public function getDepartures(): array
     {
         return $this->departures;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getNextBoardDate()
+    public function getNextBoardDate(): ?\DateTime
     {
         return $this->nextBoardDate;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return DepartureBoardResponse
-     */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): DepartureBoardResponse
     {
         $obj = new self();
         $lastDate = null;

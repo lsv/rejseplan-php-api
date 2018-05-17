@@ -1,14 +1,14 @@
 <?php
+
 namespace RejseplanApiTest\Services;
 
-use RejseplanApi\Coordinate;
 use RejseplanApi\Services\NearbyStops;
+use RejseplanApi\Utils\Coordinate;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 class NearbyStopsTest extends AbstractServicesTest
 {
-
-    public function test_url_setCoordinate()
+    public function test_url_setCoordinate(): void
     {
         $coordinate = $this->getCoordinate();
 
@@ -24,9 +24,9 @@ class NearbyStopsTest extends AbstractServicesTest
         $this->assertEquals($coordinate->getLongitudeAsInt(), $query['coordY']);
     }
 
-    public function test_url_setCoordinate_astext()
+    public function test_url_setCoordinate_astext(): void
     {
-        $coordinate = new Coordinate("11.566488", "56.672578");
+        $coordinate = new Coordinate('11.566488', '56.672578');
 
         $location = new NearbyStops($this->getBaseUrl());
         $location->setCoordinate($coordinate);
@@ -40,7 +40,7 @@ class NearbyStopsTest extends AbstractServicesTest
         $this->assertEquals(56672578, $query['coordY']);
     }
 
-    public function test_url_setMaxResults()
+    public function test_url_setMaxResults(): void
     {
         $coordinate = $this->getCoordinate();
 
@@ -58,7 +58,7 @@ class NearbyStopsTest extends AbstractServicesTest
         $this->assertEquals('10', $query['maxNumber']);
     }
 
-    public function test_url_setRadius()
+    public function test_url_setRadius(): void
     {
         $coordinate = $this->getCoordinate();
 
@@ -76,14 +76,14 @@ class NearbyStopsTest extends AbstractServicesTest
         $this->assertEquals('1500', $query['maxRadius']);
     }
 
-    public function test_not_configured_correct()
+    public function test_not_configured_correct(): void
     {
         $this->setExpectedException(MissingOptionsException::class, 'The required options "coordX", "coordY" are missing.');
         $location = new NearbyStops($this->getBaseUrl());
         $location->call();
     }
 
-    public function test_single()
+    public function test_single(): void
     {
         $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/nearbystops_single.json'));
         $location = new NearbyStops($this->getBaseUrl(), $client);
@@ -103,7 +103,7 @@ class NearbyStopsTest extends AbstractServicesTest
         $this->assertEquals('14', $loc1->getDistance());
     }
 
-    public function test_response()
+    public function test_response(): void
     {
         $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/nearbystops.json'));
         $location = new NearbyStops($this->getBaseUrl(), $client);
@@ -137,16 +137,14 @@ class NearbyStopsTest extends AbstractServicesTest
         $this->assertEquals('12.563998', $loc3->getCoordinate()->getLatitude());
         $this->assertEquals('55.675850', $loc3->getCoordinate()->getLongitude());
         $this->assertEquals('329', $loc3->getDistance());
-
     }
 
-    public function test_errored()
+    public function test_errored(): void
     {
-        $client = $this->getClientWithMock(file_get_contents(__DIR__.'/mocks/error.txt'));
+        $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/error.txt'));
         $location = new NearbyStops($this->getBaseUrl(), $client);
         $location->setCoordinate($this->getCoordinate());
         $response = $location->call();
         $this->assertCount(0, $response);
     }
-
 }
