@@ -4,16 +4,16 @@ namespace RejseplanApi;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use RejseplanApi\Services\ServiceCallInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class AbstractCall
+abstract class AbstractCall implements ServiceCallInterface
 {
-    const API_NAME = 'rejseplanphpapi';
-    const API_VERSION = '1.0';
+    private const API_NAME = 'rejseplanphpapi';
+    private const API_VERSION = '1.0';
+    private const USER_AGENT = self::API_NAME . '/' . self::API_VERSION;
 
     /**
      * Base url.
@@ -39,14 +39,14 @@ abstract class AbstractCall
     /**
      * Request.
      *
-     * @var Request
+     * @var RequestInterface
      */
     protected $request;
 
     /**
      * Response.
      *
-     * @var Response
+     * @var ResponseInterface
      */
     protected $response;
 
@@ -64,14 +64,14 @@ abstract class AbstractCall
      *
      * @return string
      */
-    abstract protected function getUrl(array $options);
+    abstract protected function getUrl(array $options): string;
 
     /**
      * Generate the response object.
      *
      * @param ResponseInterface $response
      *
-     * @return array
+     * @return mixed
      */
     abstract protected function generateResponse(ResponseInterface $response);
 
@@ -88,20 +88,18 @@ abstract class AbstractCall
      * @param string               $baseUrl
      * @param ClientInterface|null $client
      */
-    public function __construct($baseUrl, ClientInterface $client = null)
+    public function __construct($baseUrl, ?ClientInterface $client = null)
     {
         $this->setBaseUrl($baseUrl);
         $this->setClient($client);
     }
 
     /**
-     * Set the base url for the calls.
-     *
      * @param string $baseUrl
      *
      * @return $this
      */
-    public function setBaseUrl($baseUrl)
+    public function setBaseUrl(string $baseUrl): self
     {
         $this->baseUrl = rtrim($baseUrl, '/');
 
@@ -115,7 +113,7 @@ abstract class AbstractCall
      *
      * @return $this
      */
-    public function setClient(ClientInterface $client = null)
+    public function setClient(ClientInterface $client = null): self
     {
         if (null === $client) {
             $this->client = new Client();
@@ -133,7 +131,7 @@ abstract class AbstractCall
      *
      * @return RequestInterface
      */
-    public function getRequest()
+    public function getRequest(): RequestInterface
     {
         return $this->request;
     }
@@ -143,7 +141,7 @@ abstract class AbstractCall
      *
      * @return ResponseInterface
      */
-    public function getResponse()
+    public function getResponse(): ResponseInterface
     {
         return $this->response;
     }
@@ -153,7 +151,7 @@ abstract class AbstractCall
      *
      * @return string
      */
-    protected function getMethod()
+    protected function getMethod(): string
     {
         return 'GET';
     }
@@ -163,10 +161,11 @@ abstract class AbstractCall
      *
      * @return array
      */
-    protected function getHeaders()
+    protected function getHeaders(): array
     {
         return [
-            'User-Agent' => sprintf('%s/%s', self::API_NAME, self::API_VERSION),
+            'Accept' => 'application/json',
+            'User-Agent' => self::USER_AGENT,
         ];
     }
 }

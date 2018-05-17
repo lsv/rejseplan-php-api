@@ -20,7 +20,7 @@ class Location extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setInput($input)
+    public function setInput(string $input): self
     {
         $this->options['input'] = $input;
 
@@ -32,7 +32,7 @@ class Location extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setNoStops()
+    public function setNoStops(): self
     {
         $this->options['include_stops'] = false;
 
@@ -44,7 +44,7 @@ class Location extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setNoAddresses()
+    public function setNoAddresses(): self
     {
         $this->options['include_addresses'] = false;
 
@@ -56,7 +56,7 @@ class Location extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setNoPois()
+    public function setNoPois(): self
     {
         $this->options['include_pois'] = false;
 
@@ -68,7 +68,7 @@ class Location extends AbstractServiceCall
      *
      * @param OptionsResolver $options
      */
-    protected function configureOptions(OptionsResolver $options)
+    protected function configureOptions(OptionsResolver $options): void
     {
         $options->setRequired(['input', 'include_stops', 'include_addresses', 'include_pois']);
         $options->setAllowedTypes('input', ['string', 'int', 'float']);
@@ -88,7 +88,7 @@ class Location extends AbstractServiceCall
      *
      * @return string
      */
-    protected function getUrl(array $options)
+    protected function getUrl(array $options): string
     {
         return sprintf('location?input=%s&format=json', urlencode($options['input']));
     }
@@ -100,7 +100,7 @@ class Location extends AbstractServiceCall
      *
      * @return array
      */
-    protected function generateResponse(ResponseInterface $response)
+    protected function generateResponse(ResponseInterface $response): array
     {
         $json = $this->validateJson($response);
 
@@ -110,11 +110,11 @@ class Location extends AbstractServiceCall
         }
 
         foreach ($json['LocationList'] as $type => $stops) {
-            if ($type == 'noNamespaceSchemaLocation') {
+            if ($type === 'noNamespaceSchemaLocation') {
                 continue;
             }
 
-            $stops = $this->checkForSingle($stops, 'name');
+            $stops = self::checkForSingle($stops, 'name');
             foreach ($stops as $stop) {
                 $this->setAllowed($stop, $output);
             }
@@ -124,25 +124,23 @@ class Location extends AbstractServiceCall
     }
 
     /**
-     * Call it.
+     * @throws \GuzzleHttp\Exception\GuzzleException
      *
      * @return LocationResponse[]
      */
-    public function call()
+    public function call(): array
     {
         return $this->doCall();
     }
 
-    private function setAllowed($stop, array &$output)
+    private function setAllowed($stop, array &$output): void
     {
         $location = LocationResponse::createFromArray($stop);
         $types = ['include_stops' => 'isStop', 'include_addresses' => 'isAddress', 'include_pois' => 'isPoi'];
         foreach ($types as $type => $method) {
-            if ($this->options[$type] === true) {
-                if ($location->{$method}()) {
-                    $output[] = $location;
-                    break;
-                }
+            if ($this->options[$type] === true && $location->{$method}()) {
+                $output[] = $location;
+                break;
             }
         }
     }

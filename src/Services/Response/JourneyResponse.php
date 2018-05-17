@@ -42,31 +42,22 @@ class JourneyResponse
     /**
      * @return Stop[]
      */
-    public function getStops()
+    public function getStops(): array
     {
         return $this->stops;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return array
-     */
-    public function getNotes()
+    public function getNotes(): array
     {
         return $this->notes;
     }
@@ -74,24 +65,19 @@ class JourneyResponse
     /**
      * @return Journey\Message[]
      */
-    public function getMessages()
+    public function getMessages(): array
     {
         return $this->messages;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return JourneyResponse
-     */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
-        $obj->name = isset($data['JourneyName']['name']) ? $data['JourneyName']['name'] : $data['JourneyName'][0]['name'];
-        $obj->type = isset($data['JourneyType']['type']) ? $data['JourneyType']['type'] : $data['JourneyType'][0]['type'];
+        $obj->name = $data['JourneyName']['name'] ?? $data['JourneyName'][0]['name'];
+        $obj->type = $data['JourneyType']['type'] ?? $data['JourneyType'][0]['type'];
 
         if (isset($data['Note'])) {
-            if (isset($data['Note'][0]) && is_array($data['Note'][0])) {
+            if (isset($data['Note'][0]) && \is_array($data['Note'][0])) {
                 foreach ($data['Note'] as $note) {
                     $obj->notes[] = $note['text'];
                 }
@@ -100,7 +86,7 @@ class JourneyResponse
             }
         }
 
-        if (isset($data['MessageList'], $data['MessageList']['Message'])) {
+        if (isset($data['MessageList']['Message'])) {
             $messages = AbstractServiceCall::checkForSingle($data['MessageList']['Message'], 'Header');
             foreach ($messages as $message) {
                 $obj->messages[] = Message::createFromArray($message);

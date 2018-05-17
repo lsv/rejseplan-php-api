@@ -3,18 +3,19 @@
 namespace RejseplanApi\Services\Response;
 
 use JMS\Serializer\Annotation as Serializer;
-use RejseplanApi\Coordinate;
+use RejseplanApi\Utils\Coordinate;
 
 class LocationResponse
 {
-    const LOCATIONTYPE_ADDRESS = 'ADR';
-    const LOCATIONTYPE_POI = 'POI';
-    const LOCATIONTYPE_STOP = 'STOP';
+    public const LOCATIONTYPE_ADDRESS = 'ADR';
+    public const LOCATIONTYPE_POI = 'POI';
+    public const LOCATIONTYPE_STOP = 'STOP';
 
     /**
      * The ID of this stop, null if not a stop.
      *
      * @var string|null
+     *
      * @Serializer\Type("string")
      */
     protected $id;
@@ -23,6 +24,7 @@ class LocationResponse
      * Contains the name of this stop or station.
      *
      * @var string
+     *
      * @Serializer\Type("string")
      */
     protected $name;
@@ -30,7 +32,8 @@ class LocationResponse
     /**
      * Coordinates of this stop or station.
      *
-     * @var Coordinate
+     * @var Coordinate|null
+     *
      * @Serializer\Type("RejseplanApi\Coordinate")
      */
     protected $coordinate;
@@ -42,13 +45,7 @@ class LocationResponse
      */
     protected $type = self::LOCATIONTYPE_STOP;
 
-    /**
-     * Generate a LocationResponse.
-     *
-     * @param string     $name
-     * @param Coordinate $coordinate
-     */
-    public function __construct($name, Coordinate $coordinate = null)
+    public function __construct(string $name, ?Coordinate $coordinate = null)
     {
         $this->name = $name;
         $this->coordinate = $coordinate;
@@ -57,28 +54,21 @@ class LocationResponse
     /**
      * Get id of this location - only sations have a ID
      * POI or addresses does not have a ID, and therefor will return null.
-     *
-     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
      * Get name of this location.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return Coordinate
-     */
-    public function getCoordinate()
+    public function getCoordinate(): ?Coordinate
     {
         return $this->coordinate;
     }
@@ -86,10 +76,9 @@ class LocationResponse
     /**
      * Is this location a stop (bus stop, train station etc).
      *
-     * @return bool
      * @Serializer\VirtualProperty()
      */
-    public function isStop()
+    public function isStop(): bool
     {
         return $this->getType() === self::LOCATIONTYPE_STOP;
     }
@@ -97,10 +86,9 @@ class LocationResponse
     /**
      * Is this location a address.
      *
-     * @return bool
      * @Serializer\VirtualProperty()
      */
-    public function isAddress()
+    public function isAddress(): bool
     {
         return $this->getType() === self::LOCATIONTYPE_ADDRESS;
     }
@@ -108,28 +96,19 @@ class LocationResponse
     /**
      * Is this location a POI.
      *
-     * @return bool
      * @Serializer\VirtualProperty()
      */
-    public function isPoi()
+    public function isPoi(): bool
     {
         return $this->getType() === self::LOCATIONTYPE_POI;
     }
 
-    /**
-     * @return string
-     */
-    protected function getType()
+    protected function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return LocationResponse
-     */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): self
     {
         $obj = new self($data['name'], new Coordinate($data['x'], $data['y']));
         if (isset($data['id'])) {

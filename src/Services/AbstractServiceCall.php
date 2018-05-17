@@ -2,24 +2,23 @@
 
 namespace RejseplanApi\Services;
 
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RejseplanApi\AbstractCall;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class AbstractServiceCall extends AbstractCall implements ServiceCallInterface
+abstract class AbstractServiceCall extends AbstractCall
 {
     /**
      * Get the request object.
-     *
-     * @return RequestInterface
      */
-    public function getRequest()
+    public function getRequest(): RequestInterface
     {
         if (!$this->request) {
             $this->resolveOptions();
-            $this->createRequest();
+            $this->request = $this->createRequest();
         }
 
         return parent::getRequest();
@@ -27,10 +26,8 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
 
     /**
      * Get the actual response.
-     *
-     * @return ResponseInterface
      */
-    public function getResponse()
+    public function getResponse(): ResponseInterface
     {
         if (!$this->response) {
             $this->call();
@@ -42,12 +39,12 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
     /**
      * Return the generated response.
      *
-     * @return mixed
+     * @throws GuzzleException
      */
     protected function doCall()
     {
         $this->resolveOptions();
-        $this->createRequest();
+        $this->request = $this->createRequest();
         $this->response = $this->client->send($this->request);
 
         return $this->generateResponse($this->response);
@@ -56,7 +53,7 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
     /**
      * Resolve options.
      */
-    protected function resolveOptions()
+    protected function resolveOptions(): void
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -66,10 +63,11 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
     /**
      * Create the request.
      */
-    protected function createRequest()
+    protected function createRequest(): RequestInterface
     {
         $url = sprintf('%s/%s', $this->baseUrl, $this->getUrl($this->options));
-        $this->request = new Request($this->getMethod(), $url, $this->getHeaders());
+
+        return new Request($this->getMethod(), $url, $this->getHeaders());
     }
 
     /**
@@ -79,7 +77,7 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
      *
      * @return array
      */
-    protected function validateJson(ResponseInterface $response)
+    protected function validateJson(ResponseInterface $response): array
     {
         try {
             return \GuzzleHttp\json_decode((string) $response->getBody(), true);
@@ -96,7 +94,7 @@ abstract class AbstractServiceCall extends AbstractCall implements ServiceCallIn
      *
      * @return array
      */
-    public static function checkForSingle(array $data, $key)
+    public static function checkForSingle(array $data, string $key): array
     {
         if (array_key_exists($key, $data)) {
             return [$data];

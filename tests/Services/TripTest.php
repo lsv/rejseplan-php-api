@@ -1,4 +1,5 @@
 <?php
+
 namespace RejseplanApiTest\Services;
 
 use RejseplanApi\Services\Response\LocationResponse;
@@ -9,13 +10,12 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 class TripTest extends AbstractServicesTest
 {
-
     /**
      * @var TripResponse[]
      */
     private $response;
 
-    public function setUp()
+    public function setUp(): void
     {
         $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/trip.json'));
         $location = new Trip($this->getBaseUrl(), $client);
@@ -25,7 +25,7 @@ class TripTest extends AbstractServicesTest
     }
 
 
-    public function test_url_setOriginAndDestination()
+    public function test_url_setOriginAndDestination(): void
     {
         $location = new Trip($this->getBaseUrl());
         $location->setOrigin($this->getLocationResponse());
@@ -40,7 +40,7 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals($this->getStopLocationResponse()->getId(), $query['destId']);
     }
 
-    public function test_url_setViaLocation()
+    public function test_url_setViaLocation(): void
     {
         $location = new Trip($this->getBaseUrl());
         $location->setOrigin($this->getLocationResponse(LocationResponse::LOCATIONTYPE_ADDRESS));
@@ -59,7 +59,7 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals($this->getLocationResponse()->getId(), $query['via']);
     }
 
-    public function test_url_setViaStop()
+    public function test_url_setViaStop(): void
     {
         $location = new Trip($this->getBaseUrl());
         $location->setOrigin($this->getLocationResponse(LocationResponse::LOCATIONTYPE_ADDRESS));
@@ -78,7 +78,7 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals($this->getStopLocationResponse()->getId(), $query['via']);
     }
 
-    public function test_url_setViaException()
+    public function test_url_setViaException(): void
     {
         $this->setExpectedException(\InvalidArgumentException::class, 'Via is not a stop location');
         $location = new Trip($this->getBaseUrl());
@@ -88,7 +88,7 @@ class TripTest extends AbstractServicesTest
         $location->getRequest();
     }
 
-    public function test_url_setDate()
+    public function test_url_setDate(): void
     {
         $date = date_create_from_format('Y-m-d H:i', '2016-05-23 12:55');
 
@@ -106,7 +106,7 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals('12:55', $query['time']);
     }
 
-    public function test_url_setDontUseBus()
+    public function test_url_setDontUseBus(): void
     {
         $location = new Trip($this->getBaseUrl());
         $location->setOrigin($this->getLocationResponse(LocationResponse::LOCATIONTYPE_ADDRESS));
@@ -121,7 +121,7 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals('0', $query['useBus']);
     }
 
-    public function test_url_setDontUseTrain()
+    public function test_url_setDontUseTrain(): void
     {
         $location = new Trip($this->getBaseUrl());
         $location->setOrigin($this->getLocationResponse(LocationResponse::LOCATIONTYPE_ADDRESS));
@@ -136,7 +136,7 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals('0', $query['useTog']);
     }
 
-    public function test_url_setDontUseMetro()
+    public function test_url_setDontUseMetro(): void
     {
         $location = new Trip($this->getBaseUrl());
         $location->setOrigin($this->getLocationResponse(LocationResponse::LOCATIONTYPE_ADDRESS));
@@ -151,7 +151,7 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals('0', $query['useMetro']);
     }
 
-    public function test_url_setWalkingDistance()
+    public function test_url_setWalkingDistance(): void
     {
         $location = new Trip($this->getBaseUrl());
         $location->setOrigin($this->getLocationResponse(LocationResponse::LOCATIONTYPE_ADDRESS));
@@ -167,7 +167,7 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals('3000', $query['maxWalkingDistanceDest']);
     }
 
-    public function test_url_setUseBicycle()
+    public function test_url_setUseBicycle(): void
     {
         $location = new Trip($this->getBaseUrl());
         $location->setOrigin($this->getLocationResponse(LocationResponse::LOCATIONTYPE_ADDRESS));
@@ -184,7 +184,7 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals('1', $query['useBicycle']);
     }
 
-    public function test_url_DistanceOverMaxValue()
+    public function test_url_DistanceOverMaxValue(): void
     {
         $this->setExpectedException(InvalidOptionsException::class, 'The option "maxCyclingDistanceDep" with value 100 is invalid.');
         $location = new Trip($this->getBaseUrl());
@@ -202,14 +202,14 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals('1', $query['useBicycle']);
     }
 
-    public function test_not_configured_correct()
+    public function test_not_configured_correct(): void
     {
         $this->setExpectedException(MissingOptionsException::class, 'The required options "dest", "origin" are missing.');
         $location = new Trip($this->getBaseUrl());
         $location->call();
     }
 
-    public function dataProvider()
+    public function dataProvider(): array
     {
         $key0Leg0 = [
             0,
@@ -272,13 +272,13 @@ class TripTest extends AbstractServicesTest
      * @dataProvider dataProvider
      * @param int $tripKey
      * @param int $numLegs
-     * @param array $leg
+     * @param array $legs
      */
-    public function test_response($tripKey, $numLegs, $leg)
+    public function test_response($tripKey, $numLegs, $legs): void
     {
-        list($legId, $legName, $legType, $origin, $dest, $notes, $journey, $depDate, $depTime, $arrDate, $arrTime) = $leg;
-        list($originName, $originType, $originRouteIdx, $originTime, $originDate, $originTrack, $originRtTrack) = $origin;
-        list($destName, $destType, $destRouteIdx, $destTime, $destDate, $destTrack, $destRtTrack) = $dest;
+        [$legId, $legName, $legType, $origin, $dest, $notes, $journey, $depDate, $depTime, $arrDate, $arrTime] = $legs;
+        [$originName, $originType, $originRouteIdx, $originTime, $originDate, $originTrack, $originRtTrack] = $origin;
+        [$destName, $destType, $destRouteIdx, $destTime, $destDate, $destTrack, $destRtTrack] = $dest;
 
         $data = $this->response[$tripKey];
         $this->assertCount($numLegs, $data->getLegs());
@@ -314,10 +314,9 @@ class TripTest extends AbstractServicesTest
         foreach ($notes as $i => $note) {
             $this->assertEquals($note, $leg->getNotes()[$i]);
         }
-
     }
 
-    public function test_error()
+    public function test_error(): void
     {
         $client = $this->getClientWithMock(file_get_contents(__DIR__ . '/mocks/error.txt'));
         $location = new Trip($this->getBaseUrl(), $client);
@@ -326,5 +325,4 @@ class TripTest extends AbstractServicesTest
         $response = $location->call();
         $this->assertCount(0, $response);
     }
-
 }

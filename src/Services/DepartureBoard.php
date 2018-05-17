@@ -17,7 +17,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setLocation($location)
+    public function setLocation($location): self
     {
         if ($location instanceof LocationResponse) {
             $this->setLocationResponse($location);
@@ -31,7 +31,7 @@ class DepartureBoard extends AbstractServiceCall
             return $this;
         }
 
-        if (is_int($location) || is_string($location)) {
+        if (\is_int($location) || \is_string($location)) {
             $this->setLocationId($location);
 
             return $this;
@@ -47,7 +47,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setDontUseTrain()
+    public function setDontUseTrain(): self
     {
         $this->options['useTog'] = 0;
 
@@ -59,7 +59,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setDontUseBus()
+    public function setDontUseBus(): self
     {
         $this->options['useBus'] = 0;
 
@@ -71,7 +71,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setDontUseMetro()
+    public function setDontUseMetro(): self
     {
         $this->options['useMetro'] = 0;
 
@@ -85,7 +85,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setDate(\DateTime $date)
+    public function setDate(\DateTime $date): self
     {
         $this->options['date'] = $date;
 
@@ -99,7 +99,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return $this
      */
-    protected function setLocationResponse(LocationResponse $location)
+    protected function setLocationResponse(LocationResponse $location): self
     {
         if (!$location->isStop()) {
             throw new \InvalidArgumentException('The location must be a station');
@@ -117,7 +117,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return $this
      */
-    protected function setStopResponse(StopLocationResponse $stop)
+    protected function setStopResponse(StopLocationResponse $stop): self
     {
         $this->options['id'] = $stop->getId();
 
@@ -131,7 +131,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return $this
      */
-    protected function setLocationId($id)
+    protected function setLocationId($id): self
     {
         $this->options['id'] = (string) $id;
 
@@ -143,7 +143,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @param OptionsResolver $options
      */
-    protected function configureOptions(OptionsResolver $options)
+    protected function configureOptions(OptionsResolver $options): void
     {
         $options->setRequired('id');
         $options->setAllowedTypes('id', ['string']);
@@ -162,7 +162,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return string
      */
-    protected function getUrl(array $options)
+    protected function getUrl(array $options): string
     {
         return sprintf('departureBoard?%s&format=json', http_build_query($this->generateUrlOptions($options)));
     }
@@ -174,7 +174,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return array
      */
-    protected function generateUrlOptions(array $options)
+    protected function generateUrlOptions(array $options): array
     {
         $urlOptions = [];
         if (isset($options['date'])) {
@@ -193,7 +193,7 @@ class DepartureBoard extends AbstractServiceCall
      *
      * @return DepartureBoardResponse
      */
-    protected function generateResponse(ResponseInterface $response)
+    protected function generateResponse(ResponseInterface $response): DepartureBoardResponse
     {
         $json = $this->validateJson($response);
         if (isset($json['DepartureBoard'])) {
@@ -204,11 +204,11 @@ class DepartureBoard extends AbstractServiceCall
     }
 
     /**
-     * Call it.
+     * @throws \GuzzleHttp\Exception\GuzzleException
      *
      * @return DepartureBoardResponse
      */
-    public function call()
+    public function call(): DepartureBoardResponse
     {
         return $this->doCall();
     }

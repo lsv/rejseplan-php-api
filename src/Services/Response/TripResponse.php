@@ -11,6 +11,7 @@ class TripResponse
      * Legs for this trip.
      *
      * @var Leg[]
+     *
      * @Serializer\Type("array<RejseplanApi\Services\Response\Trip\Leg>")
      */
     protected $legs = [];
@@ -18,7 +19,8 @@ class TripResponse
     /**
      * Time when departure.
      *
-     * @var \DateTime
+     * @var \DateTime|null
+     *
      * @Serializer\Type("DateTime")
      */
     protected $departureDate;
@@ -26,7 +28,8 @@ class TripResponse
     /**
      * Time on arrival.
      *
-     * @var \DateTime
+     * @var \DateTime|null
+     *
      * @Serializer\Type("DateTime")
      */
     protected $arrivalDate;
@@ -34,33 +37,22 @@ class TripResponse
     /**
      * @return Trip\Leg[]
      */
-    public function getLegs()
+    public function getLegs(): array
     {
         return $this->legs;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDepartureDate()
+    public function getDepartureDate(): ?\DateTime
     {
         return $this->departureDate;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getArrivalDate()
+    public function getArrivalDate(): ?\DateTime
     {
         return $this->arrivalDate;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return TripResponse
-     */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $legs = [];

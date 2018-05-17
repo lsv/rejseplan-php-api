@@ -3,7 +3,7 @@
 namespace RejseplanApi\Services\Response\Journey;
 
 use JMS\Serializer\Annotation as Serializer;
-use RejseplanApi\Coordinate;
+use RejseplanApi\Utils\Coordinate;
 
 class Stop
 {
@@ -79,124 +79,75 @@ class Stop
      */
     protected $trackChanged;
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return Coordinate
-     */
-    public function getCoordinate()
+    public function getCoordinate(): Coordinate
     {
         return $this->coordinate;
     }
 
-    /**
-     * @return int
-     */
-    public function getIndex()
+    public function getIndex(): int
     {
         return $this->index;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getScheduledDeparture()
+    public function getScheduledDeparture(): ?\DateTime
     {
         return $this->scheduledDeparture;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getScheduledArrival()
+    public function getScheduledArrival(): ?\DateTime
     {
         return $this->scheduledArrival;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getScheduledTrack()
+    public function getScheduledTrack(): ?string
     {
         return $this->scheduledTrack;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getRealtimeDeparture()
+    public function getRealtimeDeparture(): ?\DateTime
     {
         return $this->realtimeDeparture;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getRealtimeArrival()
+    public function getRealtimeArrival(): ?\DateTime
     {
         return $this->realtimeArrival;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getRealtimeTrack()
+    public function getRealtimeTrack(): ?string
     {
         return $this->realtimeTrack;
     }
 
-    /**
-     * Get ScheduledDelay.
-     *
-     * @return bool
-     */
-    public function isDepartureDelay()
+    public function isDepartureDelay(): bool
     {
         return $this->departureDelay;
     }
 
-    /**
-     * Get ArrivalDelay.
-     *
-     * @return bool
-     */
-    public function isArrivalDelay()
+    public function isArrivalDelay(): bool
     {
         return $this->arrivalDelay;
     }
 
-    /**
-     * Get TrackChanged.
-     *
-     * @return bool
-     */
-    public function isTrackChanged()
+    public function isTrackChanged(): bool
     {
         return $this->trackChanged;
     }
 
     /**
      * @Serializer\VirtualProperty()
-     *
-     * @return bool
      */
-    public function usesTrack()
+    public function usesTrack(): bool
     {
         return !($this->getScheduledTrack() === null && $this->getRealtimeTrack() === null);
     }
 
-    /**
-     * @param array $data
-     *
-     * @return Stop
-     */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $obj->name = $data['name'];
@@ -208,37 +159,34 @@ class Stop
         self::setDepartureDelay($obj, $data);
         self::setArrivalDelay($obj, $data);
 
-        $obj->trackChanged = $obj->getScheduledTrack() != $obj->getRealtimeTrack();
+        $obj->trackChanged = $obj->getScheduledTrack() !== $obj->getRealtimeTrack();
 
         return $obj;
     }
 
-    private static function setDepartureDelay(Stop $obj, array $data)
+    private static function setDepartureDelay(self $obj, array $data): void
     {
         self::setDelay($obj, $data, 'dep', 'departureDelay');
     }
 
-    private static function setArrivalDelay(Stop $obj, array $data)
+    private static function setArrivalDelay(self $obj, array $data): void
     {
         self::setDelay($obj, $data, 'arr', 'arrivalDelay');
     }
 
-    private static function setDelay(Stop $obj, array $data, $key, $property)
+    private static function setDelay(self $obj, array $data, $key, $property): void
     {
         $obj->{$property} = false;
         $rtKey = ucfirst($key);
-        if (isset($data['rt'.$rtKey.'Date'], $data['rt'.$rtKey.'Time']) &&
-            isset($data[$key.'Date'], $data[$key.'Time'])
+        if (
+            isset($data['rt' . $rtKey . 'Date'], $data['rt' . $rtKey . 'Time'], $data[$key . 'Date'], $data[$key . 'Time']) &&
+            ($data['rt' . $rtKey . 'Date'] !== $data[$key . 'Date'] || $data['rt' . $rtKey . 'Time'] !== $data[$key . 'Time'])
         ) {
-            if ($data['rt'.$rtKey.'Date'] != $data[$key.'Date'] ||
-                $data['rt'.$rtKey.'Time'] != $data[$key.'Time']
-            ) {
-                $obj->{$property} = true;
-            }
+            $obj->{$property} = true;
         }
     }
 
-    private static function setScheduled(Stop $obj, array $data)
+    private static function setScheduled(self $obj, array $data): void
     {
         if (isset($data['depDate'], $data['depTime'])) {
             $obj->scheduledDeparture = self::createDate($data['depDate'], $data['depTime']);
@@ -253,7 +201,7 @@ class Stop
         }
     }
 
-    private static function setRealtime(Stop $obj, array $data)
+    private static function setRealtime(self $obj, array $data): void
     {
         $obj->realtimeDeparture = $obj->scheduledDeparture;
         if (isset($data['rtDepDate'], $data['rtDepTime'])) {
@@ -271,7 +219,7 @@ class Stop
         }
     }
 
-    private static function createDate($date, $time)
+    private static function createDate($date, $time): \DateTime
     {
         return date_create_from_format('d.m.y H:i', sprintf('%s %s', $date, $time));
     }

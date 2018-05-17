@@ -53,7 +53,7 @@ class Place
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -61,7 +61,7 @@ class Place
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -69,7 +69,7 @@ class Place
     /**
      * @return int
      */
-    public function getRouteIdx()
+    public function getRouteIdx(): ?int
     {
         return $this->routeIdx;
     }
@@ -77,7 +77,7 @@ class Place
     /**
      * @return string
      */
-    public function getTrack()
+    public function getTrack(): ?string
     {
         return $this->track;
     }
@@ -85,7 +85,7 @@ class Place
     /**
      * @return string
      */
-    public function getRtTrack()
+    public function getRtTrack(): ?string
     {
         return $this->rtTrack;
     }
@@ -93,7 +93,7 @@ class Place
     /**
      * @return \DateTime
      */
-    public function getDate()
+    public function getDate(): \DateTime
     {
         return $this->date;
     }
@@ -103,7 +103,7 @@ class Place
      *
      * @return Place
      */
-    public static function createFromArray(array $data)
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $obj->name = $data['name'];
@@ -114,21 +114,20 @@ class Place
             $obj->routeIdx = $data['routeIdx'];
         }
 
-        if (isset($data['track']) || isset($data['rtTrack'])) {
-            if (isset($data['track'], $data['rtTrack'])) {
-                $obj->track = $data['track'];
-                $obj->rtTrack = $data['rtTrack'];
-            } else {
-                if (isset($data['track'])) {
-                    $obj->track = $data['track'];
-                    $obj->rtTrack = $data['track'];
-                }
+        if (isset($data['track'])) {
+            $obj->track = $data['track'];
+        }
 
-                if (isset($data['rtTrack'])) {
-                    $obj->track = $data['rtTrack'];
-                    $obj->rtTrack = $data['rtTrack'];
-                }
-            }
+        if (isset($data['rtTrack'])) {
+            $obj->rtTrack = $data['rtTrack'];
+        }
+
+        if (!$obj->track && $obj->rtTrack) {
+            $obj->track = $obj->rtTrack;
+        }
+
+        if (!$obj->rtTrack && $obj->track) {
+            $obj->rtTrack = $obj->track;
         }
 
         return $obj;

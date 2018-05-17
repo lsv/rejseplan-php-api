@@ -3,8 +3,8 @@
 namespace RejseplanApi\Services;
 
 use Psr\Http\Message\ResponseInterface;
-use RejseplanApi\Coordinate;
 use RejseplanApi\Services\Response\StopLocationResponse;
+use RejseplanApi\Utils\Coordinate;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,7 +20,7 @@ class NearbyStops extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setCoordinate(Coordinate $coordinate)
+    public function setCoordinate(Coordinate $coordinate): self
     {
         $this->options['coordX'] = $coordinate->getLatitude();
         $this->options['coordY'] = $coordinate->getLongitude();
@@ -35,7 +35,7 @@ class NearbyStops extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setRadius($meters = 1000)
+    public function setRadius(int $meters = 1000): self
     {
         $this->options['maxRadius'] = $meters;
 
@@ -49,7 +49,7 @@ class NearbyStops extends AbstractServiceCall
      *
      * @return $this
      */
-    public function setMaxResults($results = 30)
+    public function setMaxResults(int $results = 30): self
     {
         $this->options['maxNumber'] = $results;
 
@@ -61,7 +61,7 @@ class NearbyStops extends AbstractServiceCall
      *
      * @param OptionsResolver $options
      */
-    protected function configureOptions(OptionsResolver $options)
+    protected function configureOptions(OptionsResolver $options): void
     {
         $options->setRequired(['coordX', 'coordY', 'maxRadius', 'maxNumber']);
         $options->setDefault('maxRadius', 1000);
@@ -71,11 +71,19 @@ class NearbyStops extends AbstractServiceCall
         $options->setAllowedTypes('coordY', ['float']);
         $options->setAllowedTypes('maxRadius', ['int']);
 
-        $options->setNormalizer('coordX', function (Options $options, $value) {
+        $options->setNormalizer('coordX', function (
+            /* @noinspection PhpUnusedParameterInspection */
+            Options $options,
+            $value
+        ) {
             return $value * 1000000;
         });
 
-        $options->setNormalizer('coordY', function (Options $options, $value) {
+        $options->setNormalizer('coordY', function (
+            /* @noinspection PhpUnusedParameterInspection */
+            Options $options,
+            $value
+        ) {
             return $value * 1000000;
         });
     }
@@ -87,7 +95,7 @@ class NearbyStops extends AbstractServiceCall
      *
      * @return string
      */
-    protected function getUrl(array $options)
+    protected function getUrl(array $options): string
     {
         return sprintf('stopsNearby?%s&format=json', http_build_query($options));
     }
@@ -99,16 +107,16 @@ class NearbyStops extends AbstractServiceCall
      *
      * @return StopLocationResponse[]
      */
-    protected function generateResponse(ResponseInterface $response)
+    protected function generateResponse(ResponseInterface $response): array
     {
         $json = $this->validateJson($response);
 
         $output = [];
-        if (!isset($json['LocationList'], $json['LocationList']['StopLocation'])) {
+        if (!isset($json['LocationList']['StopLocation'])) {
             return $output;
         }
 
-        $stops = $this->checkForSingle($json['LocationList']['StopLocation'], 'name');
+        $stops = self::checkForSingle($json['LocationList']['StopLocation'], 'name');
         foreach ($stops as $stop) {
             $output[] = StopLocationResponse::createFromArray($stop);
         }
@@ -117,11 +125,11 @@ class NearbyStops extends AbstractServiceCall
     }
 
     /**
-     * Call it.
+     * @throws \GuzzleHttp\Exception\GuzzleException
      *
      * @return StopLocationResponse[]
      */
-    public function call()
+    public function call(): array
     {
         return $this->doCall();
     }
