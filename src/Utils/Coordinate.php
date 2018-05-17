@@ -47,7 +47,7 @@ class Coordinate
         return $this->getLatitude() * self::INT_INVERT;
     }
 
-    public function setLatitude(float $latitude): Coordinate
+    public function setLatitude(float $latitude): self
     {
         $this->latitude = $this->setCoordinate($latitude);
 
@@ -64,7 +64,7 @@ class Coordinate
         return $this->getLongitude() * self::INT_INVERT;
     }
 
-    public function setLongitude(float $longitude): Coordinate
+    public function setLongitude(float $longitude): self
     {
         $this->longitude = $this->setCoordinate($longitude);
 

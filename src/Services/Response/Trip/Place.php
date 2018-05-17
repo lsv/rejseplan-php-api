@@ -103,7 +103,7 @@ class Place
      *
      * @return Place
      */
-    public static function createFromArray(array $data): Place
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $obj->name = $data['name'];

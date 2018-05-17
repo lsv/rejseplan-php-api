@@ -124,9 +124,9 @@ class Journey extends AbstractServiceCall
     }
 
     /**
-     * @return JourneyResponse|null
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return JourneyResponse|null
      */
     public function call(): ?JourneyResponse
     {

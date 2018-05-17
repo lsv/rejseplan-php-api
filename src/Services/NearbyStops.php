@@ -72,7 +72,7 @@ class NearbyStops extends AbstractServiceCall
         $options->setAllowedTypes('maxRadius', ['int']);
 
         $options->setNormalizer('coordX', function (
-            /** @noinspection PhpUnusedParameterInspection */
+            /* @noinspection PhpUnusedParameterInspection */
             Options $options,
             $value
         ) {
@@ -80,7 +80,7 @@ class NearbyStops extends AbstractServiceCall
         });
 
         $options->setNormalizer('coordY', function (
-            /** @noinspection PhpUnusedParameterInspection */
+            /* @noinspection PhpUnusedParameterInspection */
             Options $options,
             $value
         ) {
@@ -125,9 +125,9 @@ class NearbyStops extends AbstractServiceCall
     }
 
     /**
-     * @return StopLocationResponse[]
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return StopLocationResponse[]
      */
     public function call(): array
     {

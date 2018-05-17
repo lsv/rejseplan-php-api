@@ -124,9 +124,9 @@ class Location extends AbstractServiceCall
     }
 
     /**
-     * @return LocationResponse[]
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return LocationResponse[]
      */
     public function call(): array
     {

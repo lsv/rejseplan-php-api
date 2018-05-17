@@ -107,7 +107,7 @@ class Leg
      *
      * @return Leg
      */
-    public static function createFromArray(array $data): Leg
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $obj->name = $data['name'];

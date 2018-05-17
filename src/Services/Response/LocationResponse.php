@@ -108,7 +108,7 @@ class LocationResponse
         return $this->type;
     }
 
-    public static function createFromArray(array $data): LocationResponse
+    public static function createFromArray(array $data): self
     {
         $obj = new self($data['name'], new Coordinate($data['x'], $data['y']));
         if (isset($data['id'])) {

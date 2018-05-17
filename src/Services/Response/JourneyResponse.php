@@ -70,7 +70,7 @@ class JourneyResponse
         return $this->messages;
     }
 
-    public static function createFromArray(array $data): JourneyResponse
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $obj->name = $data['JourneyName']['name'] ?? $data['JourneyName'][0]['name'];

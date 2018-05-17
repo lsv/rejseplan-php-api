@@ -156,7 +156,7 @@ class DepartureBoard extends AbstractServiceCall
     }
 
     /**
-     * Create the URL
+     * Create the URL.
      *
      * @param array $options
      *
@@ -204,9 +204,9 @@ class DepartureBoard extends AbstractServiceCall
     }
 
     /**
-     * @return DepartureBoardResponse
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return DepartureBoardResponse
      */
     public function call(): DepartureBoardResponse
     {

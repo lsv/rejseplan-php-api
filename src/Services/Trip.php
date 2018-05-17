@@ -221,9 +221,9 @@ class Trip extends AbstractServiceCall
     }
 
     /**
-     * @return TripResponse[]
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return TripResponse[]
      */
     public function call(): array
     {

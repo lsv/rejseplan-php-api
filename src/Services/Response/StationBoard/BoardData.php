@@ -196,7 +196,7 @@ class BoardData
         return !($this->getScheduledTrack() === null || $this->getRealTrack() === null);
     }
 
-    public static function createFromArray(array $data): BoardData
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         foreach (['name', 'type', 'stop', 'finalStop', 'origin', 'direction'] as $setter) {
@@ -218,7 +218,7 @@ class BoardData
         return $obj;
     }
 
-    private static function setDate(BoardData $obj, array $data): void
+    private static function setDate(self $obj, array $data): void
     {
         $obj->scheduledDate = date_create_from_format('d.m.y H:i', sprintf('%s %s', $data['date'], $data['time']));
 
@@ -239,7 +239,7 @@ class BoardData
         $obj->realDate = date_create_from_format('d.m.y H:i', sprintf('%s %s', $data['rtDate'], $data['rtTime']));
     }
 
-    private static function setTrack(BoardData $obj, array $data): void
+    private static function setTrack(self $obj, array $data): void
     {
         $obj->trackChanged = null;
 

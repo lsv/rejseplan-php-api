@@ -204,9 +204,9 @@ class ArrivalBoard extends AbstractServiceCall
     }
 
     /**
-     * @return ArrivalBoardResponse
-     *
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return ArrivalBoardResponse
      */
     public function call(): ArrivalBoardResponse
     {

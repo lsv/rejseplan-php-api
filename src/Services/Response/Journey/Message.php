@@ -28,7 +28,7 @@ class Message
         return $this->text;
     }
 
-    public static function createFromArray(array $data): Message
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $obj->header = str_replace("\n", '', $data['Header']['$']);

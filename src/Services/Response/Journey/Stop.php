@@ -147,7 +147,7 @@ class Stop
         return !($this->getScheduledTrack() === null && $this->getRealtimeTrack() === null);
     }
 
-    public static function createFromArray(array $data): Stop
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $obj->name = $data['name'];
@@ -164,17 +164,17 @@ class Stop
         return $obj;
     }
 
-    private static function setDepartureDelay(Stop $obj, array $data): void
+    private static function setDepartureDelay(self $obj, array $data): void
     {
         self::setDelay($obj, $data, 'dep', 'departureDelay');
     }
 
-    private static function setArrivalDelay(Stop $obj, array $data): void
+    private static function setArrivalDelay(self $obj, array $data): void
     {
         self::setDelay($obj, $data, 'arr', 'arrivalDelay');
     }
 
-    private static function setDelay(Stop $obj, array $data, $key, $property): void
+    private static function setDelay(self $obj, array $data, $key, $property): void
     {
         $obj->{$property} = false;
         $rtKey = ucfirst($key);
@@ -186,7 +186,7 @@ class Stop
         }
     }
 
-    private static function setScheduled(Stop $obj, array $data): void
+    private static function setScheduled(self $obj, array $data): void
     {
         if (isset($data['depDate'], $data['depTime'])) {
             $obj->scheduledDeparture = self::createDate($data['depDate'], $data['depTime']);
@@ -201,7 +201,7 @@ class Stop
         }
     }
 
-    private static function setRealtime(Stop $obj, array $data): void
+    private static function setRealtime(self $obj, array $data): void
     {
         $obj->realtimeDeparture = $obj->scheduledDeparture;
         if (isset($data['rtDepDate'], $data['rtDepTime'])) {

@@ -59,7 +59,7 @@ class StopLocationResponse
         return $this->distance;
     }
 
-    public static function createFromArray(array $data): StopLocationResponse
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $obj->id = $data['id'];

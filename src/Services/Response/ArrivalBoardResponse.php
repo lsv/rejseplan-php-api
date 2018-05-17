@@ -39,7 +39,7 @@ class ArrivalBoardResponse
         return $this->nextBoardDate;
     }
 
-    public static function createFromArray(array $data): ArrivalBoardResponse
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $lastDate = null;

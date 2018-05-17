@@ -52,7 +52,7 @@ class TripResponse
         return $this->arrivalDate;
     }
 
-    public static function createFromArray(array $data): TripResponse
+    public static function createFromArray(array $data): self
     {
         $obj = new self();
         $legs = [];

@@ -66,6 +66,7 @@ abstract class AbstractServiceCall extends AbstractCall
     protected function createRequest(): RequestInterface
     {
         $url = sprintf('%s/%s', $this->baseUrl, $this->getUrl($this->options));
+
         return new Request($this->getMethod(), $url, $this->getHeaders());
     }
 
