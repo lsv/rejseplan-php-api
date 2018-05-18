@@ -142,7 +142,6 @@ class DepartureBoardTest extends AbstractServicesTest
         $this->assertFalse($departure->hasMessages());
         $this->assertEquals('Tingbjerg, Gavlhusvej (Terrasserne)', $departure->getFinalStop());
         $this->assertEquals('Tingbjerg Gavlhusvej', $departure->getDirection());
-        $this->assertEquals('https://baseurl/journeyDetail?ref=85713%2F32015%2F11902%2F22621%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
     }
 
     public function test_response(): void
@@ -168,8 +167,6 @@ class DepartureBoardTest extends AbstractServicesTest
         $this->assertFalse($departure->hasMessages());
         $this->assertEquals('Husum Torv (Sløjfen)', $departure->getFinalStop());
         $this->assertEquals('Husum Torv', $departure->getDirection());
-        $this->assertEquals('https://baseurl/journeyDetail?ref=432150%2F149423%2F342368%2F27134%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
-        $this->assertFalse($departure->usesTrack());
 
         $departure = $response->getDepartures()[13];
         $this->assertEquals('Re 4557', $departure->getName());
@@ -182,10 +179,8 @@ class DepartureBoardTest extends AbstractServicesTest
         $this->assertEquals('7', $departure->getRealTrack());
         $this->assertTrue($departure->isTrackChanged());
         $this->assertTrue($departure->hasMessages());
-        $this->assertTrue($departure->usesTrack());
         $this->assertEquals('Holbæk St.', $departure->getFinalStop());
         $this->assertEquals('Holbæk St.', $departure->getDirection());
-        $this->assertEquals('https://baseurl/journeyDetail?ref=297366%2F107304%2F429762%2F115768%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
     }
 
     public function test_no_board(): void

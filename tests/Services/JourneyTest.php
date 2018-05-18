@@ -3,8 +3,6 @@
 namespace RejseplanApiTest\Services;
 
 use RejseplanApi\Services\Journey;
-use RejseplanApi\Services\Response\StationBoard\BoardData;
-use RejseplanApi\Services\Response\Trip\Leg;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 class JourneyTest extends AbstractServicesTest
@@ -14,7 +12,7 @@ class JourneyTest extends AbstractServicesTest
         $journey = new Journey($this->getBaseUrl());
         $journey->setUrl('http://baseurl/journey?foo=bar');
         $uri = $journey->getRequest()->getUri();
-        $this->assertEquals('/journey', $uri->getPath());
+        $this->assertEquals('/journeyDetails', $uri->getPath());
 
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
@@ -22,52 +20,10 @@ class JourneyTest extends AbstractServicesTest
         $journey = new Journey($this->getBaseUrl());
         $journey->setUrl('http://baseurl/journey?foo=bar&format=json');
         $uri = $journey->getRequest()->getUri();
-        $this->assertEquals('/journey', $uri->getPath());
+        $this->assertEquals('/journeyDetails', $uri->getPath());
 
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
-    }
-
-    public function test_url_setUrlFromLeg(): void
-    {
-        $url = 'http://baseurl/journeyDetail';
-        $query = 'ref=444684%2F168160%2F352668%2F28137%2F86%3Fdate%3D09.09.16%26format%3Djson%26';
-
-        $stub = $this->getMockBuilder(Leg::class)->getMock();
-        $stub
-            ->method('getJournyDetails')
-            ->willReturn(sprintf('%s?%s', $url, $query))
-        ;
-
-        $journey = new Journey($this->getBaseUrl());
-        $journey->setUrl($stub);
-        $uri = $journey->getRequest()->getUri();
-        $this->assertEquals('/journeyDetail', $uri->getPath());
-        $this->assertEquals(
-            $query . '&format=json',
-            $uri->getQuery()
-        );
-    }
-
-    public function test_url_setUrlFromBoardData(): void
-    {
-        $url = 'http://baseurl/journeyDetail';
-        $query = 'ref=444684%2F168160%2F352668%2F28137%2F86%3Fdate%3D09.09.16%26format%3Djson%26';
-
-        $stub = $this->getMockBuilder(BoardData::class)->getMock();
-        $stub
-            ->method('getJourneyDetails')
-            ->willReturn(sprintf('%s?%s', $url, $query))
-        ;
-
-        $journey = new Journey($this->getBaseUrl());
-        $journey->setUrl($stub);
-        $uri = $journey->getRequest()->getUri();
-        $this->assertEquals('/journeyDetail', $uri->getPath());
-        $this->assertEquals(
-            $query . '&format=json',
-            $uri->getQuery()
-        );
     }
 
     public function test_setUrl_invalid(): void

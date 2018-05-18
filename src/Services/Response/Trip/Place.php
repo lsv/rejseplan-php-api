@@ -7,12 +7,16 @@ use JMS\Serializer\Annotation as Serializer;
 class Place
 {
     /**
+     * Name of the place
+     *
      * @var string
      * @Serializer\Type("string")
      */
     protected $name;
 
     /**
+     * Type of the place
+     *
      * @var string
      * @Serializer\Type("string")
      */

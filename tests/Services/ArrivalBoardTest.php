@@ -151,7 +151,6 @@ class ArrivalBoardTest extends AbstractServicesTest
         $this->assertTrue($departure->isDelayed());
         $this->assertTrue($departure->hasMessages());
         $this->assertEquals('Kalmar C', $departure->getOrigin());
-        $this->assertEquals('https://baseurl/journeyDetail?ref=3849%2F31310%2F372456%2F184946%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
     }
 
     public function test_response(): void
@@ -176,7 +175,6 @@ class ArrivalBoardTest extends AbstractServicesTest
         $this->assertNull($departure->getRealTrack());
         $this->assertFalse($departure->hasMessages());
         $this->assertEquals('Emdrup Torv (Emdrupvej)', $departure->getOrigin());
-        $this->assertEquals('https://baseurl/journeyDetail?ref=467937%2F161774%2F740016%2F214030%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
 
         $departure = $response->getArrivals()[17];
         $this->assertEquals('B', $departure->getName());
@@ -189,7 +187,6 @@ class ArrivalBoardTest extends AbstractServicesTest
         $this->assertFalse($departure->isTrackChanged());
         $this->assertFalse($departure->hasMessages());
         $this->assertEquals('Farum St.', $departure->getOrigin());
-        $this->assertEquals('https://baseurl/journeyDetail?ref=444684%2F168160%2F352668%2F28137%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $departure->getJourneyDetails());
     }
 
     public function test_getResponse(): void

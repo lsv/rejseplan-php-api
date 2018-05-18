@@ -53,8 +53,8 @@ class TripTest extends AbstractServicesTest
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
         $this->assertEquals($this->getLocationResponse()->getName(), $query['originCoordName']);
-        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLatitude(), $query['originCoordX']);
-        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLongitude(), $query['originCoordY']);
+        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLatitudeAsInt(), $query['originCoordX']);
+        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLongitudeAsInt(), $query['originCoordY']);
         $this->assertEquals($this->getStopLocationResponse()->getId(), $query['destId']);
         $this->assertEquals($this->getLocationResponse()->getId(), $query['via']);
     }
@@ -72,8 +72,8 @@ class TripTest extends AbstractServicesTest
         parse_str($uri->getQuery(), $query);
         $this->assertEquals('json', $query['format']);
         $this->assertEquals($this->getLocationResponse()->getName(), $query['originCoordName']);
-        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLatitude(), $query['originCoordX']);
-        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLongitude(), $query['originCoordY']);
+        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLatitudeAsInt(), $query['originCoordX']);
+        $this->assertEquals($this->getLocationResponse()->getCoordinate()->getLongitudeAsInt(), $query['originCoordY']);
         $this->assertEquals($this->getStopLocationResponse()->getId(), $query['destId']);
         $this->assertEquals($this->getStopLocationResponse()->getId(), $query['via']);
     }
@@ -309,7 +309,6 @@ class TripTest extends AbstractServicesTest
         $this->assertEquals($destTrack, $leg->getDestination()->getTrack());
         $this->assertEquals($destRtTrack, $leg->getDestination()->getRtTrack());
 
-        $this->assertEquals($journey, $leg->getJournyDetails());
         $this->assertCount(count($notes), $leg->getNotes());
         foreach ($notes as $i => $note) {
             $this->assertEquals($note, $leg->getNotes()[$i]);

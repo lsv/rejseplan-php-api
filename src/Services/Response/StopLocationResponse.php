@@ -27,7 +27,7 @@ class StopLocationResponse
      * The WGS84 coordinate.
      *
      * @var Coordinate
-     * @Serializer\Type("RejseplanApi\Coordinate")
+     * @Serializer\Type("RejseplanApi\Utils\Coordinate")
      */
     protected $coordinate;
 

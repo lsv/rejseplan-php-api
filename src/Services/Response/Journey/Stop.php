@@ -8,76 +8,107 @@ use RejseplanApi\Utils\Coordinate;
 class Stop
 {
     /**
+     * Stop name
+     *
      * @var string
      * @Serializer\Type("string")
      */
     protected $name;
 
     /**
+     * Stop coordinate
+     *
      * @var Coordinate
-     * @Serializer\Type("RejseplanApi\Coordinate")
+     * @Serializer\Type("RejseplanApi\Utils\Coordinate")
      */
     protected $coordinate;
 
     /**
+     * Stop index
+     *
      * @var int
      * @Serializer\Type("integer")
      */
     protected $index;
 
     /**
+     * Scheduled departure for this stop
+     *
      * @var \DateTime|null
      * @Serializer\Type("DateTime")
      */
     protected $scheduledDeparture;
 
     /**
+     * Scheduled arrival for this stop
+     *
      * @var \DateTime|null
      * @Serializer\Type("DateTime")
      */
     protected $scheduledArrival;
 
     /**
+     * Scheduled track for this stop
+     *
      * @var string|null
      * @Serializer\Type("string")
      */
     protected $scheduledTrack;
 
     /**
+     * Realtime departure for this stop
+     *
      * @var \DateTime|null
      * @Serializer\Type("DateTime")
      */
     protected $realtimeDeparture;
 
     /**
+     * Scheduled arrival for this stop
+     *
      * @var \DateTime|null
      * @Serializer\Type("DateTime")
      */
     protected $realtimeArrival;
 
     /**
+     * Realtime track for this stop
+     *
      * @var string|null
      * @Serializer\Type("string")
      */
     protected $realtimeTrack;
 
     /**
+     * Is the departure delayed for this stop
+     *
      * @var bool
      * @Serializer\Type("boolean")
      */
     protected $departureDelay;
 
     /**
+     * Is the arrival delayed for this stop
+     *
      * @var bool
      * @Serializer\Type("boolean")
      */
     protected $arrivalDelay;
 
     /**
+     * Has the track changed at this stop
+     *
      * @var bool
      * @Serializer\Type("boolean")
      */
     protected $trackChanged;
+
+    /**
+     * The real track used
+     *
+     * @var string|null
+     */
+    protected $usedTrack;
 
     public function getName(): string
     {
@@ -160,6 +191,10 @@ class Stop
         self::setArrivalDelay($obj, $data);
 
         $obj->trackChanged = $obj->getScheduledTrack() !== $obj->getRealtimeTrack();
+        $obj->usedTrack = $obj->getScheduledTrack();
+        if ($obj->trackChanged) {
+            $obj->usedTrack = $obj->getRealtimeTrack();
+        }
 
         return $obj;
     }

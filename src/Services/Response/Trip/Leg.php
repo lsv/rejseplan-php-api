@@ -3,6 +3,7 @@
 namespace RejseplanApi\Services\Response\Trip;
 
 use JMS\Serializer\Annotation as Serializer;
+use RejseplanApi\Utils\JourneyDetailParser;
 
 class Leg
 {
@@ -26,7 +27,7 @@ class Leg
      * Leg origin.
      *
      * @var Place
-     * @Serializer\Type("Place")
+     * @Serializer\Type("RejseplanApi\Services\Response\Trip\Place")
      */
     protected $origin;
 
@@ -34,7 +35,7 @@ class Leg
      * Leg destination.
      *
      * @var Place
-     * @Serializer\Type("Place")
+     * @Serializer\Type("RejseplanApi\Services\Response\Trip\Place")
      */
     protected $destination;
 
@@ -49,10 +50,11 @@ class Leg
     /**
      * Url to leg details.
      *
-     * @var string
+     * @var string|null
+     *
      * @Serializer\Type("string")
      */
-    protected $journyDetails;
+    protected $journeyDetails;
 
     /**
      * @return string
@@ -97,9 +99,9 @@ class Leg
     /**
      * @return string
      */
-    public function getJournyDetails(): ?string
+    public function getJourneyDetails(): ?string
     {
-        return $this->journyDetails;
+        return $this->journeyDetails;
     }
 
     /**
@@ -120,7 +122,7 @@ class Leg
         }
 
         if (isset($data['JourneyDetailRef']['ref'])) {
-            $obj->journyDetails = $data['JourneyDetailRef']['ref'];
+            $obj->journeyDetails = JourneyDetailParser::parseJourneyDetailUrl($data['JourneyDetailRef']['ref']);
         }
 
         return $obj;
@@ -129,7 +131,7 @@ class Leg
     private static function setNotes($notes, $type)
     {
         $split = '/[;,]/';
-        if ($type === 'BIKE') {
+        if ($type === 'BIKE' || $type === 'WALK') {
             $split = '/[;]/';
         }
 

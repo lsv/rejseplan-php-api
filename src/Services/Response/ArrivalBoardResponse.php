@@ -9,7 +9,7 @@ use RejseplanApi\Services\Response\StationBoard\BoardData;
 class ArrivalBoardResponse
 {
     /**
-     * The list of departures from the location.
+     * The list of arrivals to the location.
      *
      * @var BoardData[]
      *

@@ -10,30 +10,40 @@ use RejseplanApi\Services\Response\Journey\Stop;
 class JourneyResponse
 {
     /**
+     * The stops for this journey
+     *
      * @var Stop[]
      * @Serializer\Type("array<RejseplanApi\Services\Response\Journey\Stop>")
      */
     protected $stops = [];
 
     /**
+     * The name of this journey
+     *
      * @var string
      * @Serializer\Type("string")
      */
     protected $name;
 
     /**
+     * The type of journey
+     *
      * @var string
      * @Serializer\Type("string")
      */
     protected $type;
 
     /**
+     * Notes for the journey
+     *
      * @var array
      * @Serializer\Type("array")
      */
     protected $notes = [];
 
     /**
+     * Messages for the journey
+     *
      * @var Message[]
      * @Serializer\Type("array<RejseplanApi\Services\Response\Journey\Message>")
      */
@@ -73,8 +83,13 @@ class JourneyResponse
     public static function createFromArray(array $data): self
     {
         $obj = new self();
-        $obj->name = $data['JourneyName']['name'] ?? $data['JourneyName'][0]['name'];
-        $obj->type = $data['JourneyType']['type'] ?? $data['JourneyType'][0]['type'];
+        if (isset($data['JourneyName'])) {
+            $obj->name = $data['JourneyName']['name'] ?? $data['JourneyName'][0]['name'];
+        }
+
+        if (isset($data['JourneyType'])) {
+            $obj->type = $data['JourneyType']['type'] ?? $data['JourneyType'][0]['type'];
+        }
 
         if (isset($data['Note'])) {
             if (isset($data['Note'][0]) && \is_array($data['Note'][0])) {
@@ -93,9 +108,11 @@ class JourneyResponse
             }
         }
 
-        $stops = AbstractServiceCall::checkForSingle($data['Stop'], 'name');
-        foreach ($stops as $stop) {
-            $obj->stops[] = Stop::createFromArray($stop);
+        if (isset($data['Stop'])) {
+            $stops = AbstractServiceCall::checkForSingle($data['Stop'], 'name');
+            foreach ($stops as $stop) {
+                $obj->stops[] = Stop::createFromArray($stop);
+            }
         }
 
         return $obj;

@@ -3,6 +3,7 @@
 namespace RejseplanApi\Services\Response\StationBoard;
 
 use JMS\Serializer\Annotation as Serializer;
+use RejseplanApi\Utils\JourneyDetailParser;
 
 class BoardData
 {
@@ -79,6 +80,13 @@ class BoardData
     protected $trackChanged;
 
     /**
+     * The real track used
+     *
+     * @var string|null
+     */
+    protected $usedTrack;
+
+    /**
      * Messages.
      *
      * @var bool
@@ -97,7 +105,7 @@ class BoardData
     /**
      * Origin of the transportation.
      *
-     * @var string
+     * @var string|null
      * @Serializer\Type("string")
      */
     protected $origin;
@@ -113,7 +121,8 @@ class BoardData
     /**
      * Url to the journey detail.
      *
-     * @var string
+     * @var string|null
+     *
      * @Serializer\Type("string")
      */
     protected $journeyDetails;
@@ -178,22 +187,19 @@ class BoardData
         return $this->direction;
     }
 
-    public function getOrigin(): string
+    public function getOrigin(): ?string
     {
         return $this->origin;
     }
 
-    public function getJourneyDetails(): string
+    public function getJourneyDetails(): ?string
     {
-        return str_replace('http://', 'https://', $this->journeyDetails);
+        return $this->journeyDetails;
     }
 
-    /**
-     * @Serializer\VirtualProperty()
-     */
-    public function usesTrack(): bool
+    public function getUsedTrack(): ?string
     {
-        return !($this->getScheduledTrack() === null || $this->getRealTrack() === null);
+        return $this->usedTrack;
     }
 
     public static function createFromArray(array $data): self
@@ -209,7 +215,7 @@ class BoardData
         }
 
         if (isset($data['JourneyDetailRef']['ref'])) {
-            $obj->journeyDetails = $data['JourneyDetailRef']['ref'];
+            $obj->journeyDetails = JourneyDetailParser::parseJourneyDetailUrl($data['JourneyDetailRef']['ref']);
         }
 
         self::setDate($obj, $data);
@@ -246,15 +252,18 @@ class BoardData
         if (isset($data['track'])) {
             $obj->trackChanged = true;
             $obj->scheduledTrack = $data['track'];
+            $obj->usedTrack = $obj->scheduledTrack;
         }
 
         if (isset($data['rtTrack'])) {
             $obj->trackChanged = true;
             $obj->realTrack = $data['rtTrack'];
+            $obj->usedTrack = $obj->realTrack;
         }
 
         if (!$obj->scheduledTrack && $obj->realTrack) {
             $obj->scheduledTrack = $obj->realTrack;
+            $obj->usedTrack = $obj->scheduledTrack;
         }
 
         if ($obj->scheduledTrack === $obj->realTrack) {

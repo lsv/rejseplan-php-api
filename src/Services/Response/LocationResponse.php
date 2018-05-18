@@ -34,7 +34,7 @@ class LocationResponse
      *
      * @var Coordinate|null
      *
-     * @Serializer\Type("RejseplanApi\Coordinate")
+     * @Serializer\Type("RejseplanApi\Utils\Coordinate")
      */
     protected $coordinate;
 
@@ -44,6 +44,27 @@ class LocationResponse
      * @var string
      */
     protected $type = self::LOCATIONTYPE_STOP;
+
+    /**
+     * Is the location a stop
+     *
+     * @var bool
+     */
+    protected $isStop = false;
+
+    /**
+     * Is the location an address
+     *
+     * @var bool
+     */
+    protected $isAddress = false;
+
+    /**
+     * Is the location a POI
+     *
+     * @var bool
+     */
+    protected $isPoi = false;
 
     public function __construct(string $name, ?Coordinate $coordinate = null)
     {
@@ -73,34 +94,19 @@ class LocationResponse
         return $this->coordinate;
     }
 
-    /**
-     * Is this location a stop (bus stop, train station etc).
-     *
-     * @Serializer\VirtualProperty()
-     */
     public function isStop(): bool
     {
-        return $this->getType() === self::LOCATIONTYPE_STOP;
+        return $this->isStop;
     }
 
-    /**
-     * Is this location a address.
-     *
-     * @Serializer\VirtualProperty()
-     */
     public function isAddress(): bool
     {
-        return $this->getType() === self::LOCATIONTYPE_ADDRESS;
+        return $this->isAddress;
     }
 
-    /**
-     * Is this location a POI.
-     *
-     * @Serializer\VirtualProperty()
-     */
     public function isPoi(): bool
     {
-        return $this->getType() === self::LOCATIONTYPE_POI;
+        return $this->isPoi;
     }
 
     protected function getType(): string
@@ -118,6 +124,10 @@ class LocationResponse
         if (isset($data['type'])) {
             $obj->type = $data['type'];
         }
+
+        $obj->isStop = $obj->type === self::LOCATIONTYPE_STOP;
+        $obj->isAddress = $obj->type === self::LOCATIONTYPE_ADDRESS;
+        $obj->isPoi = $obj->type === self::LOCATIONTYPE_POI;
 
         return $obj;
     }

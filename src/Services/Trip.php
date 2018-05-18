@@ -265,17 +265,24 @@ class Trip extends AbstractServiceCall
     {
         $keys = ['origin', 'dest'];
         foreach ($keys as $key) {
-            /** @var LocationResponse $option */
             $option = $options[$key];
-            $urlOptions[$key . 'Id'] = $option->getId();
+            if ($option instanceof StopLocationResponse) {
+                $urlOptions[$key . 'Id'] = $option->getId();
+                $urlOptions[$key . 'CoordName'] = $option->getName();
+                if ($option->getCoordinate()) {
+                    $urlOptions[$key . 'CoordX'] = $option->getCoordinate()->getLatitudeAsInt();
+                    $urlOptions[$key . 'CoordY'] = $option->getCoordinate()->getLongitudeAsInt();
+                }
+            }
+
             if ($option instanceof LocationResponse) {
                 if ($option->isStop()) {
                     $urlOptions[$key . 'Id'] = $option->getId();
                 } else {
                     $urlOptions[$key . 'CoordName'] = $option->getName();
                     if ($option->getCoordinate()) {
-                        $urlOptions[$key . 'CoordX'] = $option->getCoordinate()->getLatitude();
-                        $urlOptions[$key . 'CoordY'] = $option->getCoordinate()->getLongitude();
+                        $urlOptions[$key . 'CoordX'] = $option->getCoordinate()->getLatitudeAsInt();
+                        $urlOptions[$key . 'CoordY'] = $option->getCoordinate()->getLongitudeAsInt();
                     }
                 }
             }

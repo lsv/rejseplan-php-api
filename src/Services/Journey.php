@@ -59,7 +59,7 @@ class Journey extends AbstractServiceCall
      */
     protected function setUrlFromLeg(Leg $leg): self
     {
-        $this->options['url'] = $leg->getJournyDetails();
+        $this->options['url'] = $leg->getJourneyDetails();
 
         return $this;
     }
@@ -97,13 +97,10 @@ class Journey extends AbstractServiceCall
      */
     protected function getUrl(array $options): string
     {
-        $url = parse_url($options['url'], PHP_URL_QUERY);
-        parse_str($url, $query);
-        if (!isset($query['format'])) {
-            return sprintf('%s&format=json', $options['url']);
-        }
+        $query['ref'] = $options['url'];
+        $query['format'] = 'json';
 
-        return $options['url'];
+        return sprintf('journeyDetails?%s', http_build_query($query));
     }
 
     /**
@@ -131,13 +128,5 @@ class Journey extends AbstractServiceCall
     public function call(): ?JourneyResponse
     {
         return $this->doCall();
-    }
-
-    /**
-     * Create the request.
-     */
-    protected function createRequest(): RequestInterface
-    {
-        return new Request($this->getMethod(), $this->getUrl($this->options), $this->getHeaders());
     }
 }

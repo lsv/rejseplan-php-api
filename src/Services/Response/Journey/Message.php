@@ -7,12 +7,16 @@ use JMS\Serializer\Annotation as Serializer;
 class Message
 {
     /**
+     * Message header
+     *
      * @var string
      * @Serializer\Type("string")
      */
     protected $header;
 
     /**
+     * Message text
+     *
      * @var string
      * @Serializer\Type("string")
      */
