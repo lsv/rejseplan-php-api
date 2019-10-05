@@ -1,0 +1,84 @@
+{
+  "TripList":{
+    "noNamespaceSchemaLocation":"http://xmlopen.rejseplanen.dk/xml/rest/hafasRestTrip.xsd",
+    "Trip":[{
+      "Leg":{
+        "name":"Bus 26",
+        "type":"BUS",
+        "line":"26",
+        "Origin":{
+          "name":"Indiakaj",
+          "type":"ST",
+          "routeIdx":"3",
+          "time":"20:28",
+          "date":"04.10.19"
+        },
+        "Destination":{
+          "name":"Østerport St.",
+          "type":"ST",
+          "routeIdx":"5",
+          "time":"20:30",
+          "date":"04.10.19"
+        },
+        "Notes":{
+          "text":"Retning: Valby Ålholm Plads;"
+        },
+        "JourneyDetailRef":{
+          "ref":"http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=460467%2F166604%2F65110%2F120938%2F86%3Fdate%3D04.10.19%26station_evaId%3D10008%26format%3Djson"
+        }
+      }
+    },{
+      "Leg":{
+        "name":"Bus 26",
+        "type":"BUS",
+        "line":"26",
+        "Origin":{
+          "name":"Indiakaj",
+          "type":"ST",
+          "routeIdx":"3",
+          "time":"20:48",
+          "date":"04.10.19"
+        },
+        "Destination":{
+          "name":"Østerport St.",
+          "type":"ST",
+          "routeIdx":"5",
+          "time":"20:50",
+          "date":"04.10.19"
+        },
+        "Notes":{
+          "text":"Retning: Valby Ålholm Plads;"
+        },
+        "JourneyDetailRef":{
+          "ref":"http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=860079%2F299808%2F952146%2F189385%2F86%3Fdate%3D04.10.19%26station_evaId%3D10008%26format%3Djson"
+        }
+      }
+    },{
+      "Leg":{
+        "name":"Bus 26",
+        "type":"BUS",
+        "line":"26",
+        "Origin":{
+          "name":"Indiakaj",
+          "type":"ST",
+          "routeIdx":"3",
+          "time":"21:08",
+          "date":"04.10.19"
+        },
+        "Destination":{
+          "name":"Østerport St.",
+          "type":"ST",
+          "routeIdx":"5",
+          "time":"21:10",
+          "date":"04.10.19"
+        },
+        "Notes":{
+          "text":"Retning: Valby Ålholm Plads;"
+        },
+        "JourneyDetailRef":{
+          "ref":"http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=591444%2F210263%2F500658%2F53187%2F86%3Fdate%3D04.10.19%26station_evaId%3D10008%26format%3Djson"
+        }
+      }
+    }]
+  }
+}

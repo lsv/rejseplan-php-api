@@ -1,5 +1,2 @@
 /vendor
 /.build
-/phpunit.xml
-composer.lock
-/coverage.xml

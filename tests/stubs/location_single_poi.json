@@ -1,0 +1,11 @@
+{
+  "LocationList": {
+    "noNamespaceSchemaLocation": "http://xmlopen.rejseplanen.dk/xml/rest/hafasRestLocation.xsd",
+    "CoordLocation": {
+      "name": "Tivoli Hotel (Kalvebod Brygge)",
+      "x": "12566461",
+      "y": "55665476",
+      "type":"POI"
+    }
+  }
+}

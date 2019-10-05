@@ -1,9 +1,16 @@
-[<](../index.md) Rejseplan - PHP Api - Departure board
-=========================
+[<](../index.md) Rejseplan - PHP Api - Departure board response
+=============================================================
 
-### Methods
+## `Lsv\Rejseplan\Response\DepartureBoardResponse`
 
-| Method | Return | Description |
-| --- | --- | --- |
-| getDepartures() | array of [BoardData](StationBoard/BoardData.md) objects | Each departure from this station |
-| getNextBoardDate() | \DateTime | Next board date, can be used with [DepartureBoard](../Services/DepartureBoard.md) setDate method |
+### Example
+
+See [DepartureBoard](../DepartureBoard.md) on how to get the `$response`
+
+```php
+foreach ($response->getDepartures() as $departure) {
+    // $departure is now a `Lsv\Rejseplan\Response\Board\DepartureBoardData`
+}
+```
+
+[Lsv\Rejseplan\Response\Board\DepartureBoardData](Board/DepartureBoardData.md)

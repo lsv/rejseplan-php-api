@@ -1,7 +1,0 @@
-{
-  "_KEY_": {
-    "noNamespaceSchemaLocation": "http://xmlopen.rejseplanen.dk/xml/rest/hafasRestDepartureBoard.xsd",
-    "error": "No journeys found",
-    "$": ""
-  }
-}

@@ -10,36 +10,22 @@ PHP wrapper for Rejseplanen.dk API
 
 `composer require lsv/rejseplan-php-api`
 
-or add it to your `composer.json` file
+### Usages
 
-```json
-"require": {
-    "lsv/rejseplan-php-api": "^1.0"
-}
-```
-
-### Usage
-
-For finding stops nearby a location you can do this
-
-```php
-$baseurl = 'https://your-base-url.dk';
-$xcoordinate = 55.442952;
-$ycoordinate = 11.791372;
-$coordinate = new \RejseplanApi\Coordinate($xcoordinate, $ycoordinate);
-$nearby = new \RejseplanApi\Services\NearbyStops($baseurl);
-$nearby->setCoordinate($coordinate);
-$response = $nearby->call();
-// Response will now be a array with \RejseplanApi\Response\StopLocationResponse
-```
-
-More details in the [documentation](docs/index.md)
+| Request | Description | 
+| --- | --- |
+| [ArrivalBoard](ArrivalBoard.md) | To get arrival board for a station |
+| [DepartureBoard](DepartureBoard.md) | To get departure board for a station |
+| [Journey](Journey.md) | This will get you a full journey report for a vehicle |
+| [Location](Location.md) | With this you can find stops, POI or addresses from a user input |
+| [NearbyStops](NearbyStops.md) | This will deliver all stops within a radius of a given coordinate. |
+| [Trip](Trip.md) | With this you can calculate a trip |
 
 ### License
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Martin Aarhof martin.aarhof@gmail.com
+Copyright (c) 2019 Martin Aarhof martin.aarhof@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

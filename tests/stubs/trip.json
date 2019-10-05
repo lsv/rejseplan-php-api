@@ -1,0 +1,534 @@
+{
+  "TripList": {
+    "noNamespaceSchemaLocation": "http://xmlopen.rejseplanen.dk/xml/rest/hafasRestTrip.xsd",
+    "Trip": [
+      {
+        "valid": "true",
+        "Leg": [
+          {
+            "name": "Bus 332",
+            "type": "BUS",
+            "line": "332",
+            "Origin": {
+              "name": "Farum St.",
+              "type": "ST",
+              "routeIdx": "0",
+              "time": "10:50",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Farum Bytorv (Frederiksborgvej)",
+              "type": "ST",
+              "routeIdx": "1",
+              "time": "10:50",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Retning: Farum øst - Farum St.;"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=113229%2F60312%2F682802%2F303662%2F86%3Fdate%3D03.10.19%26station_evaId%3D9464%26format%3Djson"
+            },
+            "MessageList": {
+              "Message": [
+                {
+                  "Header": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet.\n"
+                  },
+                  "Text": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet og står på den modsatte side af Jernbanevej fra 13-09-2019 kl 15:00 til 04-10-2019 kl 18:00.  Ændringen skyldes nedrivning af taget over Farum st.\n"
+                  }
+                },
+                {
+                  "Header": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet.\n"
+                  },
+                  "Text": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet og står på den modsatte side af Jernbanevej fra 13-09-2019 kl 15:00 til 14-10-2019 kl 15:00.  Ændringen skyldes nedrivning af taget over Farum st.\n"
+                  }
+                },
+                {
+                  "Header": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet.\n"
+                  },
+                  "Text": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet og står på den modsatte side af Jernbanevej fra 13-09-2019 kl 15:00 til 18-10-2019 kl 16:00.  Ændringen skyldes nedrivning af taget over Farum st.\n"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "Bus 55E",
+            "type": "BUS",
+            "line": "55E",
+            "Origin": {
+              "name": "Farum Bytorv (Frederiksborgvej)",
+              "type": "ST",
+              "routeIdx": "9",
+              "time": "10:53",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "routeIdx": "12",
+              "time": "11:09",
+              "date": "03.10.19",
+              "rtTime": "11:07",
+              "rtDate": "03.10.19"
+            },
+            "Notes": {
+              "text": "Retning: Allerød St.;"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=637818%2F237287%2F127552%2F148832%2F86%3Fdate%3D03.10.19%26station_evaId%3D9352%26format%3Djson"
+            }
+          },
+          {
+            "name": "til fods",
+            "type": "WALK",
+            "Origin": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "time": "11:09",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "time": "11:12",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Varighed: 3 min.;"
+            }
+          },
+          {
+            "name": "A",
+            "type": "S",
+            "line": "A",
+            "Origin": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "routeIdx": "6",
+              "time": "11:14",
+              "date": "03.10.19",
+              "rtTrack": "2"
+            },
+            "Destination": {
+              "name": "Hillerød St.",
+              "type": "ST",
+              "routeIdx": "7",
+              "time": "11:20",
+              "date": "03.10.19",
+              "rtTrack": "1"
+            },
+            "Notes": {
+              "text": "Retning: Hillerød St.;Toget har lav indstigning,Mulighed for internet"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=885654%2F322183%2F645358%2F27464%2F86%3Fdate%3D03.10.19%26station_evaId%3D8600681%26format%3Djson"
+            }
+          },
+          {
+            "name": "Lokalbane 930R",
+            "type": "TOG",
+            "line": "930R",
+            "Origin": {
+              "name": "Hillerød St.",
+              "type": "ST",
+              "routeIdx": "0",
+              "time": "11:26",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Helsingør St.",
+              "type": "ST",
+              "routeIdx": "7",
+              "time": "11:52",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Retning: Helsingør;"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=798405%2F293869%2F104242%2F214020%2F86%3Fdate%3D03.10.19%26station_evaId%3D8600683%26format%3Djson"
+            }
+          }
+        ]
+      },
+      {
+        "Leg": [
+          {
+            "name": "til fods",
+            "type": "WALK",
+            "Origin": {
+              "name": "Farum St.",
+              "type": "ST",
+              "time": "11:02",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Farum Bytorv (Frederiksborgvej)",
+              "type": "ST",
+              "time": "11:08",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Varighed: 6 min.;(Afstand: ca. 0,4 km);"
+            }
+          },
+          {
+            "name": "Bus 500S",
+            "type": "EXB",
+            "line": "500S",
+            "Origin": {
+              "name": "Farum Bytorv (Frederiksborgvej)",
+              "type": "ST",
+              "routeIdx": "30",
+              "time": "11:08",
+              "date": "03.10.19",
+              "rtTime": "11:07",
+              "rtDate": "03.10.19"
+            },
+            "Destination": {
+              "name": "Kokkedal St.",
+              "type": "ST",
+              "routeIdx": "47",
+              "time": "11:44",
+              "date": "03.10.19",
+              "rtTime": "11:41",
+              "rtDate": "03.10.19"
+            },
+            "Notes": {
+              "text": "Retning: Kokkedal St.;"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=127296%2F59102%2F757542%2F336342%2F86%3Fdate%3D03.10.19%26station_evaId%3D9352%26format%3Djson"
+            }
+          },
+          {
+            "name": "til fods",
+            "type": "WALK",
+            "Origin": {
+              "name": "Kokkedal St.",
+              "type": "ST",
+              "time": "11:44",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Kokkedal St.",
+              "type": "ST",
+              "time": "11:47",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Varighed: 3 min.;"
+            }
+          },
+          {
+            "name": "Re 2045",
+            "type": "REG",
+            "Origin": {
+              "name": "Kokkedal St.",
+              "type": "ST",
+              "routeIdx": "30",
+              "time": "11:57",
+              "date": "03.10.19",
+              "track": "1",
+              "rtTrack": "1"
+            },
+            "Destination": {
+              "name": "Helsingør St.",
+              "type": "ST",
+              "routeIdx": "35",
+              "time": "12:16",
+              "date": "03.10.19",
+              "track": "2",
+              "rtTrack": "2"
+            },
+            "Notes": {
+              "text": "Retning: Helsingør St.;Toget har lav indstigning"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=945504%2F365396%2F79442%2F275448%2F86%3Fdate%3D03.10.19%26station_evaId%3D8600664%26format%3Djson"
+            }
+          }
+        ]
+      },
+      {
+        "Leg": [
+          {
+            "name": "til fods",
+            "type": "WALK",
+            "Origin": {
+              "name": "Farum St.",
+              "type": "ST",
+              "time": "11:17",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Farum Bytorv (Frederiksborgvej)",
+              "type": "ST",
+              "time": "11:23",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Varighed: 6 min.;(Afstand: ca. 0,4 km);"
+            }
+          },
+          {
+            "name": "Bus 55E",
+            "type": "BUS",
+            "line": "55E",
+            "Origin": {
+              "name": "Farum Bytorv (Frederiksborgvej)",
+              "type": "ST",
+              "routeIdx": "9",
+              "time": "11:23",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "routeIdx": "12",
+              "time": "11:39",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Retning: Allerød St.;"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=316623%2F130222%2F558780%2F173852%2F86%3Fdate%3D03.10.19%26station_evaId%3D9352%26format%3Djson"
+            }
+          },
+          {
+            "name": "til fods",
+            "type": "WALK",
+            "Origin": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "time": "11:39",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "time": "11:42",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Varighed: 3 min.;"
+            }
+          },
+          {
+            "name": "A",
+            "type": "S",
+            "line": "A",
+            "Origin": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "routeIdx": "6",
+              "time": "11:44",
+              "date": "03.10.19",
+              "rtTrack": "2"
+            },
+            "Destination": {
+              "name": "Hillerød St.",
+              "type": "ST",
+              "routeIdx": "7",
+              "time": "11:50",
+              "date": "03.10.19",
+              "rtTrack": "3"
+            },
+            "Notes": {
+              "text": "Retning: Hillerød St.;Toget har lav indstigning,Mulighed for internet"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=77445%2F52780%2F298070%2F123226%2F86%3Fdate%3D03.10.19%26station_evaId%3D8600681%26format%3Djson"
+            }
+          },
+          {
+            "name": "Lokalbane 930R",
+            "type": "TOG",
+            "line": "930R",
+            "Origin": {
+              "name": "Hillerød St.",
+              "type": "ST",
+              "routeIdx": "0",
+              "time": "11:56",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Helsingør St.",
+              "type": "ST",
+              "routeIdx": "7",
+              "time": "12:22",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Retning: Helsingør;"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=561390%2F214860%2F350826%2F11721%2F86%3Fdate%3D03.10.19%26station_evaId%3D8600683%26format%3Djson"
+            }
+          }
+        ]
+      },
+      {
+        "Leg": [
+          {
+            "name": "Bus 332",
+            "type": "BUS",
+            "line": "332",
+            "Origin": {
+              "name": "Farum St.",
+              "type": "ST",
+              "routeIdx": "0",
+              "time": "11:20",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Farum Bytorv (Frederiksborgvej)",
+              "type": "ST",
+              "routeIdx": "1",
+              "time": "11:20",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Retning: Farum øst - Farum St.;"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=838527%2F302078%2F492102%2F33463%2F86%3Fdate%3D03.10.19%26station_evaId%3D9464%26format%3Djson"
+            },
+            "MessageList": {
+              "Message": [
+                {
+                  "Header": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet.\n"
+                  },
+                  "Text": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet og står på den modsatte side af Jernbanevej fra 13-09-2019 kl 15:00 til 04-10-2019 kl 18:00.  Ændringen skyldes nedrivning af taget over Farum st.\n"
+                  }
+                },
+                {
+                  "Header": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet.\n"
+                  },
+                  "Text": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet og står på den modsatte side af Jernbanevej fra 13-09-2019 kl 15:00 til 14-10-2019 kl 15:00.  Ændringen skyldes nedrivning af taget over Farum st.\n"
+                  }
+                },
+                {
+                  "Header": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet.\n"
+                  },
+                  "Text": {
+                    "$": "\nStoppestedet Farum St. for linje 332, 333, 334, 335 og 310R er flyttet og står på den modsatte side af Jernbanevej fra 13-09-2019 kl 15:00 til 18-10-2019 kl 16:00.  Ændringen skyldes nedrivning af taget over Farum st.\n"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "Bus 55E",
+            "type": "BUS",
+            "line": "55E",
+            "Origin": {
+              "name": "Farum Bytorv (Frederiksborgvej)",
+              "type": "ST",
+              "routeIdx": "9",
+              "time": "11:23",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "routeIdx": "12",
+              "time": "11:39",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Retning: Allerød St.;"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=997083%2F357042%2F324418%2F170155%2F86%3Fdate%3D03.10.19%26station_evaId%3D9352%26format%3Djson"
+            }
+          },
+          {
+            "name": "til fods",
+            "type": "WALK",
+            "Origin": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "time": "11:39",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "time": "11:42",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Varighed: 3 min.;"
+            }
+          },
+          {
+            "name": "A",
+            "type": "S",
+            "line": "A",
+            "Origin": {
+              "name": "Allerød St.",
+              "type": "ST",
+              "routeIdx": "6",
+              "time": "11:44",
+              "date": "03.10.19",
+              "rtTrack": "2"
+            },
+            "Destination": {
+              "name": "Hillerød St.",
+              "type": "ST",
+              "routeIdx": "7",
+              "time": "11:50",
+              "date": "03.10.19",
+              "rtTrack": "3"
+            },
+            "Notes": {
+              "text": "Retning: Hillerød St.;Toget har lav indstigning,Mulighed for internet"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=884556%2F321817%2F902146%2F156227%2F86%3Fdate%3D03.10.19%26station_evaId%3D8600681%26format%3Djson"
+            }
+          },
+          {
+            "name": "Lokalbane 930R",
+            "type": "TOG",
+            "line": "930R",
+            "Origin": {
+              "name": "Hillerød St.",
+              "type": "ST",
+              "routeIdx": "0",
+              "time": "11:56",
+              "date": "03.10.19"
+            },
+            "Destination": {
+              "name": "Helsingør St.",
+              "type": "ST",
+              "routeIdx": "7",
+              "time": "12:22",
+              "date": "03.10.19"
+            },
+            "Notes": {
+              "text": "Retning: Helsingør;"
+            },
+            "JourneyDetailRef": {
+              "ref": "http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=734400%2F272530%2F489922%2F165%2F86%3Fdate%3D03.10.19%26station_evaId%3D8600683%26format%3Djson"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

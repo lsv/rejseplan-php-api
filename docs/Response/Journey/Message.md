@@ -1,9 +1,20 @@
-[<](../../index.md) Rejseplan - PHP Api - message
-=========================
+[<](../../index.md) Rejseplan - PHP Api - Journey message
+============================================================
+
+## `Lsv\Rejseplan\Response\Journey\Message`
+
+### Example
+
+See [JourneyResponse](../JourneyResponse.md) on how to get `$data`
+
+```php
+$data->getHeader();
+$data->getText();
+```
 
 ### Methods
 
-| Method | Return | Description |
+| Parameter | Return | Description |
 | --- | --- | --- |
-| getHeader() | string | The header of this message |
-| getText() | string | The text of this message |
+| getHeader() | string | Header of the message |
+| getText() | string | Text of the message |

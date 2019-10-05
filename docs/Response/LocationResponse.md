@@ -1,13 +1,22 @@
-[<](../index.md) Rejseplan - PHP Api - location
-=========================
+[<](../index.md) Rejseplan - PHP Api - Journey response
+=============================================================
+
+## `Lsv\Rejseplan\Response\LocationResponse`
+
+### Example
+
+See [Location](../Location.md) on how to get the `$response`
+
+```php
+$response->getStops();
+$response->getPois();
+$response->getAddresses();
+```
 
 ### Methods
 
-| Method | Return | Description |
+| Parameter | Return | Description |
 | --- | --- | --- |
-| getId() | string, null | The ID of this location - If null then its either a address or a POI |
-| getName() | string | The name of this location |
-| getCoordinate() | [Coordinate](../index.md#coordinate) | The coordinates for this location
-| isStop() | bool | If this location is a stop |
-| isAddress() | bool | If this location is a address |
-| isPoi() | bool | If this location is a POI |
+| getStops() | array<Lsv\Rejseplan\Response\Location\Stop> | [Stops](Location/Stop.md) for the search |
+| getPois() | array<Lsv\Rejseplan\Response\Location\Poi> | [Pois](Location/Poi.md) for the search |
+| getAddresses() | array<Lsv\Rejseplan\Response\Location\Address> | [Addresses](Location/Address.md) for the search |

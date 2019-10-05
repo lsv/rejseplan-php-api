@@ -1,11 +1,18 @@
 [<](../index.md) Rejseplan - PHP Api - Trip response
-=========================
+=============================================================
+
+## `Lsv\Rejseplan\Response\TripResponse`
+
+### Example
+
+See [Trip](../Trip.md) on how to get the `$response`
+
+```php
+$response->getTrips();
+```
 
 ### Methods
 
-| Method | Return | Description |
+| Parameter | Return | Description |
 | --- | --- | --- |
-| getLegs() | array of [Leg](Trip/Leg.md) objects | These contains each leg for the trip |
-| getDepartureDate() | \DateTime | The departure time for this trip (departure time for the first leg)
-| getArrivalDate() | \DateTime | The arrival time for this trip (arrival time for the last leg)
-
+| getTrips() | array<Lsv\Rejseplan\Response\Trip\Trip> | List of [trips](Trip/Trip.md) |
