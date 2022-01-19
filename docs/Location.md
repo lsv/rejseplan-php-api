@@ -10,8 +10,8 @@ With this you can find stops, POI or addresses from a user input
 ```php
 use Lsv\Rejseplan\Location;
 
-$response = (new Location())
-    ->request($searchInput);
+$response = (new Location($searchInput))
+    ->request();
 ```
 
 ### Arguments

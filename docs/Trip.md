@@ -10,7 +10,7 @@ With this you can get trips between A and B (and optional via)
 ```php
 use Lsv\Rejseplan\Trip;
 
-$response = (new Trip())
+$response = (new Trip($origin, $destination))
     ->setVia($viaLocation) // Optional
     ->setDate(new DateTime()) // Optional
     ->setWalkingDistance($originMaxDistance, $destinationMaxDistance) // Optional
@@ -18,7 +18,7 @@ $response = (new Trip())
     ->setDontUseTrain() // Optional
     ->setDontUseBus() // Optional
     ->setDontUseMetro() // Optional
-    ->request($origin, $destination);
+    ->request();
 ```
 
 ### Arguments

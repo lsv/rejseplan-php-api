@@ -8,13 +8,6 @@ class Stop extends Location
 {
     /**
      * The ID of this stop, null if not a stop.
-     *
-     * @var string|null
      */
-    public $id;
-
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
+    public ?string $id;
 }

@@ -8,7 +8,7 @@
 See [DepartureBoard](../DepartureBoard.md) on how to get the `$response`
 
 ```php
-foreach ($response->getDepartures() as $departure) {
+foreach ($response->departures as $departure) {
     // $departure is now a `Lsv\Rejseplan\Response\Board\DepartureBoardData`
 }
 ```

@@ -9,13 +9,5 @@ class Trip
     /**
      * @var Leg[]
      */
-    public $legs;
-
-    /**
-     * @return Leg[]
-     */
-    public function getLegs(): array
-    {
-        return $this->legs;
-    }
+    public array $legs = [];
 }

@@ -8,33 +8,38 @@
 See [JourneyResponse](../JourneyResponse.md) on how to get `$data`
 
 ```php
-$data->getName();
-$data->getCoordinate();
-$data->getIndex();
-$data->getScheduledDeparture();
-$data->getRealtimeDeparture();
+$data->name;
+$data->coordinate;
+$data->routeIdx;
+$data->scheduledDeparture;
+$data->realtimeDeparture;
 $data->isDepartureDelayed();
-$data->getScheduledArrival();
-$data->getRealtimeArrival();
+$data->scheduledArrival;
+$data->realtimeArrival;
 $data->isArrivalDelayed();
-$data->getScheduledTrack();
-$data->getRealtimeTrack();
+$data->scheduledTrack;
+$data->realtimeTrack;
 $data->isTrackChanged();
 ```
+
+### Parameters
+
+| Parameter            | Return | Description |
+|----------------------| --- | --- |
+| name                 | string | Name of the stop |
+| coordinate           | [Coordinate](../CoordinateResponse.md) | Coordinates of this stop |
+| routeIdx             | int | The route index on the journey detail | 
+| scheduledDeparture() | \DateTime, null | Scheduled departure, can be null if its the last leg, then only arrival time will be availible |
+| realtimeDeparture()  | \DateTime, null | Realtime departure time
+| scheduledArrival()   | \DateTime, null | Scheduled arrival, can be null if its the first leg, then only departure time is availible |
+| realtimeArrival()    | \DateTime, null | Realtime arrival time
+| scheduledTrack()     | string, null | Scheduled track, mostly for trains
+| realtimeTrack()      | string, null | Realtime track
 
 ### Methods
 
 | Method | Return | Description |
 | --- | --- | --- |
-| getName() | string | Name of the stop |
-| getCoordinate() | [Coordinate](../CoordinateResponse.md) | Coordinates of this stop |
-| getIndex() | int | The route index on the journey detail | 
-| getScheduledDeparture() | \DateTime, null | Scheduled departure, can be null if its the last leg, then only arrival time will be availible |
-| getRealtimeDeparture() | \DateTime, null | Realtime departure time
 | isDepartureDelayed() | boolean | Does the departure time have delays 
-| getScheduledArrival() | \DateTime, null | Scheduled arrival, can be null if its the first leg, then only departure time is availible |
-| getRealtimeArrival() | \DateTime, null | Realtime arrival time
 | isArrivalDelayed() | boolean | Does the arrival time have delays
-| getScheduledTrack() | string, null | Scheduled track, mostly for trains
-| getRealtimeTrack() | string, null | Realtime track
 | isTrackChanged() | boolean | Has the track changed

@@ -8,13 +8,13 @@
 See [LocationResponse](../LocationResponse.md) on how to get `$data`
 
 ```php
-$data->getName();
-$data->getCoordinate();
+$data->name;
+$data->coordinate;
 ```
 
-### Methods
+### Parameters
 
-| Parameter | Return | Description |
-| --- | --- | --- |
-| getName() | string | Name of the stop |
-| getCoordinate() | [Coordinate](../CoordinateResponse.md) | Coordinates of this stop |
+| Parameter    | Return | Description |
+|--------------| --- | --- |
+| name         | string | Name of the stop |
+| coordinate | [Coordinate](../CoordinateResponse.md) | Coordinates of this stop |

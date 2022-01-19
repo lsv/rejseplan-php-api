@@ -10,25 +10,11 @@ abstract class Location
 {
     /**
      * Contains the name of this stop or station.
-     *
-     * @var string
      */
-    public $name;
+    public string $name = '';
 
     /**
      * Coordinates of this stop or station.
-     *
-     * @var CoordinateResponse|null
      */
-    public $coordinate;
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getCoordinate(): ?CoordinateResponse
-    {
-        return $this->coordinate;
-    }
+    public ?CoordinateResponse $coordinate = null;
 }

@@ -7,7 +7,7 @@ namespace Lsv\RejseplanTest\Response\Board;
 use Lsv\Rejseplan\Response\Board\BoardData;
 use PHPUnit\Framework\TestCase;
 
-class AbstractBoardDataTest extends TestCase
+class BoardDataTest extends TestCase
 {
     /**
      * @var BoardData
@@ -41,10 +41,18 @@ class AbstractBoardDataTest extends TestCase
      */
     public function track(): void
     {
-        $this->board->setTrack(1);
+        $this->board->setTrack('1');
         $this->assertSame('1', $this->board->scheduledTrack);
         $this->board->setRtTrack(2);
         $this->assertSame('2', $this->board->realtimeTrack);
+    }
+
+    public function testNullTrack(): void
+    {
+        $this->board->setTrack(null);
+        $this->assertNull($this->board->scheduledTrack);
+        $this->board->setRtTrack(null);
+        $this->assertNull($this->board->realtimeTrack);
     }
 
     /**
@@ -86,7 +94,7 @@ class AbstractBoardDataTest extends TestCase
     /**
      * @test
      */
-    public function not_delayed(): void
+    public function notDelayed(): void
     {
         $this->board->setDate('23.11.19');
         $this->board->setTime('11:45');
@@ -97,10 +105,17 @@ class AbstractBoardDataTest extends TestCase
         $this->assertFalse($this->board->isDelayed());
     }
 
+    public function testNotDelayedNoRtTime(): void
+    {
+        $this->board->setDate('23.11.19');
+        $this->board->setTime('11:45');
+        $this->assertFalse($this->board->isDelayed());
+    }
+
     /**
      * @test
      */
-    public function track_changed(): void
+    public function trackChanged(): void
     {
         $this->board->setTrack(1);
         $this->board->setRtTrack(2);
@@ -110,14 +125,14 @@ class AbstractBoardDataTest extends TestCase
     /**
      * @test
      */
-    public function track_not_changed(): void
+    public function trackNotChanged(): void
     {
         $this->board->setTrack(1);
         $this->board->setRtTrack(1);
         $this->assertFalse($this->board->isTrackChanged());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $class = new class() extends BoardData {

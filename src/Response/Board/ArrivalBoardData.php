@@ -8,13 +8,6 @@ class ArrivalBoardData extends BoardData
 {
     /**
      * Origin of the transportation.
-     *
-     * @var string
      */
-    public $origin;
-
-    public function getOrigin(): string
-    {
-        return $this->origin;
-    }
+    public string $origin;
 }

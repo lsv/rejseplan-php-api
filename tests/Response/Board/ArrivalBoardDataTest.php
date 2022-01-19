@@ -23,7 +23,7 @@ class ArrivalBoardDataTest extends TestCase
         $this->assertSame('Hello World', $this->board->origin);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->board = new ArrivalBoardData();
     }

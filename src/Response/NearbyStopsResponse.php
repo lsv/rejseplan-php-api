@@ -11,13 +11,5 @@ class NearbyStopsResponse
     /**
      * @var Stop[]
      */
-    public $stops;
-
-    /**
-     * @return Stop[]
-     */
-    public function getStops(): array
-    {
-        return $this->stops;
-    }
+    public array $stops = [];
 }

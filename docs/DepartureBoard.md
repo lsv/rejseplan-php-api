@@ -10,12 +10,12 @@ To get a departure board for a stop or station, where stop could be a bus stop o
 ```php
 use Lsv\Rejseplan\DepartureBoard;
 
-$response = (new DepartureBoard())
+$response = (new DepartureBoard($location))
     ->setDontUseTrain() // Optional
     ->setDontUseBus() // Optional
     ->setDontUseMetro() // Optional
     ->setDate(new DateTime()) // Optional
-    ->request($location);
+    ->request();
 ```
 
 ### Arguments

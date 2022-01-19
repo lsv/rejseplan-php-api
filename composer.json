@@ -15,14 +15,14 @@
     }
   },
   "require": {
+    "php": "^8.0",
     "ext-json": "*",
-    "php": "^7.3",
-    "symfony/http-client": "^4.3",
-    "symfony/options-resolver": "^4.3",
-    "symfony/serializer": "^4.3",
-    "symfony/property-access": "^4.3",
-    "symfony/property-info": "^4.3",
-    "phpdocumentor/reflection-docblock": "^4.3"
+    "symfony/options-resolver": "^6.0",
+    "symfony/serializer": "^6.0",
+    "symfony/property-access": "^6.0",
+    "symfony/property-info": "^6.0",
+    "psr/http-client": "^1.0",
+    "nyholm/psr7": "^1.4"
   },
   "autoload-dev": {
     "psr-4": {
@@ -30,21 +30,24 @@
     }
   },
   "require-dev": {
-    "symfony/phpunit-bridge": "^4.0"
+    "symfony/phpunit-bridge": "^6.0",
+    "phpunit/phpunit": "^9.5",
+    "friendsofphp/php-cs-fixer": "^3.5",
+    "sebastian/phpcpd": "^6.0",
+    "phpstan/phpstan": "^1.4",
+    "symfony/http-client": "^6.0",
+    "php-http/mock-client": "^1.5",
+    "symfony/var-dumper": "^6.0",
+    "infection/infection": "^0.26.1",
+    "rregeer/phpunit-coverage-check": "^0.3.1"
   },
   "scripts": {
     "fix": [
-      "curl -OL https://get.sensiolabs.org/security-checker.phar && php security-checker.phar security:check composer.lock && rm security-checker.phar",
-      "curl -OL https://cs.sensiolabs.org/download/php-cs-fixer-v2.phar && php php-cs-fixer-v2.phar fix --using-cache false --allow-risky=yes && rm php-cs-fixer-v2.phar",
-      "curl -OL https://phar.phpunit.de/phpcpd.phar && php phpcpd.phar src/ --min-lines=50 && rm phpcpd.phar",
-      "curl -o phpstan.phar -OL https://phpstan-downloader.aarhof.eu && php phpstan.phar analyse src -l 7 && rm phpstan.phar",
-      "vendor/bin/simple-phpunit"
-    ],
-    "test": [
-      "curl -OL https://get.sensiolabs.org/security-checker.phar && php security-checker.phar security:check composer.lock && rm security-checker.phar",
-      "curl -OL https://cs.sensiolabs.org/download/php-cs-fixer-v2.phar && php php-cs-fixer-v2.phar fix --dry-run --using-cache false --diff --allow-risky=yes && rm php-cs-fixer-v2.phar",
-      "curl -OL https://phar.phpunit.de/phpcpd.phar && php phpcpd.phar src/ --min-lines=50 && rm phpcpd.phar",
-      "curl -o phpstan.phar -OL https://phpstan-downloader.aarhof.eu && php phpstan.phar analyse src -l 7 && rm phpstan.phar"
+      "php-cs-fixer fix",
+      "phpstan",
+      "simple-phpunit --coverage-text --coverage-clover=.build/clover.xml --coverage-xml=.build/coverage --log-junit=.build/coverage/junit.xml",
+      "coverage-check .build/clover.xml 100",
+      "infection --skip-initial-tests --threads=8 --coverage=.build/coverage"
     ]
   }
 }

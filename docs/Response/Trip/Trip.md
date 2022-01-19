@@ -8,11 +8,11 @@
 See [TripResponse](../TripResponse.md) on how to get `$data`
 
 ```php
-$data->getLegs();
+$data->legs;
 ```
 
-### Methods
+### Parameters
 
 | Parameter | Return | Description |
-| --- | --- | --- |
-| getLegs() | array<Lsv\Rejseplan\Response\Trip\Leg> | [Legs](Leg.md) for the trip |
+|-----------| --- | --- |
+| legs      | array<Lsv\Rejseplan\Response\Trip\Leg> | [Legs](Leg.md) for the trip |

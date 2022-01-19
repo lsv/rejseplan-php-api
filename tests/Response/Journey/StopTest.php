@@ -10,19 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class StopTest extends TestCase
 {
-    /**
-     * @var Stop
-     */
-    private $stop;
-
-    /**
-     * @test
-     */
-    public function index(): void
-    {
-        $this->stop->setRouteIdx(1);
-        $this->assertSame(1, $this->stop->getIndex());
-    }
+    private Stop $stop;
 
     /**
      * @test
@@ -31,7 +19,7 @@ class StopTest extends TestCase
     {
         $this->stop->setArrDate('23.11.16');
         $this->stop->setArrTime('11:45');
-        $this->assertSame('2016-11-23 11:45', $this->stop->getScheduledArrival()->format('Y-m-d H:i'));
+        $this->assertSame('2016-11-23 11:45', $this->stop->scheduledArrival->format('Y-m-d H:i'));
     }
 
     /**
@@ -41,7 +29,7 @@ class StopTest extends TestCase
     {
         $this->stop->setRtArrDate('23.11.16');
         $this->stop->setRtArrTime('11:45');
-        $this->assertSame('2016-11-23 11:45', $this->stop->getRealtimeArrival()->format('Y-m-d H:i'));
+        $this->assertSame('2016-11-23 11:45', $this->stop->realtimeArrival->format('Y-m-d H:i'));
     }
 
     /**
@@ -51,7 +39,7 @@ class StopTest extends TestCase
     {
         $this->stop->setDepDate('23.11.16');
         $this->stop->setDepTime('11:45');
-        $this->assertSame('2016-11-23 11:45', $this->stop->getScheduledDeparture()->format('Y-m-d H:i'));
+        $this->assertSame('2016-11-23 11:45', $this->stop->scheduledDeparture->format('Y-m-d H:i'));
     }
 
     /**
@@ -61,7 +49,7 @@ class StopTest extends TestCase
     {
         $this->stop->setRtDepDate('23.11.2016');
         $this->stop->setRtDepTime('11:45');
-        $this->assertSame('2016-11-23 11:45', $this->stop->getRealtimeDeparture()->format('Y-m-d H:i'));
+        $this->assertSame('2016-11-23 11:45', $this->stop->realtimeDeparture->format('Y-m-d H:i'));
     }
 
     /**
@@ -70,9 +58,9 @@ class StopTest extends TestCase
     public function track(): void
     {
         $this->stop->setTrack(1);
-        $this->assertSame(1, $this->stop->getScheduledTrack());
+        $this->assertSame('1', $this->stop->scheduledTrack);
         $this->stop->setRtTrack(2);
-        $this->assertSame(2, $this->stop->getRealtimeTrack());
+        $this->assertSame('2', $this->stop->realtimeTrack);
         $this->assertTrue($this->stop->isTrackChanged());
     }
 
@@ -117,11 +105,11 @@ class StopTest extends TestCase
         $coordinate->longitude = 11;
         $coordinate->latitude = 53;
         $this->stop->coordinate = $coordinate;
-        $this->assertSame(11, $this->stop->getCoordinate()->longitude);
-        $this->assertSame(53, $this->stop->getCoordinate()->latitude);
+        $this->assertSame(11.0, $this->stop->coordinate->longitude);
+        $this->assertSame(53.0, $this->stop->coordinate->latitude);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->stop = new Stop();

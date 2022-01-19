@@ -8,13 +8,13 @@
 See [JourneyResponse](../JourneyResponse.md) on how to get `$data`
 
 ```php
-$data->getHeader();
-$data->getText();
+$data->header;
+$data->text;
 ```
 
-### Methods
+### Parameters
 
 | Parameter | Return | Description |
-| --- | --- | --- |
-| getHeader() | string | Header of the message |
-| getText() | string | Text of the message |
+|-----------| --- | --- |
+| header    | string | Header of the message |
+| text    | string | Text of the message |

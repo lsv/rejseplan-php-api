@@ -7,24 +7,21 @@ namespace Lsv\RejseplanTest;
 use DateTime;
 use Lsv\Rejseplan\ArrivalBoard;
 use Lsv\Rejseplan\Response\Location\Stop;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\MockHttpClient;
-use Symfony\Component\HttpClient\Response\MockResponse;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
-class ArrivalBoardTest extends TestCase
+class ArrivalBoardTest extends AbstractTest
 {
     /**
      * @test
      */
-    public function can_get_multiple_arrivals(): void
+    public function canGetMultipleArrivals(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/arrivalboard.json')),
-        ]);
-
-        $board = new ArrivalBoard($client);
-        $response = $board->request('123');
+        $this->setClient(__DIR__.'/stubs/arrivalboard.json');
+        $board = new ArrivalBoard('123');
+        $response = $board->request();
+        $this->assertInstanceOf(RequestInterface::class, $board->getRequest());
+        $this->assertInstanceOf(ResponseInterface::class, $board->getResponse());
 
         $this->assertCount(20, $response->arrivals);
     }
@@ -32,50 +29,45 @@ class ArrivalBoardTest extends TestCase
     /**
      * @test
      */
-    public function can_get_single_arrival(): void
+    public function canGetSingleArrival(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/arrivalboard_single.json')),
-        ]);
+        $this->setClient(__DIR__.'/stubs/arrivalboard_single.json');
+        $board = new ArrivalBoard('123');
+        $response = $board->request();
 
-        $board = new ArrivalBoard($client);
-        $response = $board->request('123');
+        $this->assertCount(1, $response->arrivals);
 
-        $this->assertCount(1, $response->getArrivals());
-
-        $this->assertSame('RE 1065', $response->arrivals[0]->getName());
-        $this->assertSame('TOG', $response->arrivals[0]->getType());
-        $this->assertSame('København H', $response->arrivals[0]->getStop());
-        $this->assertSame('2016-09-09 14:48', $response->arrivals[0]->getScheduledDate()->format('Y-m-d H:i'));
-        $this->assertTrue($response->arrivals[0]->hasMessages());
-        $this->assertSame('1', $response->arrivals[0]->getScheduledTrack());
-        $this->assertSame('2016-09-09 14:59', $response->arrivals[0]->getRealtimeDate()->format('Y-m-d H:i'));
-        $this->assertSame('1', $response->arrivals[0]->getRealtimeTrack());
-        $this->assertSame('Kalmar C', $response->arrivals[0]->getOrigin());
-        $this->assertSame('http://baseurl/journeyDetail?ref=3849%2F31310%2F372456%2F184946%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $response->arrivals[0]->getJourney());
+        $this->assertSame('RE 1065', $response->arrivals[0]->name);
+        $this->assertSame('TOG', $response->arrivals[0]->type);
+        $this->assertSame('København H', $response->arrivals[0]->stop);
+        $this->assertSame('2016-09-09 14:48', $response->arrivals[0]->scheduledDate->format('Y-m-d H:i'));
+        $this->assertTrue($response->arrivals[0]->hasMessages);
+        $this->assertSame('1', $response->arrivals[0]->scheduledTrack);
+        $this->assertSame('2016-09-09 14:59', $response->arrivals[0]->realtimeDate->format('Y-m-d H:i'));
+        $this->assertSame('1', $response->arrivals[0]->realtimeTrack);
+        $this->assertSame('Kalmar C', $response->arrivals[0]->origin);
+        $this->assertSame('http://baseurl/journeyDetail?ref=3849%2F31310%2F372456%2F184946%2F86%3Fdate%3D09.09.16%26format%3Djson%26', $response->arrivals[0]->journeyDetails);
     }
 
     /**
      * @test
      */
-    public function can_set_url_parameters(): void
+    public function canSetUrlParameters(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/arrivalboard_single.json')),
-        ]);
-
-        $board = new ArrivalBoard($client);
+        $this->setClient(__DIR__.'/stubs/arrivalboard_single.json');
+        $board = new ArrivalBoard('123');
         $board
             ->setDate(new DateTime('2019-05-23 14:22'))
             ->setDontUseBus()
             ->setDontUseMetro()
-            ->setDontUseTrain();
+            ->setDontUseTrain()
+            ->request();
 
-        $board->request('123');
+        $request = $board->getRequest();
+        self::assertSame('/bin/rest.exe/arrivalBoard', $request->getUri()->getPath());
+        self::assertSame('format=json&date=23.05.19&useBus=0&useMetro=0&useTog=0&time=14%3A22&id=123', $request->getUri()->getQuery());
+
         $query = $board->getQuery();
-
         $this->assertFalse($query['useTog']);
         $this->assertFalse($query['useBus']);
         $this->assertFalse($query['useMetro']);
@@ -86,19 +78,21 @@ class ArrivalBoardTest extends TestCase
     /**
      * @test
      */
-    public function can_get_board_via_stop(): void
+    public function canGetBoardViaStop(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/arrivalboard_single.json')),
-        ]);
+        $this->setClient(__DIR__.'/stubs/arrivalboard_single.json');
 
         $location = new Stop();
         $location->id = '00012992';
 
-        $board = new ArrivalBoard($client);
-        $board->request($location);
+        $board = new ArrivalBoard($location);
+        $board->request();
         $query = $board->getQuery();
+
+        $request = $board->getRequest();
+        self::assertTrue($request->hasHeader('Accept'));
+        self::assertTrue($request->hasHeader('User-Agent'));
+
         $this->assertSame('00012992', $query['id']);
     }
 }

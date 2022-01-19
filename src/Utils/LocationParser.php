@@ -9,6 +9,9 @@ use Lsv\Rejseplan\Response\Location\Stop;
 
 class LocationParser
 {
+    /**
+     * @return array<array-key, string>
+     */
     public static function supports(bool $coordinates = true): array
     {
         $supports = ['string', 'int', Stop::class];
@@ -19,6 +22,9 @@ class LocationParser
         return $supports;
     }
 
+    /**
+     * @param array<array-key, mixed> $data
+     */
     public static function parse(array &$data, string $key, bool $addKeys = true): void
     {
         if (!isset($data[$key])) {
