@@ -13,13 +13,5 @@ class DepartureBoardResponse
      *
      * @var DepartureBoardData[]
      */
-    public $departures;
-
-    /**
-     * @return DepartureBoardData[]
-     */
-    public function getDepartures(): array
-    {
-        return $this->departures;
-    }
+    public array $departures = [];
 }

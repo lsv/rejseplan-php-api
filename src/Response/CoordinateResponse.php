@@ -6,13 +6,7 @@ namespace Lsv\Rejseplan\Response;
 
 class CoordinateResponse
 {
-    /**
-     * @var float
-     */
-    public $latitude;
+    public float $latitude;
 
-    /**
-     * @var float
-     */
-    public $longitude;
+    public float $longitude;
 }

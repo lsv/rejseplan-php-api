@@ -11,13 +11,5 @@ class TripResponse
     /**
      * @var Trip[]
      */
-    public $trips;
-
-    /**
-     * @return Trip[]
-     */
-    public function getTrips(): array
-    {
-        return $this->trips;
-    }
+    public array $trips = [];
 }

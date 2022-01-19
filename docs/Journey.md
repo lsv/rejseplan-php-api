@@ -10,8 +10,8 @@ This will deliver information about the complete route of a vehicle.
 ```php
 use Lsv\Rejseplan\Journey;
 
-$response = (new Journey())
-    ->request($url);
+$response = (new Journey($url))
+    ->request();
 ```
 
 ### Arguments

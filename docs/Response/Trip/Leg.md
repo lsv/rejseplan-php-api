@@ -8,25 +8,25 @@
 See [Trip](../Trip.md) on how to get `$data`
 
 ```php
-$data->getName();
-$data->getType();
-$data->getLine();
-$data->getOrigin();
-$data->getDestination();
-$data->getNotes();
-$data->getMessages();
-$data->getJourney();
+$data->name;
+$data->type;
+$data->line;
+$data->origin;
+$data->destination;
+$data->notes;
+$data->messages;
+$data->journeyDetails;
 ```
 
-### Methods
+### Parameters
 
-| Parameter | Return | Description |
-| --- | --- | --- |
-| getName() | string | Name of the line |
-| getType() | string | Type of the line |
-| getLine() | string | Line name |
-| getOrigin() | Address | Origin [address](Address.md) |
-| getDestination() | Address | Destination [address](Address.md) |
-| getNotes() | array<Lsv\Rejseplan\Response\Trip\Note> | [Notes](Note.md) for the leg |
-| getMessages() | array<Lsv\Rejseplan\Response\Trip\Message> | [Messages](Message.md) for the trip |
-| getJourney() | string | Url to the journey details |
+| Parameter      | Return | Description |
+|----------------| --- | --- |
+| name           | string | Name of the line |
+| type           | string | Type of the line |
+| line           | string | Line name |
+| origin         | Address | Origin [address](Address.md) |
+| destination    | Address | Destination [address](Address.md) |
+| notes          | array<Lsv\Rejseplan\Response\Trip\Note> | [Notes](Note.md) for the leg |
+| messages       | array<Lsv\Rejseplan\Response\Trip\Message> | [Messages](Message.md) for the trip |
+| journeyDetails | string | Url to the journey details |

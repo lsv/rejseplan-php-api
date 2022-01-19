@@ -1,25 +1,44 @@
 Rejseplanen - PHP API
 ---------------------
 
-[![Build Status](https://travis-ci.org/lsv/rejseplan-php-api.svg?branch=master)](https://travis-ci.org/lsv/rejseplan-php-api) 
-[![codecov](https://codecov.io/gh/lsv/rejseplan-php-api/branch/master/graph/badge.svg)](https://codecov.io/gh/lsv/rejseplan-php-api)
-
 PHP wrapper for Rejseplanen.dk API
 
 ### Install
 
-`composer require lsv/rejseplan-php-api`
+```bash
+composer require lsv/rejseplan-php-api
 
-### Usages
+# Add a PSR-18 client, fx
+composer require symfony/http-client
+# If you add another PSR18 client, then look below on how to use other PSR 18 clients
+```
 
-| Request | Description | 
-| --- | --- |
-| [ArrivalBoard](ArrivalBoard.md) | To get arrival board for a station |
-| [DepartureBoard](DepartureBoard.md) | To get departure board for a station |
-| [Journey](Journey.md) | This will get you a full journey report for a vehicle |
-| [Location](Location.md) | With this you can find stops, POI or addresses from a user input |
-| [NearbyStops](NearbyStops.md) | This will deliver all stops within a radius of a given coordinate. |
-| [Trip](Trip.md) | With this you can calculate a trip |
+
+### Usage
+
+```php
+$client = new \Symfony\Component\HttpClient\HttpClient(); // Any PSR-18 http client can be used
+\Lsv\Rejseplan\AbstractRequest::setClient($client);
+
+$location = '123'; // Location should be either a string, integer or a StopLocation
+$board = new \Lsv\Rejseplan\ArrivalBoard($location);
+$response = $board->request();
+// $response is now a ArrivalBoardResponse
+```
+
+See [ArrivalBoard](docs/ArrivalBoard.md) for more
+
+### More usages
+
+| Request                             | Description                                                        | 
+|-------------------------------------|--------------------------------------------------------------------|
+| [Client](docs/Client.md)            | Set HTTP client                                                    |
+| [ArrivalBoard](docs/ArrivalBoard.md)     | To get arrival board for a station                                 |
+| [DepartureBoard](docs/DepartureBoard.md) | To get departure board for a station                               |
+| [Journey](docs/Journey.md)               | This will get you a full journey report for a vehicle              |
+| [Location](docs/Location.md)             | With this you can find stops, POI or addresses from a user input   |
+| [NearbyStops](docs/NearbyStops.md)       | This will deliver all stops within a radius of a given coordinate. |
+| [Trip](docs/Trip.md)                     | With this you can calculate a trip                                 |
 
 ### License
 

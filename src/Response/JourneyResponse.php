@@ -15,67 +15,29 @@ class JourneyResponse
      *
      * @var Stop[]
      */
-    public $stops = [];
+    public array $stops = [];
 
     /**
      * The name of this journey.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * The type of journey.
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Notes for the journey.
      *
      * @var Note[]
      */
-    public $notes = [];
+    public array $notes = [];
 
     /**
      * Messages for the journey.
      *
      * @var Message[]
      */
-    public $messages = [];
-
-    /**
-     * @return Stop[]
-     */
-    public function getStops(): array
-    {
-        return $this->stops;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return Note[]
-     */
-    public function getNotes(): array
-    {
-        return $this->notes;
-    }
-
-    /**
-     * @return Message[]
-     */
-    public function getMessages(): array
-    {
-        return $this->messages;
-    }
+    public array $messages = [];
 }

@@ -10,18 +10,11 @@ use Lsv\Rejseplan\Response\Location\Stop;
 use Lsv\Rejseplan\Utils\LocationParser;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-abstract class AbstractBoard extends Request
+abstract class AbstractBoard extends AbstractRequest
 {
-    /**
-     * @param string|int|Stop $location
-     *
-     * @return self
-     */
-    public function setLocation($location): self
+    public function __construct(string|int|Stop $location)
     {
         $this->options['id'] = $location;
-
-        return $this;
     }
 
     public function setDontUseTrain(): self

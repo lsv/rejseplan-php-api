@@ -10,8 +10,8 @@ This will deliver all stops within a radius of a given coordinate.
 ```php
 use Lsv\Rejseplan\NearbyStops;
 
-$response = (new NearbyStops())
-    ->request($latitude, $longitude);
+$response = (new NearbyStops($latitude, $longitude))
+    ->request();
 ```
 
 ### Arguments

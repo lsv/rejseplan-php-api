@@ -8,11 +8,11 @@
 See [Trip](Trip.md) on how to get `$data`
 
 ```php
-$data->getText();
+$data->text;
 ```
 
-### Methods
+### Parameters
 
 | Parameter | Return | Description |
-| --- | --- | --- |
-| getText() | string | Text of the note |
+|-----------| --- | --- |
+| text      | string | Text of the note |

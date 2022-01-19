@@ -5,19 +5,11 @@ declare(strict_types=1);
 namespace Lsv\Rejseplan;
 
 use Lsv\Rejseplan\Response\ArrivalBoardResponse;
-use Lsv\Rejseplan\Response\Location\Stop;
 
 class ArrivalBoard extends AbstractBoard
 {
-    /**
-     * @param string|int|Stop $location
-     *
-     * @return ArrivalBoardResponse
-     */
-    public function request($location): ArrivalBoardResponse
+    public function request(): ArrivalBoardResponse
     {
-        $this->setLocation($location);
-
         return $this->makeRequest();
     }
 
@@ -26,10 +18,9 @@ class ArrivalBoard extends AbstractBoard
         return 'arrivalBoard';
     }
 
-    protected function getResponse(string $response): string
+    protected function makeResponse(string $response): string
     {
-        $json = json_decode($response, true, 512,
-            JSON_THROW_ON_ERROR)['ArrivalBoard']['Arrival'];
+        $json = json_decode($response, true, flags: JSON_THROW_ON_ERROR)['ArrivalBoard']['Arrival'];
         if (isset($json['name'])) {
             $json = [$json];
         }

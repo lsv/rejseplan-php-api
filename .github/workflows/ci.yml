@@ -1,0 +1,56 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  ci:
+    strategy:
+      matrix:
+        php-versions: [ '8.0', '8.1' ]
+        composer-versions: ['update --prefer-dist', 'update --prefer-lowest']
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: xdebug
+
+      - name: Validate composer
+        run: composer validate --no-check-publish
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+      - name: Setup composer versions
+        run: composer ${{ matrix.composer-versions }}
+
+      - name: Run phpcsfixer
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
+      - name: Phpstan
+        run: vendor/bin/phpstan
+
+      - name: Run tests
+        run: vendor/bin/phpunit --coverage-text --coverage-clover=.build/clover.xml --coverage-xml=.build/coverage --log-junit=.build/coverage/junit.xml
+
+      - name: Require 100% coverage
+        run: vendor/bin/coverage-check .build/clover.xml 100
+
+      - name: Run infection
+        run: vendor/bin/infection --skip-initial-tests --threads=8 --coverage=.build/coverage
+
+      - name: Check markdown links
+        uses: actions/setup-node@v2
+        run: |
+          npm install markdown-link-check
+          node_modules/.bin/markdown-link-check README.md

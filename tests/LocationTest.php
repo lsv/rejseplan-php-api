@@ -5,41 +5,34 @@ declare(strict_types=1);
 namespace Lsv\RejseplanTest;
 
 use Lsv\Rejseplan\Location;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\MockHttpClient;
-use Symfony\Component\HttpClient\Response\MockResponse;
 
-class LocationTest extends TestCase
+class LocationTest extends AbstractTest
 {
     /**
      * @test
      */
-    public function can_get_multiple_locations(): void
+    public function canGetMultipleLocations(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/location.json')),
-        ]);
+        $this->setClient(__DIR__.'/stubs/location.json');
+        $location = new Location('123');
+        $response = $location->request();
 
-        $location = new Location($client);
-        $response = $location->request('123');
-
-        $this->assertCount(5, $response->getStops());
+        $this->assertCount(5, $response->stops);
         $stop = $response->stops[1];
         $this->assertSame('Hovedbanegården, Tivoli (Bernstorffsgade)',
             $stop->name);
         $this->assertSame('000010845', $stop->id);
-        $this->assertSame('000010845', $stop->getId());
+        $this->assertSame('000010845', $stop->id);
         $this->assertSame(55.672578, $stop->coordinate->latitude);
         $this->assertSame(12.566488, $stop->coordinate->longitude);
 
-        $this->assertCount(6, $response->getPois());
+        $this->assertCount(6, $response->pois);
         $poi = $response->pois[0];
-        $this->assertSame('Tivoli, Forlystelsespark, København', $poi->getName());
-        $this->assertSame(55.673171, $poi->getCoordinate()->latitude);
-        $this->assertSame(12.566084, $poi->getCoordinate()->longitude);
+        $this->assertSame('Tivoli, Forlystelsespark, København', $poi->name);
+        $this->assertSame(55.673171, $poi->coordinate->latitude);
+        $this->assertSame(12.566084, $poi->coordinate->longitude);
 
-        $this->assertCount(3, $response->getAddresses());
+        $this->assertCount(3, $response->addresses);
         $addr = $response->addresses[1];
         $this->assertSame('Tivekrogen 5863 Ferritslev Fyn, Faaborg-Midtfyn Ko',
             $addr->name);
@@ -50,15 +43,12 @@ class LocationTest extends TestCase
     /**
      * @test
      */
-    public function can_get_single_stop_location(): void
+    public function canGetSingleStopLocation(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/location_single_stop.json')),
-        ]);
+        $this->setClient(__DIR__.'/stubs/location_single_stop.json');
 
-        $location = new Location($client);
-        $response = $location->request('123');
+        $location = new Location('123');
+        $response = $location->request();
         $this->assertCount(1, $response->stops);
         $this->assertCount(0, $response->pois);
         $this->assertCount(0, $response->addresses);
@@ -67,15 +57,11 @@ class LocationTest extends TestCase
     /**
      * @test
      */
-    public function can_get_single_address_location(): void
+    public function canGetSingleAddressLocation(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/location_single_address.json')),
-        ]);
-
-        $location = new Location($client);
-        $response = $location->request('123');
+        $this->setClient(__DIR__.'/stubs/location_single_address.json');
+        $location = new Location('123');
+        $response = $location->request();
         $this->assertCount(0, $response->stops);
         $this->assertCount(0, $response->pois);
         $this->assertCount(1, $response->addresses);
@@ -84,15 +70,12 @@ class LocationTest extends TestCase
     /**
      * @test
      */
-    public function can_get_single_pois_location(): void
+    public function canGetSinglePoisLocation(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/location_single_poi.json')),
-        ]);
+        $this->setClient(__DIR__.'/stubs/location_single_poi.json');
 
-        $location = new Location($client);
-        $response = $location->request('123');
+        $location = new Location('123');
+        $response = $location->request();
         $this->assertCount(0, $response->stops);
         $this->assertCount(1, $response->pois);
         $this->assertCount(0, $response->addresses);
@@ -101,20 +84,16 @@ class LocationTest extends TestCase
     /**
      * @test
      */
-    public function can_set_url_parameters(): void
+    public function canSetUrlParameters(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/location_single_poi.json')),
-        ]);
-
-        $location = new Location($client);
+        $this->setClient(__DIR__.'/stubs/location_single_poi.json');
+        $location = new Location('123');
         $location
             ->doNotIncludeAddresses()
             ->doNotIncludePOI()
             ->doNotIncludeStops();
 
-        $location->request('123');
+        $location->request();
         $query = $location->getQuery();
 
         $this->assertFalse($query['include_stops']);

@@ -11,36 +11,22 @@ use Lsv\Rejseplan\Traits\Coordinate;
 use Lsv\Rejseplan\Utils\Parser;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Journey extends Request
+class Journey extends AbstractRequest
 {
     use Coordinate;
 
-    /**
-     * @param string|BoardData|Leg $journeyUrl
-     *
-     * @return JourneyResponse
-     */
-    public function request($journeyUrl): JourneyResponse
-    {
-        $this->setJourneyUrl($journeyUrl);
-
-        return $this->makeRequest();
-    }
-
-    /**
-     * @param string|BoardData|Leg $journeyUrl
-     *
-     * @return Journey
-     */
-    public function setJourneyUrl($journeyUrl): self
+    public function __construct(string|BoardData|Leg $journeyUrl)
     {
         if ($journeyUrl instanceof BoardData || $journeyUrl instanceof Leg) {
-            $journeyUrl = $journeyUrl->getJourney();
+            $journeyUrl = $journeyUrl->journeyDetails;
         }
 
         $this->options['ref'] = $journeyUrl;
+    }
 
-        return $this;
+    public function request(): JourneyResponse
+    {
+        return $this->makeRequest();
     }
 
     protected function configure(OptionsResolver $resolver): void
@@ -58,9 +44,9 @@ class Journey extends Request
         return JourneyResponse::class;
     }
 
-    protected function getResponse(string $response): string
+    protected function makeResponse(string $response): string
     {
-        $details = json_decode($response, true, 512, JSON_THROW_ON_ERROR)['JourneyDetail'];
+        $details = json_decode($response, true, flags: JSON_THROW_ON_ERROR)['JourneyDetail'];
         $stops = $details['Stop'];
         if (isset($stops['name'])) {
             $stops = [$stops];

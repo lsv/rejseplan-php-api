@@ -13,13 +13,5 @@ class ArrivalBoardResponse
      *
      * @var ArrivalBoardData[]
      */
-    public $arrivals;
-
-    /**
-     * @return ArrivalBoardData[]
-     */
-    public function getArrivals(): array
-    {
-        return $this->arrivals;
-    }
+    public array $arrivals = [];
 }

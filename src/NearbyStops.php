@@ -10,22 +10,23 @@ use Lsv\Rejseplan\Utils\LocationParser;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class NearbyStops extends Request
+class NearbyStops extends AbstractRequest
 {
     use Coordinate;
 
-    public function request(float $latitude, float $longitude): NearbyStopsResponse
+    public function __construct(float $latitude, float $longitude)
     {
         $this->options['coordY'] = $latitude;
         $this->options['coordX'] = $longitude;
+    }
 
+    public function request(): NearbyStopsResponse
+    {
         return $this->makeRequest();
     }
 
     /**
      * Set radius to get the locations.
-     *
-     * @param int $meters
      *
      * @return $this
      */
@@ -38,8 +39,6 @@ class NearbyStops extends Request
 
     /**
      * Set max number of results.
-     *
-     * @param int $results
      *
      * @return $this
      */
@@ -61,7 +60,6 @@ class NearbyStops extends Request
         $resolver->setAllowedTypes('maxNumber', ['int']);
 
         $coord = static function (
-            /* @noinspection PhpUnusedParameterInspection */
             Options $options,
             $value
         ) {
@@ -82,9 +80,9 @@ class NearbyStops extends Request
         return NearbyStopsResponse::class;
     }
 
-    protected function getResponse(string $response): string
+    protected function makeResponse(string $response): string
     {
-        $stops = json_decode($response, true, 512, JSON_THROW_ON_ERROR)['LocationList']['StopLocation'];
+        $stops = json_decode($response, true, flags: JSON_THROW_ON_ERROR)['LocationList']['StopLocation'];
         if (isset($stops['name'])) {
             $stops = [$stops];
         }

@@ -8,121 +8,83 @@ use DateTime;
 use Lsv\Rejseplan\Response\CoordinateResponse;
 use Lsv\Rejseplan\Response\Location\Stop;
 use Lsv\Rejseplan\Trip;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\MockHttpClient;
-use Symfony\Component\HttpClient\Response\MockResponse;
 
-class TripTest extends TestCase
+class TripTest extends AbstractTest
 {
     /**
      * @test
      */
-    public function can_get_multiple_legs(): void
+    public function canGetMultipleLegs(): void
     {
-        $client = new MockHttpClient(
-            [
-                new MockResponse(
-                    file_get_contents(
-                        __DIR__
-                        .'/stubs/trip.json'
-                    )
-                ),
-            ]
-        );
+        $this->setClient(__DIR__.'/stubs/trip.json');
 
-        $trip = new Trip($client);
-        $response = $trip->request('008600696', '008600669');
+        $trip = new Trip('008600696', '008600669');
+        $response = $trip->request();
         $this->assertCount(4, $response->trips);
         $trips = $response->trips[0];
         $this->assertCount(5, $trips->legs);
         $leg = $trips->legs[1];
 
-        $this->assertSame('Bus 55E', $leg->getName());
-        $this->assertSame('BUS', $leg->getType());
-        $this->assertSame('55E', $leg->getLine());
+        $this->assertSame('Bus 55E', $leg->name);
+        $this->assertSame('BUS', $leg->type);
+        $this->assertSame('55E', $leg->line);
 
-        $this->assertSame('Farum Bytorv (Frederiksborgvej)', $leg->getOrigin()->getName());
-        $this->assertSame('ST', $leg->getOrigin()->getType());
-        $this->assertSame('2019-10-03 10:53', $leg->getOrigin()->getScheduledDate()->format('Y-m-d H:i'));
+        $this->assertSame('Farum Bytorv (Frederiksborgvej)', $leg->origin->name);
+        $this->assertSame('ST', $leg->origin->type);
+        $this->assertSame('2019-10-03 10:53', $leg->origin->scheduledDate->format('Y-m-d H:i'));
 
-        $this->assertSame('Allerød St.', $leg->getDestination()->getName());
-        $this->assertSame('ST', $leg->getDestination()->getType());
-        $this->assertSame('2019-10-03 11:09', $leg->getDestination()->getScheduledDate()->format('Y-m-d H:i'));
-        $this->assertSame('2019-10-03 11:07', $leg->getDestination()->getRealtimeDate()->format('Y-m-d H:i'));
+        $this->assertSame('Allerød St.', $leg->destination->name);
+        $this->assertSame('ST', $leg->destination->type);
+        $this->assertSame('2019-10-03 11:09', $leg->destination->scheduledDate->format('Y-m-d H:i'));
+        $this->assertSame('2019-10-03 11:07', $leg->destination->realtimeDate->format('Y-m-d H:i'));
 
-        $this->assertCount(1, $leg->getNotes());
-        $this->assertSame('Retning: Allerød St.;', $leg->notes[0]->getText());
+        $this->assertCount(1, $leg->notes);
+        $this->assertSame('Retning: Allerød St.;', $leg->notes[0]->text);
         $this->assertSame(
-            'http://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=637818%2F237287%2F127552%2F148832%2F86%3Fdate%3D03.10.19%26station_evaId%3D9352%26format%3Djson',
-            $leg->getJourney()
+            'https://xmlopen.rejseplanen.dk/bin/rest.exe/journeyDetail?ref=637818%2F237287%2F127552%2F148832%2F86%3Fdate%3D03.10.19%26station_evaId%3D9352%26format%3Djson',
+            $leg->journeyDetails
         );
 
-        $this->assertCount(3, $response->trips[3]->legs[0]->getMessages());
+        $this->assertCount(3, $response->trips[3]->legs[0]->messages);
 
-        $this->assertSame('30', $response->getTrips()[1]->getLegs()[3]->getOrigin()->getRouteIdx());
-        $this->assertSame('1', $response->getTrips()[1]->getLegs()[3]->getOrigin()->getScheduledTrack());
-        $this->assertSame('1', $response->getTrips()[1]->getLegs()[3]->getOrigin()->getRealtimeTrack());
+        $origin = $response->trips[1]->legs[3]->origin;
+        $this->assertSame('30', $origin->routeIdx);
+        $this->assertSame('1', $origin->scheduledTrack);
+        $this->assertSame('1', $origin->realtimeTrack);
     }
 
     /**
      * @test
      */
-    public function can_get_with_single_trip(): void
+    public function canGetWithSingleTrip(): void
     {
-        $client = new MockHttpClient(
-            [
-                new MockResponse(
-                    file_get_contents(
-                        __DIR__
-                        .'/stubs/trip_single.json'
-                    )
-                ),
-            ]
-        );
+        $this->setClient(__DIR__.'/stubs/trip_single.json');
 
-        $trip = new Trip($client);
-        $response = $trip->request('000010008', '008600650');
-        $this->assertCount(1, $response->getTrips()[0]->legs);
+        $trip = new Trip('000010008', '008600650');
+        $response = $trip->request();
+        $this->assertCount(1, $response->trips[0]->legs);
     }
 
     /**
      * @test
      */
-    public function can_get_with_single_leg(): void
+    public function canGetWithSingleLeg(): void
     {
-        $client = new MockHttpClient(
-            [
-                new MockResponse(
-                    file_get_contents(
-                        __DIR__
-                        .'/stubs/trip_single_leg.json'
-                    )
-                ),
-            ]
-        );
+        $this->setClient(__DIR__.'/stubs/trip_single_leg.json');
 
-        $trip = new Trip($client);
-        $response = $trip->request('000010008', '008600650');
-        $this->assertCount(1, $response->trips[0]->getLegs());
+        $trip = new Trip('000010008', '008600650');
+        $response = $trip->request();
+        $this->assertCount(1, $response->trips[0]->legs);
     }
 
     /**
      * @test
      */
-    public function can_set_url_parameters(): void
+    public function canSetUrlParameters(): void
     {
-        $client = new MockHttpClient(
-            [
-                new MockResponse(
-                    file_get_contents(
-                        __DIR__
-                        .'/stubs/trip.json'
-                    )
-                ),
-            ]
-        );
+        $this->setClient(__DIR__.'/stubs/trip.json');
 
-        $trip = new Trip($client);
+        $trip = new Trip(123, 123);
         $trip
             ->setVia('00108000')
             ->setWalkingDistance(500, 1000)
@@ -132,7 +94,7 @@ class TripTest extends TestCase
             ->setDontUseMetro()
             ->setDontUseTrain();
 
-        $trip->request(123, 123);
+        $trip->request();
         $query = $trip->getQuery();
 
         $this->assertSame('00108000', $query['viaId']);
@@ -155,26 +117,16 @@ class TripTest extends TestCase
     /**
      * @test
      */
-    public function can_get_trip_via_coordinates(): void
+    public function canGetTripViaCoordinates(): void
     {
-        $client = new MockHttpClient(
-            [
-                new MockResponse(
-                    file_get_contents(
-                        __DIR__
-                        .'/stubs/trip.json'
-                    )
-                ),
-            ]
-        );
-
-        $trip = new Trip($client);
+        $this->setClient(__DIR__.'/stubs/trip.json');
 
         $coord = new CoordinateResponse();
         $coord->latitude = 55.665476;
         $coord->longitude = 12.566461;
+        $trip = new Trip($coord, 'Vejnavn 1, 2670 Greve');
 
-        $trip->request($coord, 'Vejnavn 1, 2670 Greve');
+        $trip->request();
         $query = $trip->getQuery();
 
         $this->assertSame('12566461', $query['originCoordX']);
@@ -185,25 +137,15 @@ class TripTest extends TestCase
     /**
      * @test
      */
-    public function can_get_trip_via_stop_location(): void
+    public function canGetTripViaStopLocation(): void
     {
-        $client = new MockHttpClient(
-            [
-                new MockResponse(
-                    file_get_contents(
-                        __DIR__
-                        .'/stubs/trip.json'
-                    )
-                ),
-            ]
-        );
-
-        $trip = new Trip($client);
+        $this->setClient(__DIR__.'/stubs/trip.json');
 
         $coord = new Stop();
         $coord->id = '001023034';
+        $trip = new Trip($coord, 'Vejnavn 1, 2670 Greve');
 
-        $trip->request($coord, 'Vejnavn 1, 2670 Greve');
+        $trip->request();
         $query = $trip->getQuery();
 
         $this->assertSame('001023034', $query['originId']);

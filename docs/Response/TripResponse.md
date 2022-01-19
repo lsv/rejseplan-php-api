@@ -8,11 +8,11 @@
 See [Trip](../Trip.md) on how to get the `$response`
 
 ```php
-$response->getTrips();
+$response->trips;
 ```
 
-### Methods
+### Parameters
 
 | Parameter | Return | Description |
-| --- | --- | --- |
-| getTrips() | array<Lsv\Rejseplan\Response\Trip\Trip> | List of [trips](Trip/Trip.md) |
+|-----------| --- | --- |
+| trips     | array<Lsv\Rejseplan\Response\Trip\Trip> | List of [trips](Trip/Trip.md) |

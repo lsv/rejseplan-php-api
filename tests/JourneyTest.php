@@ -6,36 +6,30 @@ namespace Lsv\RejseplanTest;
 
 use Lsv\Rejseplan\Journey;
 use Lsv\Rejseplan\Response\Board\BoardData;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\MockHttpClient;
-use Symfony\Component\HttpClient\Response\MockResponse;
 
-class JourneyTest extends TestCase
+class JourneyTest extends AbstractTest
 {
     /**
      * @test
      */
-    public function can_get_journey_with_multiple_stops(): void
+    public function canGetJourneyWithMultipleStops(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/journey.json')),
-        ]);
+        $this->setClient(__DIR__.'/stubs/journey.json');
 
-        $journey = new Journey($client);
-        $response = $journey->request('123');
+        $journey = new Journey('123');
+        $response = $journey->request();
 
-        $this->assertSame('Re 4557', $response->getName());
-        $this->assertSame('REG', $response->getType());
-        $this->assertCount(14, $response->getStops());
-        $this->assertCount(3, $response->getNotes());
-        $this->assertCount(2, $response->getMessages());
+        $this->assertSame('Re 4557', $response->name);
+        $this->assertSame('REG', $response->type);
+        $this->assertCount(14, $response->stops);
+        $this->assertCount(3, $response->notes);
+        $this->assertCount(2, $response->messages);
 
         $stop = $response->stops[8];
 
-        $this->assertSame('Roskilde St.', $stop->getName());
+        $this->assertSame('Roskilde St.', $stop->name);
         $this->assertSame(55.639093, $stop->coordinate->latitude);
-        $this->assertSame(8, $stop->index);
+        $this->assertSame('8', $stop->routeIdx);
         $this->assertSame('2016-09-09 15:23', $stop->scheduledArrival->format('Y-m-d H:i'));
         $this->assertSame('2016-09-09 15:30', $stop->realtimeArrival->format('Y-m-d H:i'));
         $this->assertSame('2016-09-09 15:24', $stop->scheduledDeparture->format('Y-m-d H:i'));
@@ -59,35 +53,27 @@ class JourneyTest extends TestCase
     /**
      * @test
      */
-    public function can_get_journey_with_single_message(): void
+    public function canGetJourneyWithSingleMessage(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/journey_singlemessage.json')),
-        ]);
-
-        $journey = new Journey($client);
-        $response = $journey->request('123');
+        $this->setClient(__DIR__.'/stubs/journey_singlemessage.json');
+        $journey = new Journey('123');
+        $response = $journey->request();
 
         $this->assertCount(1, $response->messages);
-        $this->assertSame('Linje 1A kører anden rute i City', $response->getMessages()[0]->getHeader());
-        $this->assertStringStartsWith('Linje 1A bliver delt op i to ruter. Del 1 kører mellem Svanemøllen st. og Klampenborg og del 2 kører mellem Avedøre og Valby st', $response->getMessages()[0]->getText());
+        $this->assertSame('Linje 1A kører anden rute i City', $response->messages[0]->header);
+        $this->assertStringStartsWith('Linje 1A bliver delt op i to ruter. Del 1 kører mellem Svanemøllen st. og Klampenborg og del 2 kører mellem Avedøre og Valby st', $response->messages[0]->text);
         $this->assertCount(1, $response->notes);
-        $this->assertSame('kører:lø, sø', $response->getNotes()[0]->getText());
+        $this->assertSame('kører:lø, sø', $response->notes[0]->text);
     }
 
     /**
      * @test
      */
-    public function can_get_journey_with_single_stop(): void
+    public function canGetJourneyWithSingleStop(): void
     {
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/journey_singlestop.json')),
-        ]);
-
-        $journey = new Journey($client);
-        $response = $journey->request('123');
+        $this->setClient(__DIR__.'/stubs/journey_singlestop.json');
+        $journey = new Journey('123');
+        $response = $journey->request();
 
         $this->assertCount(1, $response->stops);
         $this->assertCount(0, $response->notes);
@@ -97,21 +83,18 @@ class JourneyTest extends TestCase
     /**
      * @test
      */
-    public function can_set_journey_from_boarddata(): void
+    public function canSetJourneyFromBoarddata(): void
     {
         $class = new class() extends BoardData {
         };
-        $class->journeyDetails = 'http://journey.com/journeydetails?id=2';
+        $class->journeyDetails = 'https://journey.com/journeydetails?id=2';
 
-        $client = new MockHttpClient([
-            new MockResponse(file_get_contents(__DIR__
-                .'/stubs/journey_singlestop.json')),
-        ]);
+        $this->setClient(__DIR__.'/stubs/journey_singlestop.json');
 
-        $journey = new Journey($client);
-        $journey->request($class);
+        $journey = new Journey($class);
+        $journey->request();
         $details = $journey->getQuery();
 
-        $this->assertSame('http://journey.com/journeydetails?id=2', $details['ref']);
+        $this->assertSame('https://journey.com/journeydetails?id=2', $details['ref']);
     }
 }

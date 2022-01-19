@@ -64,7 +64,7 @@ class AddressTest extends TestCase
     /**
      * @test
      */
-    public function not_delayed(): void
+    public function notDelayed(): void
     {
         $this->address->setDate('23.11.19');
         $this->address->setTime('11:45');
@@ -78,7 +78,7 @@ class AddressTest extends TestCase
     /**
      * @test
      */
-    public function track_changed(): void
+    public function trackChanged(): void
     {
         $this->address->setTrack(1);
         $this->address->setRtTrack(2);
@@ -88,14 +88,14 @@ class AddressTest extends TestCase
     /**
      * @test
      */
-    public function track_not_changed(): void
+    public function trackNotChanged(): void
     {
         $this->address->setTrack(1);
         $this->address->setRtTrack(1);
         $this->assertFalse($this->address->isTrackChanged());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->address = new Address();

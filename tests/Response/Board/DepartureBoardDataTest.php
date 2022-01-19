@@ -17,7 +17,7 @@ class DepartureBoardDataTest extends TestCase
     /**
      * @test
      */
-    public function final_stop(): void
+    public function finalStop(): void
     {
         $this->board->finalStop = 'Hello World';
         $this->assertSame('Hello World', $this->board->finalStop);
@@ -32,7 +32,7 @@ class DepartureBoardDataTest extends TestCase
         $this->assertSame('Hello World', $this->board->direction);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->board = new DepartureBoardData();
     }

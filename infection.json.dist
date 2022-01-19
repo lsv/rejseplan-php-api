@@ -1,0 +1,13 @@
+{
+    "source": {
+        "directories": [
+            "src"
+        ]
+    },
+    "logs": {
+        "text": ".build/infection.log",
+        "html": ".build/infection.html",
+        "summary": ".build/summary.log",
+        "json": ".build/infection-log.json"
+    }
+}

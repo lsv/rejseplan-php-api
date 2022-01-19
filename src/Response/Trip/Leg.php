@@ -4,100 +4,29 @@ declare(strict_types=1);
 
 namespace Lsv\Rejseplan\Response\Trip;
 
+use Lsv\Rejseplan\Response\Traits\JourneyDetailsTrait;
+
 class Leg
 {
-    /**
-     * @var string
-     */
-    public $name;
+    use JourneyDetailsTrait;
 
-    /**
-     * @var string
-     */
-    public $type;
+    public string $name = '';
 
-    /**
-     * @var string
-     */
-    public $line;
+    public string $type = '';
 
-    /**
-     * @var Address
-     */
-    public $origin;
+    public string $line = '';
 
-    /**
-     * @var Address
-     */
-    public $destination;
+    public Address $origin;
+
+    public Address $destination;
 
     /**
      * @var Note[]
      */
-    public $notes;
+    public array $notes = [];
 
     /**
      * @var Message[]
      */
-    public $messages;
-
-    /**
-     * @var string
-     */
-    public $journey;
-
-    public function setJourneyDetailRef($ref): self
-    {
-        if (isset($ref['ref'])) {
-            $this->journey = $ref['ref'];
-        }
-
-        return $this;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    public function getLine(): string
-    {
-        return $this->line;
-    }
-
-    public function getOrigin(): Address
-    {
-        return $this->origin;
-    }
-
-    public function getDestination(): Address
-    {
-        return $this->destination;
-    }
-
-    /**
-     * @return Note[]
-     */
-    public function getNotes(): array
-    {
-        return $this->notes;
-    }
-
-    /**
-     * @return Message[]
-     */
-    public function getMessages(): array
-    {
-        return $this->messages;
-    }
-
-    public function getJourney(): string
-    {
-        return $this->journey;
-    }
+    public array $messages = [];
 }

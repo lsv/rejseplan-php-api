@@ -8,14 +8,17 @@ use Lsv\Rejseplan\Response\LocationsResponse;
 use Lsv\Rejseplan\Traits\Coordinate;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Location extends Request
+class Location extends AbstractRequest
 {
     use Coordinate;
 
-    public function request(string $search): LocationsResponse
+    public function __construct(string $search)
     {
         $this->options['input'] = $search;
+    }
 
+    public function request(): LocationsResponse
+    {
         return $this->makeRequest();
     }
 
@@ -63,9 +66,9 @@ class Location extends Request
         return LocationsResponse::class;
     }
 
-    protected function getResponse(string $response): string
+    protected function makeResponse(string $response): string
     {
-        $details = json_decode($response, true, 512, JSON_THROW_ON_ERROR)['LocationList'];
+        $details = json_decode($response, true, flags: JSON_THROW_ON_ERROR)['LocationList'];
 
         $stops = [];
         if (isset($details['StopLocation'])) {
@@ -84,12 +87,8 @@ class Location extends Request
                 $coords = [$coords];
             }
 
-            $pois = array_values(array_filter($coords, static function ($coord) {
-                return 'POI' === $coord['type'];
-            }));
-            $addresses = array_values(array_filter($coords, static function ($coord) {
-                return 'ADR' === $coord['type'];
-            }));
+            $pois = array_values(array_filter($coords, static fn ($coord) => 'POI' === $coord['type']));
+            $addresses = array_values(array_filter($coords, static fn ($coord) => 'ADR' === $coord['type']));
         }
 
         $json = [

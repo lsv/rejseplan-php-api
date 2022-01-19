@@ -8,25 +8,11 @@ class DepartureBoardData extends BoardData
 {
     /**
      * Final stop of the transportation.
-     *
-     * @var string
      */
-    public $finalStop;
+    public string $finalStop;
 
     /**
      * The direction of the transportation.
-     *
-     * @var string
      */
-    public $direction;
-
-    public function getFinalStop(): string
-    {
-        return $this->finalStop;
-    }
-
-    public function getDirection(): string
-    {
-        return $this->direction;
-    }
+    public string $direction;
 }

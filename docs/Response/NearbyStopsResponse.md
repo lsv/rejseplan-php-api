@@ -8,11 +8,11 @@
 See [NearbyStops](../NearbyStops.md) on how to get the `$response`
 
 ```php
-$response->getStops();
+$response->stops;
 ```
 
-### Methods
+### Parameters
 
 | Parameter | Return | Description |
-| --- | --- | --- |
-| getStops() | array<Lsv\Rejseplan\Response\NearbyStop\Stop> | List of nearby [stops](NearbyStop/Stop.md) |
+|-----------| --- | --- |
+| stops     | array<Lsv\Rejseplan\Response\NearbyStop\Stop> | List of nearby [stops](NearbyStop/Stop.md) |

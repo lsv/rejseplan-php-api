@@ -13,30 +13,23 @@ use Lsv\Rejseplan\Utils\LocationParser;
 use Lsv\Rejseplan\Utils\Parser;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Trip extends Request
+class Trip extends AbstractRequest
 {
-    /**
-     * @param string|int|Stop|CoordinateResponse $origin
-     * @param string|int|Stop|CoordinateResponse $destination
-     *
-     * @return TripResponse
-     */
-    public function request($origin, $destination): TripResponse
+    public function __construct(string|int|Stop|CoordinateResponse $origin, string|int|Stop|CoordinateResponse $destination)
     {
         $this->options['origin'] = $origin;
         $this->options['dest'] = $destination;
+    }
 
+    public function request(): TripResponse
+    {
         return $this->makeRequest();
     }
 
     /**
      * Set via from a location.
-     *
-     * @param string|int|Stop $viaLocation
-     *
-     * @return Trip
      */
-    public function setVia($viaLocation): self
+    public function setVia(string|int|Stop $viaLocation): self
     {
         $this->options['via'] = $viaLocation;
 
@@ -82,7 +75,7 @@ class Trip extends Request
     }
 
     /**
-     * Dont use metro for this trip.
+     * Don't use metro for this trip.
      *
      * @return $this
      */
@@ -128,9 +121,7 @@ class Trip extends Request
 
     protected function configure(OptionsResolver $resolver): void
     {
-        $distanceAllowedValues = static function ($value) {
-            return !($value < 500 || $value > 20000);
-        };
+        $distanceAllowedValues = static fn ($value) => !($value < 500 || $value > 20000);
 
         $resolver->setRequired(['origin', 'dest']);
         $resolver->setDefined(
@@ -171,9 +162,9 @@ class Trip extends Request
         return TripResponse::class;
     }
 
-    protected function getResponse(string $response): string
+    protected function makeResponse(string $response): string
     {
-        $details = json_decode($response, true, 512, JSON_THROW_ON_ERROR)['TripList']['Trip'];
+        $details = json_decode($response, true, flags: JSON_THROW_ON_ERROR)['TripList']['Trip'];
 
         $trips = [];
         foreach ($details as $detail) {

@@ -10,12 +10,12 @@ To get a arrival board for a stop or station, where stop could be a bus stop or 
 ```php
 use Lsv\Rejseplan\ArrivalBoard;
 
-$response = (new ArrivalBoard())
+$response = (new ArrivalBoard($location))
     ->setDontUseTrain() // Optional
     ->setDontUseBus() // Optional
     ->setDontUseMetro() // Optional
     ->setDate(new DateTime()) // Optional
-    ->request($location);
+    ->request();
 ```
 
 ### Arguments

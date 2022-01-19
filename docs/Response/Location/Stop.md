@@ -8,15 +8,15 @@
 See [LocationResponse](../LocationResponse.md) on how to get `$data`
 
 ```php
-$data->getId();
-$data->getName();
-$data->getCoordinate();
+$data->id;
+$data->name;
+$data->coordinate;
 ```
 
-### Methods
+### Parameters
 
-| Parameter | Return | Description |
-| --- | --- | --- |
-| getId() | string | ID of the stop |
-| getName() | string | Name of the stop |
-| getCoordinate() | [Coordinate](../CoordinateResponse.md) | Coordinates of this stop |
+| Parameter  | Return | Description |
+|------------| --- | --- |
+| id         | string | ID of the stop |
+| name       | string | Name of the stop |
+| coordinate | [Coordinate](../CoordinateResponse.md) | Coordinates of this stop |

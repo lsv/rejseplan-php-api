@@ -8,25 +8,11 @@ class Message
 {
     /**
      * Message header.
-     *
-     * @var string
      */
-    public $header;
+    public string $header;
 
     /**
      * Message text.
-     *
-     * @var string
      */
-    public $text;
-
-    public function getHeader(): string
-    {
-        return $this->header;
-    }
-
-    public function getText(): string
-    {
-        return $this->text;
-    }
+    public string $text;
 }

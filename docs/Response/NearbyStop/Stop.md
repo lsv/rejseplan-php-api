@@ -8,17 +8,17 @@
 See [NearbyStopsResponse](../NearbyStopsResponse.md) on how to get `$data`
 
 ```php
-$data->getId();
-$data->getName();
-$data->getCoordinate();
-$data->getDistance();
+$data->id;
+$data->name;
+$data->coordinate;
+$data->distance;
 ```
 
-### Methods
+### Parameters
 
-| Parameter | Return | Description |
-| --- | --- | --- |
-| getId() | string | ID of the stop |
-| getName() | string | Name of the stop |
-| getCoordinate() | [Coordinate](../CoordinateResponse.md) | Coordinates of this stop |
-| getDistance() | string | Distance to the stop |
+| Parameter  | Return | Description |
+|------------| --- | --- |
+| id         | string | ID of the stop |
+| name       | string | Name of the stop |
+| coordinate | [Coordinate](../CoordinateResponse.md) | Coordinates of this stop |
+| distance   | string | Distance to the stop |

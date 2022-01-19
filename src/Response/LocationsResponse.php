@@ -13,39 +13,15 @@ class LocationsResponse
     /**
      * @var Stop[]
      */
-    public $stops;
+    public array $stops = [];
 
     /**
      * @var Poi[]
      */
-    public $pois;
+    public array $pois = [];
 
     /**
      * @var Address[]
      */
-    public $addresses;
-
-    /**
-     * @return Stop[]
-     */
-    public function getStops(): array
-    {
-        return $this->stops;
-    }
-
-    /**
-     * @return Poi[]
-     */
-    public function getPois(): array
-    {
-        return $this->pois;
-    }
-
-    /**
-     * @return Address[]
-     */
-    public function getAddresses(): array
-    {
-        return $this->addresses;
-    }
+    public array $addresses = [];
 }

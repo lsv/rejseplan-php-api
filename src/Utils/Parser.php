@@ -6,6 +6,10 @@ namespace Lsv\Rejseplan\Utils;
 
 class Parser
 {
+    /**
+     * @phpstan-param array<array-key, mixed> $notes
+     * @phpstan-return array<array-key, mixed>
+     */
     public static function parseNotes(array $notes): array
     {
         if (isset($notes['text'])) {
@@ -15,6 +19,10 @@ class Parser
         return $notes;
     }
 
+    /**
+     * @phpstan-param array<array-key, mixed> $messages
+     * @phpstan-return array<array-key, mixed>
+     */
     public static function parseMessages(array $messages): array
     {
         $out = [];

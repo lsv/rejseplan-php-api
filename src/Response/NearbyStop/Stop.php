@@ -8,13 +8,5 @@ use Lsv\Rejseplan\Response\Location\Stop as LocationStop;
 
 class Stop extends LocationStop
 {
-    /**
-     * @var string
-     */
-    public $distance;
-
-    public function getDistance(): string
-    {
-        return $this->distance;
-    }
+    public string $distance;
 }
