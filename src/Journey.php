@@ -39,6 +39,9 @@ class Journey extends AbstractRequest
         return sprintf('%s%s', self::BASE_URL, $this->options['ref']);
     }
 
+    /**
+     * @codeCoverageIgnore Not used, because the ref contains the full url
+     */
     protected function getUrl(): string
     {
         return 'journeyDetails';
