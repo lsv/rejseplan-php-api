@@ -34,6 +34,11 @@ class Journey extends AbstractRequest
         $resolver->setRequired(['ref']);
     }
 
+    protected function makeUrl(): string
+    {
+        return sprintf('%s%s', self::BASE_URL, $this->options['ref']);
+    }
+
     protected function getUrl(): string
     {
         return 'journeyDetails';

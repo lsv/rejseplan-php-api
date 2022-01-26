@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Serializer;
 
 abstract class AbstractRequest implements Request
 {
-    private const BASE_URL = 'https://xmlopen.rejseplanen.dk/bin/rest.exe/';
+    protected const BASE_URL = 'https://xmlopen.rejseplanen.dk/bin/rest.exe/';
     private const API_NAME = 'rejseplan_php_api';
     private const API_VERSION = '3.0';
     private const USER_AGENT = self::API_NAME.'/'.self::API_VERSION;
@@ -126,7 +126,7 @@ abstract class AbstractRequest implements Request
 
     abstract protected function getUrl(): string;
 
-    private function makeUrl(): string
+    protected function makeUrl(): string
     {
         $query = array_merge(['format' => 'json'], $this->getQuery());
         $query = http_build_query($query);
