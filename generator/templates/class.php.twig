@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+class {{ class_name }} implements RequestInterface
+{
+    public function __construct(
+        {% for option in options -%}
+        public {{ option.type }} ${{ option.name }}{% if not option.required %} = null{% endif %},
+        {% endfor %}
+
+    )
+    {
+    }
+}
